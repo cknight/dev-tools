@@ -12,6 +12,6 @@ deno task start
 
 This will watch the project directory and restart as necessary.
 
-### Build Info
+### Build Stack
 
-Built using Fresh and Deno, deployed on Deploy
+Built using [Fresh](https://fresh.deno.dev/) and [Deno](https://deno.land/), deployed on [Deploy](https://deno.com/deploy)
