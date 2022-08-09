@@ -144,8 +144,8 @@ export default function PasswordGenerator() {
       <div class={tw`px-4 py-6 sm:px-0`}>
         <div class={tw`bg-gray-100 shadow-md rounded px-8 pt-6 pb-8 mb-4`}>
           <div class={tw`flex h-18 sm:flex-row flex-col`}>
-            <div class={tw`w-full relative rounded-md shadow-sm`}>
-              <p id="pwd" class={tw`cursor-pointer w-full bg-gray-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center font-medium text-white text-2xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}>
+            <div class={tw`w-full relative rounded-md shadow-sm`} onClick={() => copyToClipboard()}>
+              <p id="pwd" class={tw`cursor-pointer w-full bg-blue-500 border border-transparent rounded-md py-3 px-8 flex items-center justify-center font-medium text-white text-2xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}>
                 {password}
               </p>
             </div>
@@ -169,6 +169,9 @@ export default function PasswordGenerator() {
           </div>
           <div class={tw`mt-2`}>
             <p class={tw`mt-2`}>Length: {password.length}</p>
+          </div>
+          <div class={tw`flex center`}>
+            <hr class={tw`w-full mt-5 border-1`}/>
           </div>
           <div class={tw`mt-5 mb-5 flex justify-around flex-wrap`}>
             <NumberPicker name="Min Length" start={state.minLength} incrementAmount={5} onUpdate={onUpdateMinLength}/>

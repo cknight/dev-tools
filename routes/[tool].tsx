@@ -5,29 +5,33 @@ import { useEffect, useState } from "preact/hooks";
 import { Handlers, PageProps } from "$fresh/server.ts";
 import FunctionSelector from "../islands/Selector.tsx";
 import PasswordGenerator from "../islands/PasswordGenerator.tsx";
-import { BASE64_HELPER, DEFAULT_NAME, JSON_FORMATTER, JWT_HELPER, PASSWORD_GENERATOR, TEXT_DIFF } from "../util/menuItems.ts";
+import { DEFAULT_NAME, ENCODER_DECODER, JSON_FORMATTER, PASSWORD_GENERATOR, TEXT_DIFF } from "../util/menuItems.ts";
 
 
 export default function Tool(props: PageProps) {
   let tool:unknown;
   let selectorName = DEFAULT_NAME;
 
-  if (props.params.name === "text-diff") {
+  console.log('hello world')
+  if (props.params.tool === "text-diff") {
     tool = <PasswordGenerator/>;
+    console.log('text-diff')
     selectorName = TEXT_DIFF;
-  } else if (props.params.name === "password-generator") {
+  } else if (props.params.tool === "password-generator") {
     tool = <PasswordGenerator/>;
+    console.log('password-generator')
     selectorName = PASSWORD_GENERATOR;
-  } else if (props.params.name === "json") {
+  } else if (props.params.tool === "json") {
     tool = <PasswordGenerator/>;
+    console.log('json')
     selectorName = JSON_FORMATTER;
-  } else if (props.params.name === "jwt") {
+  } else if (props.params.tool === "encoding-decoding") {
+    console.log('encodingdecoding')
     tool = <PasswordGenerator/>;
-    selectorName = JWT_HELPER;
-  } else if (props.params.name === "base64") {
-    tool = <PasswordGenerator/>;
-    selectorName = BASE64_HELPER;
-  } 
+    selectorName = ENCODER_DECODER;
+  } else {
+    console.log('none :(')
+  }
   
   return (
     <div class={tw`p-4 mx-auto`}>
