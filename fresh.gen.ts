@@ -7,8 +7,9 @@ import * as $1 from "./routes/about.tsx";
 import * as $2 from "./routes/api/joke.ts";
 import * as $3 from "./routes/index.tsx";
 import * as $$0 from "./islands/Counter.tsx";
-import * as $$1 from "./islands/PasswordGenerator.tsx";
-import * as $$2 from "./islands/Selector.tsx";
+import * as $$1 from "./islands/EncoderDecoder.tsx";
+import * as $$2 from "./islands/PasswordGenerator.tsx";
+import * as $$3 from "./islands/Selector.tsx";
 
 const manifest = {
   routes: {
@@ -19,8 +20,9 @@ const manifest = {
   },
   islands: {
     "./islands/Counter.tsx": $$0,
-    "./islands/PasswordGenerator.tsx": $$1,
-    "./islands/Selector.tsx": $$2,
+    "./islands/EncoderDecoder.tsx": $$1,
+    "./islands/PasswordGenerator.tsx": $$2,
+    "./islands/Selector.tsx": $$3,
   },
   baseUrl: import.meta.url,
 };

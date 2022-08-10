@@ -6,31 +6,27 @@ import { Handlers, PageProps } from "$fresh/server.ts";
 import FunctionSelector from "../islands/Selector.tsx";
 import PasswordGenerator from "../islands/PasswordGenerator.tsx";
 import { DEFAULT_NAME, ENCODER_DECODER, JSON_FORMATTER, PASSWORD_GENERATOR, TEXT_DIFF } from "../util/menuItems.ts";
+import EncoderDecoder from "../islands/EncoderDecoder.tsx";
 
 
 export default function Tool(props: PageProps) {
   let tool:unknown;
   let selectorName = DEFAULT_NAME;
 
-  console.log('hello world')
   if (props.params.tool === "text-diff") {
     tool = <PasswordGenerator/>;
-    console.log('text-diff')
     selectorName = TEXT_DIFF;
   } else if (props.params.tool === "password-generator") {
     tool = <PasswordGenerator/>;
-    console.log('password-generator')
     selectorName = PASSWORD_GENERATOR;
   } else if (props.params.tool === "json") {
     tool = <PasswordGenerator/>;
-    console.log('json')
     selectorName = JSON_FORMATTER;
   } else if (props.params.tool === "encoding-decoding") {
-    console.log('encodingdecoding')
-    tool = <PasswordGenerator/>;
+    tool = <EncoderDecoder/>;
     selectorName = ENCODER_DECODER;
   } else {
-    console.log('none :(')
+    console.log('No tool selected')
   }
   
   return (
