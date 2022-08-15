@@ -12,6 +12,8 @@ export interface Validator {
 }
 
 export interface EncoderRegistryEntry {
+  selectValue: string,
+  displayName: string,
   encoder: Transformer,
   isValidInput: Validator,
   inputLabel: string,
