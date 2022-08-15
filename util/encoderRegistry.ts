@@ -1,6 +1,8 @@
 import { EncoderRegistryEntry } from "../types.ts";
 import { base64ToString, isBase64, stringToBase64 } from "./base64.ts";
 import { binaryToDecimal, binaryToHex, decimalToBinary, decimalToHex, hexToBinary, hexToDecimal, isBinary, isDecimal, isHex } from "./binaryDecimalHex.ts";
+import { decodeHtmlEntities, encodeHtmlEntities } from "./htmlEntities.ts";
+import { decodeUriInput, encodeToUri, encodeUriInput } from "./uriEncoding.ts";
 
 function stringValidator(i: string): boolean {
   return true;
@@ -16,8 +18,16 @@ export const registry:EncoderRegistryEntry[] = [
     outputLabel: "-"
   },
   {
-      selectValue: "base64-to-string",
-      displayName: "Base64 to String",
+    selectValue: "base64-encode",
+    displayName: "Base64 - encode",
+    encoder: stringToBase64,
+    isValidInput: stringValidator,
+    inputLabel: "string",
+    outputLabel: "Base64",
+  },
+  {
+      selectValue: "base64-decode",
+      displayName: "Base64 - decode",
       encoder: base64ToString,
       isValidInput: isBase64,
       inputLabel: "Base64",
@@ -72,12 +82,36 @@ export const registry:EncoderRegistryEntry[] = [
       outputLabel: "Decimal integer",
   },
   {
-    selectValue: "string-to-base64",
-    displayName: "String to Base64",
-    encoder: stringToBase64,
+      selectValue: "HTML-entity-encode",
+      displayName: "HTML entity - encode",
+      encoder: encodeHtmlEntities,
+      isValidInput: stringValidator,
+      inputLabel: "HTML - raw",
+      outputLabel: "HTML - entity encoded",
+  },
+  {
+      selectValue: "HTML-entity-decode",
+      displayName: "HTML entity - decode",
+      encoder: decodeHtmlEntities,
+      isValidInput: stringValidator,
+      inputLabel: "HTML - entity encoded",
+      outputLabel: "HTML - raw",
+  },
+  {
+    selectValue: "uri-encode",
+    displayName: "URI - encode",
+    encoder: encodeUriInput,
     isValidInput: stringValidator,
-    inputLabel: "string",
-    outputLabel: "Base64",
+    inputLabel: "URI component",
+    outputLabel: "Encoded URI component",
+  },
+  {
+    selectValue: "uri-decode",
+    displayName: "URI - decode",
+    encoder: decodeUriInput,
+    isValidInput: stringValidator,
+    inputLabel: "Encoded URI component",
+    outputLabel: "Decoded URI component",
   },
         /*
         <option value="binary-to-hex">Binary to Hex</option>

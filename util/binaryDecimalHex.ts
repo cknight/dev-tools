@@ -1,15 +1,27 @@
 import { EncodeDecodeError } from "../types.ts";
 
+/**
+ * @param input - positive integer values only (negatives and fractions not yet supported)
+ * @returns true if binary
+ */
 export function isBinary(input:string): boolean {
   const binaryRegEx = /^[01]+$/;
   return binaryRegEx.test(input.trim());
 }
 
+/**
+ * @param input - positive integer values only (negatives and fractions not yet supported)
+ * @returns true if hex
+ */
 export function isHex(input:string): boolean {
   const hexRegEx = /^[0-9a-fA-F]+$/;
   return hexRegEx.test(input.trim());
 }
 
+/**
+ * @param input - positive integers only (negatives and fractions not yet supported)
+ * @returns true if decimal
+ */
 export function isDecimal(input:string): boolean {
   const decimalRegEx = /^[0-9]+$/;
   return decimalRegEx.test(input.trim());
