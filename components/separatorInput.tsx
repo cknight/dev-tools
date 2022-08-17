@@ -11,7 +11,9 @@ export interface SeparatorProps {
 export function SeparatorInput(props: SeparatorProps) {
   const [value, setValue] = useState(props.start);
   const inputRef = useRef(null);
-  function updateValue(newValue: string | null) {
+  function updateValue() {
+    //@ts-ignore - value DOES exist on element
+    const newValue = inputRef.current ? inputRef.current.value : "";
     setValue(newValue || "");
     props.onUpdate(newValue || "");
   }
@@ -31,7 +33,7 @@ export function SeparatorInput(props: SeparatorProps) {
                 focus:border-yellow-600
                 focus:outline-none 
                 cursor-pointer`}
-              type="input" ref={inputRef} value={value} id="separators" onInput={() => updateValue(inputRef.current ? inputRef.current.value : "")}/>
+              type="input" ref={inputRef} value={value} id="separators" onInput={() => updateValue()}/>
   </div>
 </div>;
 }

@@ -2,7 +2,7 @@ import { EncoderRegistryEntry } from "../types.ts";
 import { base64ToString, isBase64, stringToBase64 } from "./base64.ts";
 import { binaryToDecimal, binaryToHex, decimalToBinary, decimalToHex, hexToBinary, hexToDecimal, isBinary, isDecimal, isHex } from "./binaryDecimalHex.ts";
 import { decodeHtmlEntities, encodeHtmlEntities } from "./htmlEntities.ts";
-import { decodeUriInput, encodeToUri, encodeUriInput } from "./uriEncoding.ts";
+import { decodeUriInput, encodeUriInput } from "./uriEncoding.ts";
 
 function stringValidator(i: string): boolean {
   return true;

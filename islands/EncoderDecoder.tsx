@@ -17,7 +17,9 @@ export default function EncoderDecoder() {
   const [outputError, setOutputError] = useState(false);
 
   function processInput() {
+    //@ts-ignore - value DOES exist on this input
     const input = inputRef?.current?.value;
+    //@ts-ignore - value DOES exist on this input
     const selectedType = encodingTypeRef!.current!.value;
     const typeConfig = registry.find(e => e.selectValue === selectedType)!;
 
@@ -39,7 +41,9 @@ export default function EncoderDecoder() {
   }
 
   function encodingTypeChange() {
-    setTypeConfig(registry.find(e => e.selectValue === encodingTypeRef!.current!.value)!);
+    //@ts-ignore - value does exist on this element
+    const encodingType = encodingTypeRef!.current!.value;
+    setTypeConfig(registry.find(e => e.selectValue === encodingType)!);
     processInput();
   }
 
