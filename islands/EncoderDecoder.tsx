@@ -1,14 +1,14 @@
 /** @jsx h */
 import { h } from "preact";
-import { apply, tw } from "@twind";
+import { tw } from "@twind";
 import { Handlers, PageProps } from "https://deno.land/x/fresh@1.0.0/server.ts";
 import { useRef, useState } from "preact/hooks";
 import { registry } from "../util/encoderRegistry.ts";
 import { EncoderRegistryEntry } from "../types.ts";
 import { Toast } from "../components/toast.tsx";
+import { labelStyle } from "../util/styles.ts";
 
 export default function EncoderDecoder() {
-  const labelStyle = apply`block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400`;
   const inputRef = useRef(null);
   const encodingTypeRef = useRef(null);
   const [output, setOutput] = useState("");

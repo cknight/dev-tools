@@ -4,7 +4,6 @@ import { apply, tw } from "@twind";
 import { NumberPicker } from "../components/numberPicker.tsx";
 import { Checkbox } from "../components/checkbox.tsx";
 import { SeparatorInput } from "../components/separatorInput.tsx";
-import { Handlers, PageProps } from "https://deno.land/x/fresh@1.0.0/server.ts";
 import { IS_BROWSER } from "https://deno.land/x/fresh@1.0.0/runtime.ts";
 import { useState } from "preact/hooks";
 import { getSecureRandom } from "../util/secureRandom.ts";

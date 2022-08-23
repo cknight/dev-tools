@@ -2,6 +2,9 @@
   "compilerOptions": {
     "lib": [
       "dom", "deno.ns"
+    ],
+    "types": [
+      "./utils/diff-match-patch.d.ts"
     ]
   },
   "tasks": {

@@ -10,6 +10,7 @@ import * as $$0 from "./islands/Counter.tsx";
 import * as $$1 from "./islands/EncoderDecoder.tsx";
 import * as $$2 from "./islands/PasswordGenerator.tsx";
 import * as $$3 from "./islands/Selector.tsx";
+import * as $$4 from "./islands/TextDiff.tsx";
 
 const manifest = {
   routes: {
@@ -23,6 +24,7 @@ const manifest = {
     "./islands/EncoderDecoder.tsx": $$1,
     "./islands/PasswordGenerator.tsx": $$2,
     "./islands/Selector.tsx": $$3,
+    "./islands/TextDiff.tsx": $$4,
   },
   baseUrl: import.meta.url,
 };

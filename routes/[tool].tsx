@@ -7,6 +7,7 @@ import FunctionSelector from "../islands/Selector.tsx";
 import PasswordGenerator from "../islands/PasswordGenerator.tsx";
 import { DEFAULT_NAME, ENCODER_DECODER, JSON_FORMATTER, PASSWORD_GENERATOR, TEXT_DIFF } from "../util/menuItems.ts";
 import EncoderDecoder from "../islands/EncoderDecoder.tsx";
+import TextDiff from "../islands/TextDiff.tsx";
 
 
 export default function Tool(props: PageProps) {
@@ -14,7 +15,7 @@ export default function Tool(props: PageProps) {
   let selectorName = DEFAULT_NAME;
 
   if (props.params.tool === "text-diff") {
-    tool = <PasswordGenerator/>;
+    tool = <TextDiff/>;
     selectorName = TEXT_DIFF;
   } else if (props.params.tool === "password-generator") {
     tool = <PasswordGenerator/>;
