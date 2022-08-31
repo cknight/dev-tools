@@ -22,9 +22,12 @@ export function SideBySideDiff(props: DiffProps) {
   }
 
   if (IS_BROWSER) {
-    setTimeout(() => {
-      syncScroll([document.getElementById('sbs-left-compare-container')!, document.getElementById('sbs-right-compare-container')!]);
-    });
+    if (props.diffContent){
+      //let component render before executing DOM lookups
+      setTimeout(() => {
+        syncScroll([document.getElementById('sbs-left-compare-container')!, document.getElementById('sbs-right-compare-container')!]);
+      });
+    }
   }
 
   return (

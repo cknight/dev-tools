@@ -1,13 +1,13 @@
 /** @jsx h */
 import { Fragment, h } from "preact";
-import { apply, tw } from "@twind";
-import { Head, IS_BROWSER } from "https://deno.land/x/fresh@1.0.0/runtime.ts";
+import { tw } from "@twind";
+import { Head } from "https://deno.land/x/fresh@1.0.0/runtime.ts";
 import { useRef, useState } from "preact/hooks";
-import { Toast } from "../components/toast.tsx";
 import { labelStyle } from "../util/styles.ts";
-import { sideBySideDiff, textDiff } from "../util/textDiff.ts";
+import { textDiff } from "../util/textDiff.ts";
 import { SideBySideDiff } from "../components/sideBySideDiff.tsx";
 import { DiffTableRowResult } from "../util/diffModel.ts";
+import { InlineDiff } from "../components/inlineDiff.tsx";
 
 export default function TextDiff() {
   const leftRef = useRef(null);
@@ -30,6 +30,18 @@ export default function TextDiff() {
     rightRef.current.value = '';
   }
 
+  function switchText(): void {
+    //@ts-ignore - object is not null and has value
+    const leftText = leftRef.current.value;
+    //@ts-ignore - object is not null and has value
+    leftRef.current.value = rightRef.current.value;
+    //@ts-ignore - object is not null and has value
+    rightRef.current.value = leftText;
+    if (diff) {
+      processDiff();
+    }
+  }
+
   return (
     <Fragment>
     <Head>
@@ -49,14 +61,18 @@ export default function TextDiff() {
       </div>
 
       <div class={tw`flex justify-center`}>
+        <button onClick={() => switchText()} class={tw`mx-10 bg-gray-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-3`}>
+          Switch
+        </button>
         <button onClick={() => processDiff()} class={tw`mx-10 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-3`}>
           Compare
         </button>
-        <button onClick={() => clearAll()} class={tw`mx-10 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-3`}>
+        <button onClick={() => clearAll()} class={tw`mx-10 bg-gray-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-3`}>
           Clear all
         </button>
       </div>
       <SideBySideDiff diffContent={diff}/>
+      <InlineDiff diffContent={diff}/>
       <script type="text/javascript" src="./diff_match_patch.js"></script>
     </div>
     </Fragment>
