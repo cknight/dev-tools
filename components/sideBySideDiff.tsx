@@ -4,14 +4,31 @@ import { tw } from "@twind";
 import { useState } from "preact/hooks";
 import { DiffTableRowResult } from "../util/diffModel.ts";
 import { diff } from "https://deno.land/std@0.132.0/testing/_diff.ts";
+import { IS_BROWSER } from "https://deno.land/x/fresh@1.0.0/runtime.ts";
 
 export interface DiffProps {
   diffContent: DiffTableRowResult[] | undefined;
 }
 
 export function SideBySideDiff(props: DiffProps) {
+
+  function syncScroll(elements:HTMLElement[]) {
+    elements.forEach(el => el.addEventListener("scroll", ev => {
+      elements.forEach(subEl => {
+        subEl.scrollTop = el.scrollTop;
+        subEl.scrollLeft = el.scrollLeft;
+      });
+    }));
+  }
+
+  if (IS_BROWSER) {
+    setTimeout(() => {
+      syncScroll([document.getElementById('sbs-left-compare-container')!, document.getElementById('sbs-right-compare-container')!]);
+    });
+  }
+
   return (
-    <div id="side-by-side-container" class="td-table-wrapper">
+    <div id="side-by-side-container" class={tw`(${props.diffContent ? '' : 'hidden'}) flex`}>
       {props.diffContent && 
         <Fragment>
           <div class="td-table-container side-by-side" id="sbs-left-compare-container">

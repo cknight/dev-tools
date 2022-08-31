@@ -5,7 +5,7 @@ import { Head, IS_BROWSER } from "https://deno.land/x/fresh@1.0.0/runtime.ts";
 import { useRef, useState } from "preact/hooks";
 import { Toast } from "../components/toast.tsx";
 import { labelStyle } from "../util/styles.ts";
-import { textDiff } from "../util/textDiff.ts";
+import { sideBySideDiff, textDiff } from "../util/textDiff.ts";
 import { SideBySideDiff } from "../components/sideBySideDiff.tsx";
 import { DiffTableRowResult } from "../util/diffModel.ts";
 
@@ -21,7 +21,14 @@ export default function TextDiff() {
     const rightText = rightRef.current.value;
     setDiff(textDiff(leftText, rightText));
   }
-
+  
+  function clearAll(): void {
+    setDiff([]);
+    //@ts-ignore - object is not null and has value
+    leftRef.current.value = '';
+    //@ts-ignore - object is not null and has value
+    rightRef.current.value = '';
+  }
 
   return (
     <Fragment>
@@ -41,11 +48,14 @@ export default function TextDiff() {
         </div>
       </div>
 
-      {/* <label for="diff" class={tw`${labelStyle}`}>Diff:</label>
-      <textarea id="diff" readonly class={tw`w-full h-40 p-3 cursor-pointer`} value={diff}/> */}
-      <button onClick={() => processDiff()} class={tw`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-3`}>
-        Compare
-      </button>
+      <div class={tw`flex justify-center`}>
+        <button onClick={() => processDiff()} class={tw`mx-10 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-3`}>
+          Compare
+        </button>
+        <button onClick={() => clearAll()} class={tw`mx-10 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-3`}>
+          Clear all
+        </button>
+      </div>
       <SideBySideDiff diffContent={diff}/>
       <script type="text/javascript" src="./diff_match_patch.js"></script>
     </div>

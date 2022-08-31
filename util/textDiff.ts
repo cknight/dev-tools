@@ -5,25 +5,23 @@ import { DiffLineResult, DiffPart, DiffTableRowResult } from "../util/diffModel.
 import { Diff, DIFF_DELETE, DIFF_EQUAL, DIFF_INSERT, diff_match_patch } from "https://cdn.skypack.dev/diff-match-patch?dts";
 
 export function textDiff(left:string, right: string): DiffTableRowResult[] {
-  console.log('left:',left,'right:', right, formatOutput(diff_lineMode(left, right)))
   return formatOutput(diff_lineMode(left, right));
 }
 
+const dmp = new diff_match_patch();
+
 function diff_lineMode(text1:string, text2:string): Diff[] {
-  const dmp = new diff_match_patch();
   const a = dmp.diff_linesToChars_(text1, text2);
   const lineText1 = a.chars1;
   const lineText2 = a.chars2;
   const lineArray = a.lineArray;
-  const diffs = dmp.diff_main(lineText1, lineText2, true);
+  const diffs = dmp.diff_main(lineText1, lineText2, false);
   dmp.diff_charsToLines_(diffs, lineArray);
   //dmp.diff_cleanupSemantic(diffs);
   return diffs;
 }
 
 function formatOutput(diffs: Diff[]): DiffTableRowResult[] {
-  console.log('formatOutput:', JSON.stringify(diffs));
-
   let lineLeft = 1;
   let lineRight = 1;
   return diffs.reduce((rows: DiffTableRowResult[], diff: Diff) => {
@@ -176,33 +174,11 @@ function countDiffs(result: DiffTableRowResult): number {
 
 function getDiffParts(value: string, compareValue: string): DiffPart[] {
   const diffParts: DiffPart[] = [];
-  let i = 0;
-  let j = 0;
-  let shared = '';
-  let diff = '';
 
-  while (i < value.length) {
-    if (value[i] === compareValue[j] && j < compareValue.length) {
-      if (diff !== '') {
-        diffParts.push({ content: diff, isDiff: true });
-        diff = '';
-      }
-      shared += value[i];
-    } else {
-      if (shared !== '') {
-        diffParts.push({ content: shared, isDiff: false });
-        shared = '';
-      }
-      diff += value[i];
-    }
-    i++;
-    j++;
-  }
-
-  if (diff !== '') {
-    diffParts.push({ content: diff, isDiff: true });
-  } else if (shared !== '') {
-    diffParts.push({ content: shared, isDiff: false });
+  const diffs = dmp.diff_main(value, compareValue);
+  dmp.diff_cleanupSemantic(diffs);
+  for (const [type, val] of diffs) {
+    if (type != 1) diffParts.push({content: val, isDiff: type!=0});
   }
 
   return diffParts;
