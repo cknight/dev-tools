@@ -46,7 +46,7 @@ export default function TextDiff() {
     <Head>
         <title>Text-diff</title>
     </Head>
-    <div class="mt-12 mb-4 py-6 px-2 mx-auto lg:px-8 sm:px-4 bg-gray-100 shadow-md rounded">
+    <div class="mt-12 mb-4 py-6 px-2 mx-auto sm:px-4 bg-gray-100 shadow-md rounded">
       <div class="flex mb-3">
         <div class="w-1/2 mr-2">
           <label for="left" class={`${labelStyle}`}>Left:</label>

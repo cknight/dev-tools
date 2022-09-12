@@ -1,6 +1,5 @@
 import { DiffTableRowResult } from "../util/diffModel.ts";
 import { DiffType } from "./diffOutput.tsx";
-import { IS_BROWSER } from "$fresh/runtime.ts";
 import { deleteColor, deleteHighlight, emptyRow, fitColumn, insertColor, insertHighlight, lineNumberCol } from "../util/styles.ts";
 import { Fragment } from "preact/jsx-runtime";
 
@@ -11,29 +10,7 @@ export interface DiffProps {
 
 export function SideBySideDiff(props: DiffProps) {
 
-  let syncSet = false;
-
-  function syncScroll(elements:HTMLElement[]) {
-    elements.forEach(el => el.addEventListener("scroll", ev => {
-      elements.forEach(subEl => {
-        subEl.scrollTop = el.scrollTop;
-        subEl.scrollLeft = el.scrollLeft;
-      });
-    }));
-  }
-
   const showDiff = props.diffContent && props.diffType == 'sideBySide';
-
-  if (IS_BROWSER) {
-    if (props.diffContent && showDiff && !syncSet){
-      //let component render before executing DOM lookups
-      setTimeout(() => {
-        syncScroll([document.getElementById('sbs-left-compare-container')!, document.getElementById('sbs-right-compare-container')!]);
-        syncSet = true;
-      });
-    }
-  }
-
 
   return (
     <div id="side-by-side-container" class={`${showDiff ? '' : 'hidden'} `}>
