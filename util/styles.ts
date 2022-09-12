@@ -1,3 +1,9 @@
-import { apply } from "@twind";
-
-export const labelStyle = apply`block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400`;
+export const labelStyle = `block mb-2 text-sm font-medium`;
+export const fitColumn = `w-px whitespace-nowrap`;
+export const lineNumberCol = `align-text-top sticky left-0 bg-white top-auto border-r border-[#ddd] text-slate-400 text-right bg-slate-200 px-2.5 text-xs`;
+export const lineNumberColLeft = `sticky text-slate-400 text-right bg-slate-200 px-2.5 text-xs`;
+export const insertColor = `bg-[#dfd]`;
+export const insertHighlight = `bg-[#acf2bd] pt-0.5`;
+export const deleteColor = `bg-[#fee8e9]`;
+export const deleteHighlight = `bg-[#fdb8c0] pt-0.5`;
+export const emptyRow = `h-6`;

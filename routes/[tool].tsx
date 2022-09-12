@@ -1,8 +1,4 @@
-/** @jsx h */
-import { h } from "preact";
-import { tw } from "@twind";
-import { useEffect, useState } from "preact/hooks";
-import { Handlers, PageProps } from "$fresh/server.ts";
+import { PageProps } from "$fresh/server.ts";
 import FunctionSelector from "../islands/Selector.tsx";
 import PasswordGenerator from "../islands/PasswordGenerator.tsx";
 import { DEFAULT_NAME, ENCODER_DECODER, JSON_FORMATTER, PASSWORD_GENERATOR, TEXT_DIFF } from "../util/menuItems.ts";
@@ -13,7 +9,7 @@ import TextDiff from "../islands/TextDiff.tsx";
 export default function Tool(props: PageProps) {
   let tool:unknown;
   let selectorName = DEFAULT_NAME;
-
+  
   if (props.params.tool === "text-diff") {
     tool = <TextDiff/>;
     selectorName = TEXT_DIFF;
@@ -31,7 +27,7 @@ export default function Tool(props: PageProps) {
   }
   
   return (
-    <div class={tw`p-4 mx-auto`}>
+    <div class="p-4 mx-auto">
       <FunctionSelector name={selectorName}/>
       {tool}
     </div>

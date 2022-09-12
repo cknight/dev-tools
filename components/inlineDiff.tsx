@@ -1,10 +1,11 @@
-/** @jsx h */
-import { Fragment, h } from "preact";
-import { tw } from "@twind";
 import { DiffTableRowResult } from "../util/diffModel.ts";
+import { DiffType } from "./diffOutput.tsx";
+import { deleteColor, deleteHighlight, fitColumn, insertColor, insertHighlight, lineNumberCol, lineNumberColLeft } from "../util/styles.ts";
+import { Fragment } from "preact/jsx-runtime";
 
 export interface DiffProps {
   diffContent: DiffTableRowResult[] | undefined;
+  diffType: DiffType;
 }
 
 export function InlineDiff(props: DiffProps) {
@@ -39,40 +40,42 @@ export function InlineDiff(props: DiffProps) {
     return tableLineByLine;
   }, []);
 
+  const showDiff = props.diffContent && props.diffType == 'inline';
+
   return (
-    <div id="inline-container" class={tw`(${props.diffContent ? '' : 'hidden'}) flex`}>
-      {inlineDiff && 
+    <div id="inline-container" class={`${showDiff ? '' : 'hidden'} flex`} style="flex-grow:1">
+      { showDiff && inlineDiff && 
         <Fragment>
-          <div class="td-table-container line-by-line">
-            <table class="td-table">
+          <div class="overflow-auto w-full max-w-full">
+            <table class="border border-gray-800 w-full max-w-full">
             <tbody>
               {inlineDiff.map(row => {
                 return (
                   <tr>
-                    <td scope="row" class="fit-column line-number-col-left">{row.leftContent?.lineNumber}</td>
-                    <td scope="row" class="fit-column line-number-col">{row.rightContent?.lineNumber}</td>
-                    <td class={"fit-column prefix-col" + (row.leftContent?.prefix === '-' ? ' delete-row' :  '') + (row.rightContent?.prefix === '+' ? ' insert-row' : '')}>
+                    <td scope="row" class={`${fitColumn} ${lineNumberColLeft}`}>{row.leftContent?.lineNumber}</td>
+                    <td scope="row" class={`${fitColumn} ${lineNumberCol}`}>{row.rightContent?.lineNumber}</td>
+                    <td class={`${fitColumn} prefix-col ${row.leftContent?.prefix === '-' ? deleteColor :  ''} ${row.rightContent?.prefix === '+' ? insertColor: ''}`}>
                       <span>{ row.leftContent?.prefix || row.rightContent?.prefix || ' ' }</span>
                     </td>
                     {!row.hasDiffs &&
-                      <td class={"content-col" + (row.leftContent?.prefix === '-' ? ' delete-row' : '') + (row.rightContent?.prefix === '+' ? ' insert-row' : '')}>
-                        <span><pre>{row.leftContent?.lineContent}</pre></span>
+                      <td class={`content-col ${row.leftContent?.prefix === '-' ? deleteColor : ''} ${row.rightContent?.prefix === '+' ? insertColor : ''}`}>
+                        <pre class="whitespace-pre-wrap break-words text-xs">{row.leftContent?.lineContent}</pre>
                       </td>
                     }
                     {row.hasDiffs && row.leftContent && row.leftContent?.lineDiffs.length !== 0 &&
-                      <td class={"content-col" + (row.leftContent?.prefix === '-' ? ' delete-row' : '') + (row.rightContent?.prefix === '+' ? ' insert-row':'')}>
+                      <td class={`content-col ${row.leftContent?.prefix === '-' ? deleteColor : ''} ${row.rightContent?.prefix === '+' ? insertColor:''}`}>
                         {row.leftContent?.lineDiffs.map(diff => {
                           return (
-                            <span><pre class={tw`inline ${diff.isDiff ? 'highlight' : ''}`}>{diff.content}</pre></span>                            
+                            <pre class={`whitespace-pre-wrap break-words text-xs inline ${diff.isDiff ? deleteHighlight : ''}`}>{diff.content}</pre>
                           );
                         })}
                       </td>
                     }
                     {row.hasDiffs && row.rightContent && row.rightContent?.lineDiffs.length !== 0 &&
-                      <td class={"content-col" + (row.leftContent?.prefix === '-' ? ' delete-row' : '') + (row.rightContent?.prefix === '+' ? ' insert-row':'')}>
+                      <td class={`content-col ${row.leftContent?.prefix === '-' ? deleteColor : ''} ${row.rightContent?.prefix === '+' ? insertColor:''}`}>
                         {row.rightContent?.lineDiffs.map(diff => {
                           return (
-                            <span><pre class={tw`inline ${diff.isDiff ? 'highlight' : ''}`}>{diff.content}</pre></span>                            
+                            <pre class={`whitespace-pre-wrap break-words text-xs inline ${diff.isDiff ? insertHighlight : ''}`}>{diff.content}</pre>
                           );
                         })}
                       </td>

@@ -1,14 +1,18 @@
 {
   "compilerOptions": {
     "lib": [
-      "dom", "deno.ns"
+      "dom",
+      "deno.ns"
     ],
     "types": [
       "./utils/diff-match-patch.d.ts"
-    ]
+    ],
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact"
   },
   "tasks": {
-    "start": "deno run -A --watch=static/,routes/ dev.ts"
+    "start": "deno run -A --watch=static/,routes/ dev.ts",
+    "update": "deno run -A -r https://fresh.deno.dev/update ."
   },
   "importMap": "./import_map.json"
 }

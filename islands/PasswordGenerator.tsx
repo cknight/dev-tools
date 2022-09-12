@@ -1,11 +1,8 @@
-/** @jsx h */
-import { h } from "preact";
-import { apply, tw } from "@twind";
 import { NumberPicker } from "../components/numberPicker.tsx";
 import { Checkbox } from "../components/checkbox.tsx";
 import { SeparatorInput } from "../components/separatorInput.tsx";
-import { IS_BROWSER } from "https://deno.land/x/fresh@1.0.0/runtime.ts";
-import { useState } from "preact/hooks";
+import { IS_BROWSER } from "$fresh/runtime.ts";
+import { signal, useSignal } from "@preact/signals";
 import { getSecureRandom } from "../util/secureRandom.ts";
 import shuffle from "https://deno.land/x/shuffle@v1.0.1/mod.ts";
 import { Toast } from "../components/toast.tsx";
@@ -20,7 +17,9 @@ interface State {
 }
 
 export default function PasswordGenerator() {
-  const [state, setState] = useState<State>({
+  console.log('rendering password generator')
+  
+  const state =  signal<State>({
     minLength: 20,
     minWords: 4,
     separators: "-",
@@ -28,101 +27,95 @@ export default function PasswordGenerator() {
     addNumber: false,
     saveOptions: true,
   });
-  const [wordList, setWordList] = useState<string[]>([]);
-  const [password, setPassword] = useState("");
-  const [fade, setFade] = useState(false);
+  const wordList = useSignal<string[]>([]);
+  const password = useSignal("");
+  const fade = useSignal(false);
 
   function generatePassword() {
     console.log("generating password...");
-    if (wordList.length == 0) return;
+    if (wordList.value.length == 0) return;
 
     let words: string[] = [];
     for (let i = 0; notLongEnough(i, words); i++) {
-      const wordIndex = getSecureRandom(0, wordList.length - 1);
-      words.push(wordList[wordIndex]);
+      const wordIndex = getSecureRandom(0, wordList.value.length - 1);
+      words.push(wordList.value[wordIndex]);
     }
-    if (state.uppercaseFirstLetters) {
+    if (state.value.uppercaseFirstLetters) {
       words = words.map((e) => (e[0].toUpperCase() + e.slice(1)));
     }
-    if (state.addNumber) {
+    if (state.value.addNumber) {
       words.push("" + getSecureRandom(0, 9));
     }
     words = shuffle(words);
-    setPassword(words.join(state.separators));
+    password.value = words.join(state.value.separators);
+    console.log('New password: ', password.value)
   }
 
   function notLongEnough(i: number, words: string[]): boolean {
-    return i < state.minWords ||
-      words.join(state.separators).length < state.minLength;
+    return i < state.value.minWords ||
+      words.join(state.value.separators).length < state.value.minLength;
   }
 
   if (IS_BROWSER) {
-    if (wordList.length == 0) {
+    if (wordList.value.length == 0) {
       fetch("/word-list.txt")
         .then((result) => result.text())
         .then((text) => {
           const words: string[] = text.split("\n");
-          wordList.push(...words);
-          setWordList(wordList);
+          wordList.value.push(...words);
           generatePassword();
         });
     }
   }
 
   function onUpdateMinLength(value: number) {
-    state.minLength = value;
-    setState(state);
+    state.value.minLength = value;
     generatePassword();
     console.log(state);
   }
 
   function onUpdateMinWords(value: number) {
-    state.minWords = value;
-    setState(state);
+    state.value.minWords = value;
     generatePassword();
     console.log(state);
   }
 
   function onUpdateUppercase(value: boolean) {
-    state.uppercaseFirstLetters = value;
-    setState(state);
+    state.value.uppercaseFirstLetters = value;
     generatePassword();
     console.log(state);
   }
 
   function onSaveOptions(value: boolean) {
-    state.saveOptions = value;
-    setState(state);
+    state.value.saveOptions = value;
     console.log(state);
   }
 
   function onAddNumber(value: boolean) {
-    state.addNumber = value;
-    setState(state);
+    state.value.addNumber = value;
     generatePassword();
     console.log(state);
   }
 
   function onUpdateSeparator(value: string) {
-    state.separators = value;
-    setState(state);
+    state.value.separators = value;
     generatePassword();
     console.log(state);
   }
 
   function copyToClipboard() {
-    navigator.clipboard.writeText(password);
+    navigator.clipboard.writeText(password.value);
     showToast();
   }
 
   function showToast() {
-    setFade(true);
+    fade.value = true;
     setTimeout(() => {
-      setFade(false);
+      fade.value = false;
     }, 3000)
   }
 
-  const buttonStyle = apply`bg-gray-300 
+  const buttonStyle = `bg-gray-300 
                             hover:bg-gray-400 
                             text-gray-800 
                             bg-gray-300 
@@ -139,22 +132,22 @@ export default function PasswordGenerator() {
                             items-center`;
 
   return (
-    <div class={tw`max-w-7xl mx-auto py-6 sm:px-3 lg:px-8`}>
-      <div class={tw`px-4 py-6 sm:px-0`}>
-        <div class={tw`bg-gray-100 shadow-md rounded px-8 pt-6 pb-8 mb-4`}>
-          <div class={tw`flex h-18 sm:flex-row flex-col`}>
-            <div class={tw`w-full relative rounded-md shadow-sm`} onClick={() => copyToClipboard()}>
-              <p id="pwd" class={tw`cursor-pointer w-full bg-blue-500 border border-transparent rounded-md py-3 px-8 flex items-center justify-center font-medium text-white text-2xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}>
-                {password}
+    <div class="max-w-7xl mx-auto py-6 sm:px-3 lg:px-8">
+      <div class="px-4 py-6 sm:px-0">
+        <div class="bg-gray-100 shadow-md rounded px-8 pt-6 pb-8 mb-4">
+          <div class="flex h-18 sm:flex-row flex-col">
+            <div class="w-full relative rounded-md shadow-sm" onClick={() => copyToClipboard()}>
+              <p id="pwd" class="cursor-pointer w-full bg-blue-500 border border-transparent rounded-md py-3 px-8 flex items-center justify-center font-medium text-white text-2xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                {password.value}
               </p>
             </div>
-            <div class={tw`flex mt-3 sm:mt-0`}>
-              <button class={tw`${buttonStyle} sm:ml-2`} onClick={() => generatePassword()}>
+            <div class="flex mt-3 sm:mt-0">
+              <button class={`${buttonStyle} sm:ml-2`} onClick={() => generatePassword()}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                   <path d="M13.5 2c-5.621 0-10.211 4.443-10.475 10h-3.025l5 6.625 5-6.625h-2.975c.257-3.351 3.06-6 6.475-6 3.584 0 6.5 2.916 6.5 6.5s-2.916 6.5-6.5 6.5c-1.863 0-3.542-.793-4.728-2.053l-2.427 3.216c1.877 1.754 4.389 2.837 7.155 2.837 5.79 0 10.5-4.71 10.5-10.5s-4.71-10.5-10.5-10.5z" />
                 </svg>
               </button>
-              <button class={tw`${buttonStyle} ml-2 font-bold`} onClick={() => copyToClipboard()}>
+              <button class={`${buttonStyle} ml-2 font-bold`} onClick={() => copyToClipboard()}>
                 <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">
                   <g stroke="none" stroke-width="30" fill="none" fill-rule="evenodd">
                     <g fill="#212121" fill-rule="nonzero">
@@ -166,29 +159,29 @@ export default function PasswordGenerator() {
               </button>
             </div>
           </div>
-          <div class={tw`mt-2`}>
-            <p class={tw`mt-2`}>Length: {password.length}</p>
+          <div class="mt-2">
+            <p class="mt-2">Length: {password.value.length}</p>
           </div>
-          <div class={tw`flex center`}>
-            <hr class={tw`w-full mt-5 border-1`}/>
+          <div class="flex center">
+            <hr class="w-full mt-5 border-1"/>
           </div>
-          <div class={tw`mt-5 mb-5 flex justify-around flex-wrap`}>
-            <NumberPicker name="Min Length" start={state.minLength} incrementAmount={5} onUpdate={onUpdateMinLength}/>
-            <NumberPicker name="Min Words" start={state.minWords} incrementAmount={1} onUpdate={onUpdateMinWords}/>
-            <SeparatorInput start={state.separators} onUpdate={onUpdateSeparator}/>
+          <div class="mt-5 mb-5 flex justify-around flex-wrap">
+            <NumberPicker name="Min Length" start={state.value.minLength} incrementAmount={5} onUpdate={onUpdateMinLength}/>
+            <NumberPicker name="Min Words" start={state.value.minWords} incrementAmount={1} onUpdate={onUpdateMinWords}/>
+            <SeparatorInput start={state.value.separators} onUpdate={onUpdateSeparator}/>
           </div>
           <div>
-            <Checkbox label="Uppercase First Letters" id="uppercaseFirst" defaultState={state.uppercaseFirstLetters} onUpdate={onUpdateUppercase}/>
+            <Checkbox label="Uppercase First Letters" id="uppercaseFirst" defaultState={state.value.uppercaseFirstLetters} onUpdate={onUpdateUppercase}/>
           </div>
-          <div class={tw`mt-5`}>
-            <Checkbox label="Add Number" id="addNumber" defaultState={state.addNumber} onUpdate={onAddNumber}/>
+          <div class="mt-5">
+            <Checkbox label="Add Number" id="addNumber" defaultState={state.value.addNumber} onUpdate={onAddNumber}/>
           </div>
-          <div class={tw`mt-5`}>
-            <Checkbox label="Save Options" id="saveOptions" defaultState={state.saveOptions} onUpdate={onSaveOptions}/>
+          <div class="mt-5">
+            <Checkbox label="Save Options" id="saveOptions" defaultState={state.value.saveOptions} onUpdate={onSaveOptions}/>
           </div>
         </div>
       </div>
-      <Toast id="passwordCopiedToast" message="Password copied to clipboard" fade={fade} type="info"/>
+      <Toast id="passwordCopiedToast" message="Password copied to clipboard" fade={fade.value} type="info"/>
     </div>
   );
 }
