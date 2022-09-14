@@ -17,17 +17,47 @@ interface State {
 }
 
 export default function PasswordGenerator() {
-  const state = useSignal<State>({
+  const LOCAL_STORAGE_STATE_KEY = 'passwordGenerator_state';
+  const LOCAL_STORAGE_SHOULD_STORE_KEY = 'passwordGenerator_isStore';
+
+  const defaultState: State = {
     minLength: 20,
     minWords: 4,
     separators: "-",
     uppercaseFirstLetters: true,
     addNumber: false,
     saveOptions: true,
-  });
+  };
+
+  const state = useSignal<State>(defaultState);
   const wordList = useSignal<string[]>([]);
   const password = useSignal("");
   const fade = useSignal(false);
+
+  if (IS_BROWSER) {
+    const isStore = window.localStorage.getItem(LOCAL_STORAGE_SHOULD_STORE_KEY);
+    if (isStore && isStore == "true") {
+      const storageStateRaw = window.localStorage.getItem(LOCAL_STORAGE_STATE_KEY);
+      if (storageStateRaw) {
+        const storageState = JSON.parse(storageStateRaw) as State;
+        state.value.addNumber = storageState.addNumber;
+        state.value.minLength = storageState.minLength;
+        state.value.minWords = storageState.minWords;
+        state.value.separators = storageState.separators;
+        state.value.uppercaseFirstLetters = storageState.uppercaseFirstLetters;
+      }
+    } else if (isStore && isStore == "false") {
+      state.value.saveOptions = false;
+    } else {
+      //first visit
+      window.localStorage.setItem(LOCAL_STORAGE_SHOULD_STORE_KEY, "true");
+    }
+  } else {
+    // Default SSR rendering to all empty checkboxes to reduce screen flicker as saved options kicks in 
+    // and causes some of them to be ticked/unticked
+    state.value.uppercaseFirstLetters = false;
+    state.value.saveOptions = false;
+  }
 
   function generatePassword() {
     if (wordList.value.length == 0) return;
@@ -68,30 +98,42 @@ export default function PasswordGenerator() {
   function onUpdateMinLength(value: number) {
     state.value.minLength = value;
     generatePassword();
+    updateStorage();
   }
 
   function onUpdateMinWords(value: number) {
     state.value.minWords = value;
     generatePassword();
+    updateStorage();
   }
 
   function onUpdateUppercase(value: boolean) {
     state.value.uppercaseFirstLetters = value;
     generatePassword();
+    updateStorage();
   }
 
   function onSaveOptions(value: boolean) {
     state.value.saveOptions = value;
+    window.localStorage.setItem(LOCAL_STORAGE_SHOULD_STORE_KEY, "" + state.value.saveOptions);
+
+    if (!state.value.saveOptions) {
+      window.localStorage.removeItem(LOCAL_STORAGE_STATE_KEY);
+    } else {
+      updateStorage();
+    }
   }
 
   function onAddNumber(value: boolean) {
     state.value.addNumber = value;
     generatePassword();
+    updateStorage();
   }
 
   function onUpdateSeparator(value: string) {
     state.value.separators = value;
     generatePassword();
+    updateStorage();
   }
 
   function copyToClipboard() {
@@ -104,6 +146,12 @@ export default function PasswordGenerator() {
     setTimeout(() => {
       fade.value = false;
     }, 3000)
+  }
+
+  function updateStorage() {
+    if (state.value.saveOptions) {
+      window.localStorage.setItem(LOCAL_STORAGE_STATE_KEY, JSON.stringify(state.value));
+    }
   }
 
   const buttonStyle = `bg-gray-300 
@@ -128,7 +176,7 @@ export default function PasswordGenerator() {
         <div class="bg-gray-100 shadow-md rounded px-2 sm:px-4 lg:px-8 pt-6 pb-8 mb-4">
           <div class="flex h-18 sm:flex-row flex-col">
             <div class="w-full relative rounded-md shadow-sm" onClick={() => copyToClipboard()}>
-              <p id="pwd" class="cursor-pointer w-full bg-blue-500 border border-transparent rounded-md py-3 px-8 flex items-center justify-center font-medium text-white text-2xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              <p id="pwd" class="min-h-[58px] cursor-pointer w-full bg-blue-500 border border-transparent rounded-md py-3 px-8 flex items-center justify-center font-medium text-white text-2xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                 {password.value}
               </p>
             </div>
