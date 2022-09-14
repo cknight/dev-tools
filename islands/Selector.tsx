@@ -6,7 +6,6 @@ interface SelectorProps {
 }
 
 export default function FunctionSelector(props:SelectorProps) {
-  const menuStyle = `text-gray-700 block px-4 py-2 hover:bg-gray-100 text-l`;
   const input = useRef(null);
   
   function changePage() {
@@ -16,7 +15,7 @@ export default function FunctionSelector(props:SelectorProps) {
 
   return (
     <div class="flex justify-center">
-      <select ref={input} id="tool-selector" onChange={() => changePage()} class="inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-2xl font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
+      <select ref={input} id="tool-selector" onChange={() => changePage()} class="inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white font-medium text-lg text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
         <option selected={props.name == DEFAULT_NAME} value="/">Please select</option>
         <option selected={props.name == PASSWORD_GENERATOR} value="/password-generator">Password Generator</option>
         <option selected={props.name == ENCODER_DECODER} value="/encoding-decoding">Encoding/Decoding</option>
