@@ -2,7 +2,7 @@ import { NumberPicker } from "../components/numberPicker.tsx";
 import { Checkbox } from "../components/checkbox.tsx";
 import { SeparatorInput } from "../components/separatorInput.tsx";
 import { IS_BROWSER } from "$fresh/runtime.ts";
-import { signal, useSignal } from "@preact/signals";
+import { useSignal } from "@preact/signals";
 import { getSecureRandom } from "../util/secureRandom.ts";
 import shuffle from "https://deno.land/x/shuffle@v1.0.1/mod.ts";
 import { Toast } from "../components/toast.tsx";
@@ -17,9 +17,7 @@ interface State {
 }
 
 export default function PasswordGenerator() {
-  console.log('rendering password generator')
-  
-  const state =  signal<State>({
+  const state = useSignal<State>({
     minLength: 20,
     minWords: 4,
     separators: "-",
@@ -32,7 +30,6 @@ export default function PasswordGenerator() {
   const fade = useSignal(false);
 
   function generatePassword() {
-    console.log("generating password...");
     if (wordList.value.length == 0) return;
 
     let words: string[] = [];
@@ -48,10 +45,10 @@ export default function PasswordGenerator() {
     }
     words = shuffle(words);
     password.value = words.join(state.value.separators);
-    console.log('New password: ', password.value)
   }
 
   function notLongEnough(i: number, words: string[]): boolean {
+    console.log('i', i, 'state', state.value, i < state.value.minWords, words.join(state.value.separators).length < state.value.minLength)
     return i < state.value.minWords ||
       words.join(state.value.separators).length < state.value.minLength;
   }
@@ -71,36 +68,30 @@ export default function PasswordGenerator() {
   function onUpdateMinLength(value: number) {
     state.value.minLength = value;
     generatePassword();
-    console.log(state);
   }
 
   function onUpdateMinWords(value: number) {
     state.value.minWords = value;
     generatePassword();
-    console.log(state);
   }
 
   function onUpdateUppercase(value: boolean) {
     state.value.uppercaseFirstLetters = value;
     generatePassword();
-    console.log(state);
   }
 
   function onSaveOptions(value: boolean) {
     state.value.saveOptions = value;
-    console.log(state);
   }
 
   function onAddNumber(value: boolean) {
     state.value.addNumber = value;
     generatePassword();
-    console.log(state);
   }
 
   function onUpdateSeparator(value: string) {
     state.value.separators = value;
     generatePassword();
-    console.log(state);
   }
 
   function copyToClipboard() {
@@ -132,9 +123,9 @@ export default function PasswordGenerator() {
                             items-center`;
 
   return (
-    <div class="max-w-7xl mx-auto py-6 sm:px-3 lg:px-8">
-      <div class="px-4 py-6 sm:px-0">
-        <div class="bg-gray-100 shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <div class="max-w-7xl mx-auto sm:px-3 lg:px-8">
+      <div class="sm:px-4 py-6 px-0">
+        <div class="bg-gray-100 shadow-md rounded px-2 sm:px-4 lg:px-8 pt-6 pb-8 mb-4">
           <div class="flex h-18 sm:flex-row flex-col">
             <div class="w-full relative rounded-md shadow-sm" onClick={() => copyToClipboard()}>
               <p id="pwd" class="cursor-pointer w-full bg-blue-500 border border-transparent rounded-md py-3 px-8 flex items-center justify-center font-medium text-white text-2xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
