@@ -31,6 +31,7 @@ export function DiffOutput(props: DiffProps) {
   }
 
   if (IS_BROWSER) {
+    //After rendering, switch to inline output if the screen is small
     setTimeout(() => {
       if (!initComplete.value) {
         initComplete.value = true;
@@ -39,6 +40,20 @@ export function DiffOutput(props: DiffProps) {
         }
       }
     }, 0);
+  }
+
+  let diffCount = -1;
+  
+  if (props.diffContent) {
+    diffCount = props.diffContent.reduce((acc, curr) => acc += curr.numDiffs, 0);
+  }
+  
+  if (diffCount == 0) {
+    return (
+      <div id="diffContainer" class={`(${(props.diffContent && props.diffContent.length > 0 && initComplete.value) ? '' : 'hidden'}) flex flex-col`}>
+        <p class="text-center mt-7 font-bold text-green-600 text-xl">Texts are identical</p>
+      </div>
+    );
   }
 
   return (

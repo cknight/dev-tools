@@ -54,28 +54,28 @@ export function InlineDiff(props: DiffProps) {
                   <tr>
                     <td scope="row" class={`${fitColumn} ${lineNumberColLeft}`}>{row.leftContent?.lineNumber}</td>
                     <td scope="row" class={`${fitColumn} ${lineNumberCol}`}>{row.rightContent?.lineNumber}</td>
-                    <td class={`${fitColumn} prefix-col ${row.leftContent?.prefix === '-' ? deleteColor :  ''} ${row.rightContent?.prefix === '+' ? insertColor: ''}`}>
+                    <td class={`${fitColumn} ${row.leftContent?.prefix === '-' ? deleteColor :  ''} ${row.rightContent?.prefix === '+' ? insertColor: ''}`}>
                       <span>{ row.leftContent?.prefix || row.rightContent?.prefix || ' ' }</span>
                     </td>
                     {!row.hasDiffs &&
-                      <td class={`content-col ${row.leftContent?.prefix === '-' ? deleteColor : ''} ${row.rightContent?.prefix === '+' ? insertColor : ''}`}>
-                        <pre class="whitespace-pre-wrap break-words text-xs">{row.leftContent?.lineContent}</pre>
+                      <td class={`${row.leftContent?.prefix === '-' ? deleteColor : ''} ${row.rightContent?.prefix === '+' ? insertColor : ''}`}>
+                        <pre class="whitespace-pre-wrap break-words text-xs" style="overflow-wrap: anywhere">{row.leftContent?.lineContent}</pre>
                       </td>
                     }
                     {row.hasDiffs && row.leftContent && row.leftContent?.lineDiffs.length !== 0 &&
-                      <td class={`content-col ${row.leftContent?.prefix === '-' ? deleteColor : ''} ${row.rightContent?.prefix === '+' ? insertColor:''}`}>
+                      <td class={`${row.leftContent?.prefix === '-' ? deleteColor : ''} ${row.rightContent?.prefix === '+' ? insertColor:''}`}>
                         {row.leftContent?.lineDiffs.map(diff => {
                           return (
-                            <pre class={`whitespace-pre-wrap break-words text-xs inline ${diff.isDiff ? deleteHighlight : ''}`}>{diff.content}</pre>
+                            <pre class={`whitespace-pre-wrap break-words text-xs inline ${diff.isDiff ? deleteHighlight : ''}`} style="overflow-wrap: anywhere">{diff.content}</pre>
                           );
                         })}
                       </td>
                     }
                     {row.hasDiffs && row.rightContent && row.rightContent?.lineDiffs.length !== 0 &&
-                      <td class={`content-col ${row.leftContent?.prefix === '-' ? deleteColor : ''} ${row.rightContent?.prefix === '+' ? insertColor:''}`}>
+                      <td class={`${row.leftContent?.prefix === '-' ? deleteColor : ''} ${row.rightContent?.prefix === '+' ? insertColor:''}`}>
                         {row.rightContent?.lineDiffs.map(diff => {
                           return (
-                            <pre class={`whitespace-pre-wrap break-words text-xs inline ${diff.isDiff ? insertHighlight : ''}`}>{diff.content}</pre>
+                            <pre class={`whitespace-pre-wrap break-words text-xs inline ${diff.isDiff ? insertHighlight : ''}`} style="overflow-wrap: anywhere">{diff.content}</pre>
                           );
                         })}
                       </td>

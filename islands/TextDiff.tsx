@@ -50,11 +50,11 @@ export default function TextDiff() {
       <div class="flex mb-3">
         <div class="w-1/2 mr-2">
           <label for="left" class={`${labelStyle}`}>Left:</label>
-          <textarea id="left" ref={leftRef} class="font-mono text-xs w-full h-40 p-3"/>
+          <textarea id="left" ref={leftRef} class="shadow-md font-mono text-xs w-full h-40 p-3"/>
         </div>
         <div class="w-1/2 ml-2">
           <label for="right" class={`${labelStyle}`}>Right:</label>
-          <textarea id="right" ref={rightRef} class="font-mono text-xs w-full h-40 p-3"/>
+          <textarea id="right" ref={rightRef} class="shadow-md font-mono text-xs w-full h-40 p-3"/>
         </div>
       </div>
 
