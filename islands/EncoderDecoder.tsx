@@ -12,6 +12,9 @@ export default function EncoderDecoder() {
   const [fade, setFade] = useState(false);
   const [outputError, setOutputError] = useState(false);
 
+  //@ts-ignore - value DOES exist on this input
+  const selectedValue = encodingTypeRef?.current?.options[encodingTypeRef.current.selectedIndex].value;
+
   function processInput() {
     //@ts-ignore - value DOES exist on this input
     const input = inputRef?.current?.value;
@@ -59,7 +62,7 @@ export default function EncoderDecoder() {
   return (
     <div class="mt-12 max-w-7xl mx-auto py-6 sm:px-3 lg:px-8 px-4 py-6 sm:px-0 bg-gray-100 shadow-md rounded px-8 pt-6 pb-8 mb-4">
       <label for="small" class={`${labelStyle}`}>Encoding type</label>
-      <select id="small" 
+      <select id="encodingType" 
           ref={encodingTypeRef} 
           onChange={() => encodingTypeChange()} 
           class="block p-2 mb-6 text-sm rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500">
@@ -67,10 +70,11 @@ export default function EncoderDecoder() {
           <option value={entry.selectValue}>{entry.displayName}</option>
         )}
       </select>
-      <label for="input" class={`${labelStyle}`}>Input ({typeConfig.inputLabel}):</label>
-      <textarea id="input" ref={inputRef} class="w-full h-40 p-3 text-sm" onInput={() => processInput()}/>
+      <p class={`text-red-600 text-sm ${selectedValue == 'JWT-decode' ? '' : 'hidden'}`}>WARNING: Decoded JWT content should not be trusted as the signature has not been verified.  Visit <a class="text-blue underline" href="https://jwt.io">jwt.io</a> to validate the signature.</p>
+      <label for="input" class={`${labelStyle} mt-4`}>Input ({typeConfig.inputLabel}):</label>
+      <textarea id="input" ref={inputRef} class="font-mono text-sm w-full h-40 p-3" onInput={() => processInput()}/>
       <label for="output" class={`${labelStyle}`}>Output ({typeConfig.outputLabel}):</label>
-      <textarea id="output" readonly class={`w-full h-40 p-3 cursor-pointer text-sm ${outputError ? 'text-red-600': ''}`} value={output} onClick={() => copyToClipboard()}/>
+      <textarea id="output" readonly class={`font-mono w-full h-40 p-3 cursor-pointer text-sm ${outputError ? 'text-red-600': ''}`} value={output} onClick={() => copyToClipboard()}/>
       <Toast id="outputCopiedToast" message="Output copied to clipboard" fade={fade} type="info"/>
    </div>
   );

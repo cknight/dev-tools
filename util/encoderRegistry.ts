@@ -2,6 +2,7 @@ import { EncoderRegistryEntry } from "../types.ts";
 import { base64ToString, isBase64, stringToBase64 } from "./base64.ts";
 import { binaryToDecimal, binaryToHex, decimalToBinary, decimalToHex, hexToBinary, hexToDecimal, isBinary, isDecimal, isHex } from "./binaryDecimalHex.ts";
 import { decodeHtmlEntities, encodeHtmlEntities } from "./htmlEntities.ts";
+import { isJWT, jwtToString } from "./jwt.ts";
 import { decodeUriInput, encodeUriInput } from "./uriEncoding.ts";
 
 function stringValidator(i: string): boolean {
@@ -96,6 +97,14 @@ export const registry:EncoderRegistryEntry[] = [
       isValidInput: stringValidator,
       inputLabel: "HTML - entity encoded",
       outputLabel: "HTML - raw",
+  },
+  {
+      selectValue: "JWT-decode",
+      displayName: "JWT - decode",
+      encoder: jwtToString,
+      isValidInput: isJWT,
+      inputLabel: "JWT - encoded",
+      outputLabel: "JSON",
   },
   {
     selectValue: "uri-encode",
