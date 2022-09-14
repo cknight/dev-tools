@@ -5,7 +5,7 @@ import { decodeHtmlEntities, encodeHtmlEntities } from "./htmlEntities.ts";
 import { isJWT, jwtToString } from "./jwt.ts";
 import { decodeUriInput, encodeUriInput } from "./uriEncoding.ts";
 
-function stringValidator(i: string): boolean {
+function stringValidator(): boolean {
   return true;
 }
 

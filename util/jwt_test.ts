@@ -1,6 +1,5 @@
 import { assert, assertEquals } from "https://deno.land/std@0.132.0/testing/asserts.ts";
 import { test } from "../test_deps.ts";
-import { EncodeDecodeError } from "../types.ts";
 import { isJWT, jwtToString } from "./jwt.ts";
 
 test({
