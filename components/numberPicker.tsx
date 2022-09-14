@@ -43,11 +43,11 @@ export function NumberPicker(props: NumberPickerProps) {
   return <div class="h-20 w-32 mt-5 mx-1">
       <label class="w-full text-gray-700 text-sm font-semibold">{props.name}</label>
       <div class="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1">
-        <button ref={left} onClick={() => updateValue(value.value - props.incrementAmount, left)} class={`${buttonStyle} rounded-l`} tabIndex={0}>
+        <button aria-label={`Decrement ${props.name}`} ref={left} onClick={() => updateValue(value.value - props.incrementAmount, left)} class={`${buttonStyle} rounded-l`} tabIndex={0}>
           <span class="m-auto text-2xl font-bold">−</span>
         </button>
-        <span class="border-1 flex justify-center items-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black md:text-basecursor-default text-gray-700"> {value}</span>
-        <button ref={right} onClick={() => updateValue(value.value + props.incrementAmount, right)} class={`${buttonStyle} rounded-r`} tabIndex={0}>
+        <span aria-label={`Value of ${props.name}`} class="border-1 flex justify-center items-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black md:text-basecursor-default text-gray-700"> {value}</span>
+        <button aria-label={`Increment ${props.name}`} ref={right} onClick={() => updateValue(value.value + props.incrementAmount, right)} class={`${buttonStyle} rounded-r`} tabIndex={0}>
           <span class="m-auto text-2xl font-bold">+</span>
         </button>
       </div>
