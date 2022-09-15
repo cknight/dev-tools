@@ -5,7 +5,7 @@ interface ToastProperties {
   type: 'info' | 'warn' | 'error'
 }
 
-const infoStyle = `text-white bg-blue-500`;
+const infoStyle = `text-white bg-[#196EF8]`;
 const warnStyle = `text-gray-600 bg-yellow-300`;
 const errorStyle = `text-white bg-red-500`;
 

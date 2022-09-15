@@ -3,7 +3,8 @@ import { useSignal } from "@preact/signals";
 import { registry } from "../util/encoderRegistry.ts";
 import { EncoderRegistryEntry } from "../types.ts";
 import { Toast } from "../components/toast.tsx";
-import { labelStyle } from "../util/styles.ts";
+import { buttonStyle, labelStyle } from "../util/styles.ts";
+import { IS_BROWSER } from "https://deno.land/x/fresh@1.1.0/runtime.ts";
 
 export default function EncoderDecoder() {
   const inputRef = useRef(null);
@@ -67,9 +68,20 @@ export default function EncoderDecoder() {
     inputRef.current.value = "";
   }
 
+  if (IS_BROWSER) {
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        document.getElementById('input')!.style.height = "" + entry.borderBoxSize[0].blockSize + "px";
+        document.getElementById('output')!.style.height = "" + entry.borderBoxSize[0].blockSize + "px";
+      }
+    });
+    resizeObserver.observe(document.getElementById('input')!);
+    resizeObserver.observe(document.getElementById('output')!);
+  }
+
   return (
     <div class="mt-4 sm:mt-6 lg:mt-8 max-w-7xl mx-auto py-6 sm:px-3 px-2 py-6 bg-gray-100 shadow-md rounded pt-6 pb-8 mb-4">
-      <label for="small" class={`${labelStyle}`}>Encoding type</label>
+      <label for="encodingType" class={`${labelStyle}`}>Encoding type</label>
       <select id="encodingType" 
           ref={encodingTypeRef} 
           onChange={() => encodingTypeChange()} 
@@ -79,15 +91,21 @@ export default function EncoderDecoder() {
         )}
       </select>
       <p class={`text-red-600 text-sm ${selectedValue == 'JWT-decode' ? '' : 'hidden'}`}>WARNING: Decoded JWT content should not be trusted as no signature verification is undertaken.</p>
-      <label for="input" class={`${labelStyle} mt-4`}>Input ({typeConfig.value.inputLabel}):</label>
-      <textarea id="input" ref={inputRef} class="border-1 focus:outline-none focus:ring-1 focus:ring-blue-400 font-mono text-sm w-full h-40 p-3" onInput={() => processInput()}/>
-      <label for="output" class={`${labelStyle}`}>Output ({typeConfig.value.outputLabel}):</label>
-      <textarea id="output" readonly class={`border-1 focus:outline-none focus:ring-1 focus:ring-blue-400 font-mono w-full h-40 p-3 text-sm ${outputError.value ? 'text-red-600': ''}`} value={output.value}/>
+      <div class={`flex mt-4 flex-col sm:flex-row`}>
+        <div style="flex-grow: 1" class="mx-px">
+          <label for="input" class={`${labelStyle}`}>Input ({typeConfig.value.inputLabel}):</label>
+          <textarea id="input" ref={inputRef} class="border-1 focus:outline-none focus:ring-1 focus:ring-blue-400 font-mono text-sm w-full h-40 p-3" onInput={() => processInput()}/>
+        </div>
+        <div style="flex-grow: 1" class="mx-px">
+          <label for="output" class={`${labelStyle}`}>Output ({typeConfig.value.outputLabel}):</label>
+          <textarea id="output" readonly class={`border-1 focus:outline-none focus:ring-1 focus:ring-blue-400 font-mono w-full h-40 p-3 text-sm ${outputError.value ? 'text-red-600': ''}`} value={output.value}/>
+        </div>
+      </div>
       <div class="flex justify-center flex-wrap">
-      <button disabled={output.value.length == 0} onClick={() => copyToClipboard()} class={`mr-2 mt-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-3 focus:outline-none focus:ring-2 focus:ring-gray-400 ${output.value.length == 0 ? 'hidden' : ''}`}>
+        <button aria-label="Copy output to clipboard" disabled={output.value.length == 0} onClick={() => copyToClipboard()} class={`mr-2 mt-3 ${output.value.length == 0 ? 'hidden' : ''} ` + buttonStyle}>
           Copy
         </button>
-        <button onClick={() => clear()} class="ml-2 mt-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-3 focus:outline-none focus:ring-2 focus:ring-gray-400">
+        <button aira-label="Clear all" onClick={() => clear()} class={`ml-2 mt-3 ` + buttonStyle}>
           Clear
         </button>
       </div>

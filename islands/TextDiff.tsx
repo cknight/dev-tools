@@ -1,6 +1,6 @@
 import { Head } from "$fresh/runtime.ts";
 import { useRef, useState } from "preact/hooks";
-import { labelStyle } from "../util/styles.ts";
+import { buttonStyle, labelStyle } from "../util/styles.ts";
 import { textDiff } from "../util/textDiff.ts";
 import { DiffTableRowResult } from "../util/diffModel.ts";
 import { DiffOutput } from "../components/diffOutput.tsx";
@@ -62,7 +62,7 @@ export default function TextDiff() {
         <button onClick={() => switchText()} class="sm:mx-10 mx-2 bg-gray-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-3 focus:outline-none focus:ring-2 focus:ring-gray-400">
           Switch
         </button>
-        <button onClick={() => processDiff()} class="sm:mx-10 mx-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-3 focus:outline-none focus:ring-2 focus:ring-gray-400">
+        <button onClick={() => processDiff()} class={`sm:mx-10 mx-2 ` + buttonStyle}>
           Compare
         </button>
         <button onClick={() => clearAll()} class="sm:mx-10 mx-2 bg-gray-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-3 focus:outline-none focus:ring-2 focus:ring-gray-400">
