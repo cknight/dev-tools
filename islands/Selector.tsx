@@ -20,7 +20,7 @@ export default function FunctionSelector(props:SelectorProps) {
         <option selected={props.name == PASSWORD_GENERATOR} value="/password-generator">Password Generator</option>
         <option selected={props.name == ENCODER_DECODER} value="/encoding-decoding">Encode/Decode</option>
         <option selected={props.name == TEXT_DIFF} value="/text-diff">Text Diff</option>
-        <option selected={props.name == FORMATTER} value="/json">Format/Validate</option>
+        <option selected={props.name == FORMATTER} value="/format-validate">Format/Validate</option>
       </select>
     </div>
   );
