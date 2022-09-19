@@ -1,4 +1,4 @@
-import { useRef, useState } from "preact/hooks";
+import { useRef } from "preact/hooks";
 import { useSignal } from "@preact/signals";
 import { registry } from "../util/encoderRegistry.ts";
 import { EncoderRegistryEntry } from "../types.ts";
@@ -7,21 +7,18 @@ import { buttonStyle, labelStyle } from "../util/styles.ts";
 import { IS_BROWSER } from "https://deno.land/x/fresh@1.1.0/runtime.ts";
 
 export default function EncoderDecoder() {
-  const inputRef = useRef(null);
-  const encodingTypeRef = useRef(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
+  const encodingTypeRef = useRef<HTMLSelectElement>(null);
   const typeConfig = useSignal<EncoderRegistryEntry>(registry[0]);
   const fade = useSignal(false);
   const output = useSignal("");
   const outputError = useSignal(false);
 
-  //@ts-ignore - value DOES exist on this input
   const selectedValue = encodingTypeRef?.current?.options[encodingTypeRef.current.selectedIndex].value;
 
   function processInput() {
-    //@ts-ignore - value DOES exist on this input
-    const input = inputRef?.current?.value;
-    //@ts-ignore - value DOES exist on this input
-    const selectedType = encodingTypeRef!.current!.value;
+    const input = inputRef.current!.value;
+    const selectedType = encodingTypeRef.current!.value;
     const typeConfig = registry.find(e => e.selectValue === selectedType)!;
 
     if (input == "") {
@@ -42,8 +39,7 @@ export default function EncoderDecoder() {
   }
 
   function encodingTypeChange() {
-    //@ts-ignore - value does exist on this element
-    const encodingType = encodingTypeRef!.current!.value;
+    const encodingType = encodingTypeRef.current!.value;
     typeConfig.value = registry.find(e => e.selectValue === encodingType)!;
     processInput();
   }
@@ -64,8 +60,7 @@ export default function EncoderDecoder() {
   function clear() {
     output.value = "";
     outputError.value = false;
-    //@ts-ignore - value does exist on this element
-    inputRef.current.value = "";
+    inputRef.current!.value = "";
   }
 
   if (IS_BROWSER) {
