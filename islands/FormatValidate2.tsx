@@ -3,17 +3,18 @@ import { useSignal, signal } from "@preact/signals";
 import { Toast } from "../components/toast.tsx";
 import { buttonStyle, labelStyle } from "../util/styles.ts";
 import { Fragment } from "preact/jsx-runtime";
-import { Head, IS_BROWSER } from "$fresh/runtime.ts";
+import { ASSET_CACHE_BUST_KEY, Head, IS_BROWSER } from "$fresh/runtime.ts";
 
 export default function FormatValidate() {
   const fade = useSignal(false);
   const formattedCode = useSignal("");
   const codeInput = useRef<HTMLTextAreaElement>(null);
-  const codeOutput = useRef<HTMLElement>(null);
+  const codeOutput = useRef<HTMLDivElement>(null);
   const languageRef = useRef<HTMLSelectElement>(null);
   const highlightOnlyLangs = ['Bash', 'C', 'C++','C#', 'Diff', 'Go', 'Java','Koitlin', 'Lua', 'Makefile', 'Objective-C', 'Perl', 'PHP', 'Python', 'R', 'Ruby', 'Rust', 'Shell', 'SQL', 'Swift', 'VBNet', 'WASM'];
   const processingInput = useSignal(false);
   const maxHeight = useSignal(0);
+  const editor = useSignal<any>(null);
 
   console.log('Initializing FormatValidate island')
   function copyToClipboard() {
@@ -43,30 +44,32 @@ export default function FormatValidate() {
     
     if (processAs == "") return;
 
-    const [prettierParser, highlightLang] = processAs.split(',');
+    const [prettierParser, aceMode] = processAs.split(',');
     const start = new Date().getTime();
     formattedCode.value = codeInput.current!.value;
     if (prettierParser != '-') {
       //Format (and validate to an extent) the input data
       try {
         //@ts-ignore - prettier and prettierPlugins are global exports from standalone.js 
-        formattedCode.value = prettier.format(codeInput.current!.value, {parser: prettierParser, plugins: prettierPlugins});
+        formattedCode.value = prettier.format(codeInput.current!.value, {parser: prettierParser, plugins: prettierPlugins, htmlWhitespaceSensitivity: "ignore", printWidth: 120});
       } catch(e) {
-        codeOutput.current!.innerHTML = "<span style='color:red'>" + e + "</span";
-        setTimeout(() => {
-          //wait to 'finish' processing input (and let DOM settle) to prevent new output content from resizing output div
-          processingInput.value = false;
-        }, 1000);
-        return;
+        console.log(e);
+        // editor.value.setValue(e.toString());
+        // setTimeout(() => {
+        //   //wait to 'finish' processing input (and let DOM settle) to prevent new output content from resizing output div
+        //   processingInput.value = false;
+        // }, 1000);
+        // return;
       }
     }
 
     // Now syntax-highlight the (potentially formatted) input
     //@ts-ignore - hljs is a global export from highlight.min.js
-    const result = hljs.highlightAuto(formattedCode.value, [highlightLang]);
+    //const result = hljs.highlightAuto(formattedCode.value, [highlightLang]);
     //console.log(result);
 
-    codeOutput.current!.innerHTML = result.value;
+    editor.value.session.setMode("ace/mode/" + aceMode);
+    editor.value.session.setValue(formattedCode.value);
     console.log('processing took', new Date().getTime() - start);
     setTimeout(() => {
       //wait to 'finish' processing input (and let DOM settle) to prevent new output content from resizing output div
@@ -89,10 +92,17 @@ export default function FormatValidate() {
       console.log('Max height:', maxHeight.value);
       if (maxHeight.value == 0) {
         maxHeight.value = document.getElementById('input')!.offsetHeight;
-        document.getElementById('output')!.style.maxHeight = document.getElementById('input')!.offsetHeight + "px";
+        //document.getElementById('output')!.style.maxHeight = document.getElementById('input')!.offsetHeight + "px";
       }
+
+      editor.value = ace.edit("editor");
+      editor.value.setReadOnly(true);
+      //editor.value.setTheme("ace/theme/monokai")
+      editor.value.session.setUseWrapMode(true);
+      // document.getElementById('editor')!.classList.add("text-sm");
+      // document.getElementById('editor')!.classList.add("font-mono");
     },0);
-    resizeObserver.observe(document.getElementById('input')!);
+    //resizeObserver.observe(document.getElementById('input')!);
     document.addEventListener('DOMContentLoaded', () => {
       languageRef.current!.disabled = false;
     });
@@ -110,6 +120,7 @@ export default function FormatValidate() {
         <script defer src="/prettier/parser-postcss.js"></script>
         <script defer src="/prettier/parser-graphql.js"></script>
         <script defer src="/prettier/parser-yaml.js"></script>
+        <script defer src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.11.1/ace.js"></script>
       </Head>
       <div class="flex flex-col h-full max-h-full w-full pb-2 mb-2 mt-3 sm:mt-6 lg:mt-8 mx-auto sm:px-3 px-2 bg-gray-100 shadow-md rounded">
           <div class="mt-3">
@@ -122,10 +133,11 @@ export default function FormatValidate() {
                   <optgroup label="Format, Validate, Syntax highlight&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;">
                     <option value="babel,javascript">Javascript (including JSX)</option>
                     <option value="json,json">JSON</option>
-                    <option value="json5,javascript">JSON5/JSONC</option>
-                    <option value="babel-ts,javascript">Typescript (including TSX)</option>
-                    <option value="graphql,graphql">Graphql</option>
-                    <option value="html,xml">HTML/XML</option>
+                    <option value="json5,json5">JSON5/JSONC</option>
+                    <option value="babel-ts,typescript">Typescript (including TSX)</option>
+                    <option value="graphql,graphqlschema">Graphql</option>
+                    <option value="html,html">HTML</option>
+                    <option value="html,xml">XML</option>
                     <option value="markdown,markdown">Markdown</option>
                     <option value="mdx,markdown">MDX</option>
                     <option value="css,css">CSS</option>
@@ -140,17 +152,19 @@ export default function FormatValidate() {
                   </optgroup>
             </select>
           </div>
+          {/* <div id="editor" ref={codeOutput} class="h-full"></div> */}
           <div class={`h-full max-h-full mb-3 flex flex-col sm:flex-row`}>
             <div class="flex flex-col mx-px h-1/2 sm:h-full sm:w-1/2">
               <label for="input" class={`${labelStyle}`}>Input</label>
-              <textarea id="input" ref={codeInput} style="resize:none;" class="h-full border-1 focus:outline-none focus:ring-1 focus:ring-blue-400 font-mono text-sm w-full p-3" onInput={() => processInput()}/>
+              <textarea id="input" ref={codeInput} style="resize:none;" class="resize-x h-full border-1 focus:outline-none focus:ring-1 focus:ring-blue-400 font-mono text-sm w-full p-3" onInput={() => processInput()}/>
             </div>
             <div class="flex flex-col mx-px h-1/2 sm:h-full sm:w-1/2 overflow-auto">
               <label for="output" class={`${labelStyle}`}>Output</label>
+              <div id="editor" ref={codeOutput} class="text-sm font-mono h-full max-h-full border-1 focus:outline-none focus:ring-1 focus:ring-blue-400 font-mono w-full p-3"></div>
               {/* <div id="output" class={`h-full overflow-auto bg-white border-1 focus:outline-none focus:ring-1 focus:ring-blue-400 font-mono w-full p-3 text-sm`} style={`max-height: ` + maxHeight + `px`}><pre><code ref={codeOutput}></code></pre></div> */}
-              <pre id="output" class={`h-full max-h-full overflow-auto bg-white border-1 focus:outline-none focus:ring-1 focus:ring-blue-400 font-mono w-full p-3 text-sm`} style={`max-height: ` + maxHeight + `px`}>
-                <code ref={codeOutput} style={`max-height: ` + maxHeight + `px`}></code>
-              </pre>
+              {/* <div id="output" class={`h-full max-h-full overflow-auto bg-white border-1 focus:outline-none focus:ring-1 focus:ring-blue-400 font-mono w-full p-3 text-sm`} style={`max-height: ` + maxHeight + `px`}>
+                {/* <div id="editorppp" ref={codeOutput} style={`max-height: ` + maxHeight + `px`}></div> 
+              </div> */}
             </div>
           </div>
         <div class="flex justify-center flex-wrap h-[68px]">

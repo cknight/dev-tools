@@ -4,7 +4,7 @@ import { registry } from "../util/encoderRegistry.ts";
 import { EncoderRegistryEntry } from "../types.ts";
 import { Toast } from "../components/toast.tsx";
 import { buttonStyle, labelStyle } from "../util/styles.ts";
-import { IS_BROWSER } from "https://deno.land/x/fresh@1.1.0/runtime.ts";
+import { IS_BROWSER } from "$fresh/runtime.ts";
 
 export default function EncoderDecoder() {
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -75,7 +75,7 @@ export default function EncoderDecoder() {
   }
 
   return (
-    <div class="mt-4 sm:mt-6 lg:mt-8 max-w-7xl mx-auto py-6 sm:px-3 px-2 py-6 bg-gray-100 shadow-md rounded pt-6 pb-8 mb-4">
+    <div class="mt-4 sm:mt-6 lg:mt-8 max-w-7xl w-full mx-auto py-6 sm:px-3 px-2 py-6 bg-gray-100 shadow-md rounded pt-6 pb-8 mb-4">
       <label for="encodingType" class={`${labelStyle}`}>Encoding type</label>
       <select id="encodingType" 
           ref={encodingTypeRef} 

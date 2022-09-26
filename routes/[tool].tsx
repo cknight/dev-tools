@@ -7,6 +7,7 @@ import TextDiff from "../islands/TextDiff.tsx";
 import { Fragment } from "preact/jsx-runtime";
 import { Head } from "$fresh/runtime.ts";
 import FormatValidate from "../islands/FormatValidate.tsx";
+import FormatValidate2 from "../islands/FormatValidate2.tsx";
 
 
 export default function Tool(props: PageProps) {
@@ -23,7 +24,7 @@ export default function Tool(props: PageProps) {
     selectorName = PASSWORD_GENERATOR;
     title = "- Generate Password"
   } else if (props.params.tool === "format-validate") {
-    tool = <FormatValidate/>;
+    tool = <FormatValidate2/>;
     selectorName = FORMATTER;
     title = "- Format/Validate"
   } else if (props.params.tool === "encoding-decoding") {
@@ -40,7 +41,7 @@ export default function Tool(props: PageProps) {
         <title>Dev Tools {title}</title>
         <style>{`html, body {height: 100%}`}</style>
       </Head>
-      <div class="p-4 mx-auto h-full">
+      <div class="p-4 mx-auto h-full flex flex-col">
         <FunctionSelector name={selectorName}/>
         {tool}
       </div>

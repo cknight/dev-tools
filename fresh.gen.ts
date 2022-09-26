@@ -7,9 +7,10 @@ import * as $0 from "./routes/[tool].tsx";
 import * as $1 from "./routes/index.tsx";
 import * as $$0 from "./islands/EncoderDecoder.tsx";
 import * as $$1 from "./islands/FormatValidate.tsx";
-import * as $$2 from "./islands/PasswordGenerator.tsx";
-import * as $$3 from "./islands/Selector.tsx";
-import * as $$4 from "./islands/TextDiff.tsx";
+import * as $$2 from "./islands/FormatValidate2.tsx";
+import * as $$3 from "./islands/PasswordGenerator.tsx";
+import * as $$4 from "./islands/Selector.tsx";
+import * as $$5 from "./islands/TextDiff.tsx";
 
 const manifest = {
   routes: {
@@ -19,9 +20,10 @@ const manifest = {
   islands: {
     "./islands/EncoderDecoder.tsx": $$0,
     "./islands/FormatValidate.tsx": $$1,
-    "./islands/PasswordGenerator.tsx": $$2,
-    "./islands/Selector.tsx": $$3,
-    "./islands/TextDiff.tsx": $$4,
+    "./islands/FormatValidate2.tsx": $$2,
+    "./islands/PasswordGenerator.tsx": $$3,
+    "./islands/Selector.tsx": $$4,
+    "./islands/TextDiff.tsx": $$5,
   },
   baseUrl: import.meta.url,
   config,

@@ -175,7 +175,7 @@ export default function PasswordGenerator() {
       <Head>
         <title>Generate easy to remember secure passwords</title>
       </Head>
-      <div class="max-w-7xl mx-auto sm:px-3 lg:px-8">
+      <div class="max-w-5xl w-full mx-auto sm:px-3 lg:px-8">
         <div class="sm:px-4 py-6 px-0">
           <div class="bg-gray-100 shadow-md rounded px-2 sm:px-4 lg:px-8 pt-6 pb-8 mb-4">
             <div class="flex h-18 sm:flex-row flex-col">
