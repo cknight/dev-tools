@@ -18,5 +18,7 @@ Built using [Fresh](https://fresh.deno.dev/) and [Deno](https://deno.land/), dep
 
 ### Attributions
 * Google's [diff-match-patch](https://github.com/google/diff-match-patch) library for text diff
-* [ngx-text-deff](https://github.com/ABenassi87/ngx-text-diff) for line by line match logic
-* xkcd & correcthorsebatterystaple.net for password generation inspiration
+* [ngx-text-diff](https://github.com/ABenassi87/ngx-text-diff) for diff rendering
+* [xkcd](https://xkcd.com/936/) for password generation inspiration
+* [Ace](https://github.com/ajaxorg/ace) javascript editor
+* [Prettier](https://github.com/prettier/prettier) - code formatting 
