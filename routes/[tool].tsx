@@ -1,3 +1,4 @@
+import { useRef } from "preact/hooks";
 import { PageProps } from "$fresh/server.ts";
 import FunctionSelector from "../islands/Selector.tsx";
 import PasswordGenerator from "../islands/PasswordGenerator.tsx";
@@ -6,15 +7,15 @@ import EncoderDecoder from "../islands/EncoderDecoder.tsx";
 import TextDiff from "../islands/TextDiff.tsx";
 import { Fragment } from "preact/jsx-runtime";
 import { Head } from "$fresh/runtime.ts";
-import FormatValidate from "../islands/FormatValidate.tsx";
 import FormatValidate2 from "../islands/FormatValidate2.tsx";
+import Menu from "../islands/Menu.tsx";
 
 
 export default function Tool(props: PageProps) {
   let tool:unknown;
   let selectorName = DEFAULT_NAME;
   let title = "";
-  
+
   if (props.params.tool === "text-diff") {
     tool = <TextDiff/>;
     selectorName = TEXT_DIFF;
@@ -35,14 +36,15 @@ export default function Tool(props: PageProps) {
     console.log('No tool selected')
   }
   
+
   return (
     <Fragment>
       <Head>
-        <title>Dev Tools {title}</title>
         <style>{`html, body {height: 100%}`}</style>
       </Head>
-      <div class="p-4 mx-auto h-full flex flex-col">
-        <FunctionSelector name={selectorName}/>
+      <div class="p-4 mx-auto flex flex-col h-full">
+        <Menu title={title}/>
+
         {tool}
       </div>
     </Fragment>

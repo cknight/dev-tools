@@ -50,7 +50,7 @@ export default function FormatValidate() {
       return;
     }
 
-    const [prettierParser, aceMode] = processAs.split(',');
+    const [prettierParser, aceMode, _] = processAs.split(',');
     const start = new Date().getTime();
     formattedCode.value = codeInput.current!.value;
     if (prettierParser != '-') {
@@ -121,10 +121,20 @@ export default function FormatValidate() {
   }
 
   function fullscreen() {
-    output.current!.setAttribute("style", "position: absolute; inset: 0px; width: 100%; background: white; margin: auto");
+    output.current!.setAttribute("style", "position: absolute; inset: 0px; width: 100%; height: 100%; background: white; margin: auto; padding: 10px");
     restoreButton.current!.classList.remove("hidden");
     fullscreenButton.current!.classList.add("hidden");
     editor.value.resize();
+  }
+
+  function download() {
+    const [_a, _b, fileExtension, mimeType] = languageRef.current!.value.split(",");
+    const a = document.createElement('a');
+    const blob = new Blob([formattedCode.value], {type: mimeType});
+    const url = URL.createObjectURL(blob);
+    a.setAttribute('href', url);
+    a.setAttribute('download', "download." + fileExtension);
+    a.click();
   }
 
   function restore() {
@@ -133,6 +143,25 @@ export default function FormatValidate() {
     fullscreenButton.current!.classList.remove("hidden");
     editor.value.resize();
   }
+
+  function jumpToNext(type:string) {
+    const currentLine = editor.value.getSession().selection.getCursor().row;
+    let firstAnnotation = -1;
+    for (const annotation of editor.value.getSession().getAnnotations()) {
+      console.log(type, annotation);
+      if (annotation.type == type && annotation.row > currentLine) {
+        editor.value.gotoLine(annotation.row + 1);
+        return;
+      } else if (firstAnnotation == -1 && annotation.type == type) {
+        firstAnnotation = annotation.row;
+      }
+    }
+    if (firstAnnotation > -1) {
+      editor.value.gotoLine(firstAnnotation + 1);
+    }
+  }
+
+  const annotationStyle = "focus:outline-none focus:ring-1 focus:ring-blue-400 rounded hover:outline-none hover:ring-1 hover:ring-blue-400 select-none cursor-pointer px-2";
 
   return (
     <Fragment>
@@ -158,22 +187,23 @@ export default function FormatValidate() {
                   class="block p-2 mb-6 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-blue-400 focus:ring-1">
                     <option value="">Please select</option>
                     <optgroup label="Data">
-                      <option value="json,json">JSON</option>
-                      <option value="json5,json5">JSON5/JSONC</option>
-                      <option value="html,xml">XML</option>
-                      <option value="yaml,yaml">YAML</option>
+                      {/*value format is [prettier parser, ace mode, download extension, mime type]*/}
+                      <option value="json,json,json,application/json">JSON</option>
+                      <option value="json5,json5,json5,application/json5">JSON5/JSONC</option>
+                      <option value="html,xml,xml,application/xml">XML</option>
+                      <option value="yaml,yaml,yaml,application/yaml">YAML</option>
                     </optgroup>
                     <optgroup label="Language">
-                      <option value="graphql,graphqlschema">Graphql</option>
-                      <option value="babel,javascript">Javascript (including JSX)</option>
-                      <option value="babel-ts,typescript">Typescript (including TSX)</option>
+                      <option value="graphql,graphqlschema,gql,application/json">Graphql</option>
+                      <option value="babel,javascript,js,application/js">Javascript (including JSX)</option>
+                      <option value="babel-ts,typescript,ts,application/typescript">Typescript (including TSX)</option>
                     </optgroup>
                     <optgroup label="Markup">
-                      <option value="css,css">CSS</option>
-                      <option value="less,less">Less</option>
-                      <option value="html,html">HTML</option>
-                      <option value="markdown,markdown">Markdown</option>
-                      <option value="scss,scss">SCSS</option>
+                      <option value="css,css,css,text/css">CSS</option>
+                      <option value="less,less,less,text/plain">Less</option>
+                      <option value="html,html,html,text/html">HTML</option>
+                      <option value="markdown,markdown,md,text/markdown">Markdown</option>
+                      <option value="scss,scss,scss,text/plain">SCSS</option>
                     </optgroup>
               </select>
             </div>
@@ -190,24 +220,24 @@ export default function FormatValidate() {
                 (errors.value > 0 || warnings.value > 0 || infos.value > 0) && 
                 <Fragment>
                   <div id="validity" class="text-sm font-bold">
-                    {errors.value > 0 && <span class="px-2 text-red-600">Errors: {errors.value}</span>}
-                    {warnings.value > 0 && <span class="px-2 text-yellow-600">Warnings: {warnings.value}</span>}
-                    {infos.value > 0 && <span class="px-2 text-blue-600">Info: {infos.value}</span>}
+                    {errors.value > 0 && <span role="button" aria-label="jump to next error" tabIndex={0} onClick={() => jumpToNext('error')} class={annotationStyle + " text-red-600"}>Errors: {errors.value}</span>}
+                    {warnings.value > 0 && <span role="button" aria-label="jump to next warning" tabIndex={0} onClick={() => jumpToNext('warning')} class={annotationStyle + " text-yellow-600"}>Warnings: {warnings.value}</span>}
+                    {infos.value > 0 && <span role="button" aria-label="jump to next info" tabIndex={0} onClick={() => jumpToNext('info')} class={annotationStyle + " text-blue-600"}>Info: {infos.value}</span>}
                     {errors.value ==0 && warnings.value == 0 && infos.value == 0 && hasOutput.value
                       && <span class="px-2 text-green-500">Valid</span>}
                   </div>
                 </Fragment>
                 }
                 <div id="buttons" class="h-full flex gap-1">
-                  <button aria-label="Clear output" title="Clear output" class="h-full bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold px-2 my-px rounded inline-flex items-center focus:outline-none focus:ring-1 focus:ring-blue-400">
+                  <button onClick={clear} aria-label="Clear output" title="Clear output" class="h-full bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold px-2 my-px rounded inline-flex items-center focus:outline-none focus:ring-1 focus:ring-blue-400">
                     <svg class="fill-current w-3 h-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill-rule="evenodd" clip-rule="evenodd">
                       <path d="M5.662 23l-5.369-5.365c-.195-.195-.293-.45-.293-.707 0-.256.098-.512.293-.707l14.929-14.928c.195-.194.451-.293.707-.293.255 0 .512.099.707.293l7.071 7.073c.196.195.293.451.293.708 0 .256-.097.511-.293.707l-11.216 11.219h5.514v2h-12.343zm3.657-2l-5.486-5.486-1.419 1.414 4.076 4.072h2.829zm6.605-17.581l-10.677 10.68 5.658 5.659 10.676-10.682-5.657-5.657z"/>
                     </svg>
                   </button>
-                  <button aria-label="Copy output" title="Clear output" class="h-full bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold px-2 my-px rounded inline-flex items-center focus:outline-none focus:ring-1 focus:ring-blue-400">
+                  <button onClick={copyToClipboard} aria-label="Copy output" title="Copy output" class="h-full bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold px-2 my-px rounded inline-flex items-center focus:outline-none focus:ring-1 focus:ring-blue-400">
                     <svg class="fill-current w-3 h-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M18 6v-6h-18v18h6v6h18v-18h-6zm-12 10h-4v-14h14v4h-10v10zm16 6h-14v-14h14v14z"/></svg>                    
                   </button>
-                  <button aria-label="Download output" title="Download output" class="h-full bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold px-2 my-px rounded inline-flex items-center focus:outline-none focus:ring-1 focus:ring-blue-400">
+                  <button onClick={download} aria-label="Download output" title="Download output" class="h-full bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold px-2 my-px rounded inline-flex items-center focus:outline-none focus:ring-1 focus:ring-blue-400">
                     <svg class="fill-current w-3 h-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
                   </button>
                   <button ref={fullscreenButton} onClick={fullscreen} aria-label="Fullscreen" title="Fullscreen" class="h-full bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold px-2 my-px rounded inline-flex items-center focus:outline-none focus:ring-1 focus:ring-blue-400">
