@@ -1,14 +1,27 @@
 import { Fragment } from "preact/jsx-runtime";
 import { Head, IS_BROWSER } from "$fresh/runtime.ts";
+import { ENCODER_DECODER, FORMATTER, PASSWORD_GENERATOR, TEXT_DIFF } from "../util/menuItems.ts";
 
 interface MenuProps {
   title: string;
+  page: string;
 }
 
 export default function Menu(props:MenuProps) {
 
+  if (IS_BROWSER) {
+    const menuItems: HTMLCollectionOf<Element> = document.getElementsByClassName(props.page);
+    for (let i=0; i < menuItems.length; i++) {
+      console.log('updating', menuItems[i].innerHTML)
+      setTimeout(() => {
+        (menuItems[i] as HTMLElement).style.color = "#b36205";
+        menuItems[i].classList.add('border-opacity-100');
+        menuItems[i].classList.remove('border-opacity-0');
+      }, 0);
+    }
+  }
+
   function toggleMenu() {
-    console.log('hello')
     const menu = document.getElementById('menu');
     const popupMenu = document.getElementById('popupMenu');
     if (menu) {
@@ -111,26 +124,27 @@ export default function Menu(props:MenuProps) {
           transform: rotate(-45deg);
           top: 21px;
           left: 8px;
-        }`}</style>
+        }
+        `}</style>
       </Head>
       <div id="popupMenu" class="hidden w-[180px] bg-white text-base z-50 absolute top-0 right-0 mt-20 list-none text-left rounded shadow-lg min-w-48">
-        <a href="/password-generator" class="block p-4 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer active">
+        <a href="/password-generator" class={PASSWORD_GENERATOR + " block p-4 border-b-2 border-yellow-600 border-opacity-0 hover:border-opacity-100 hover:text-yellow-600 duration-200 cursor-pointer active"}>
           Passwords
         </a>
-        <a href="/encoding-decoding" class="block p-4 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer active">
+        <a href="/encoding-decoding" class={ENCODER_DECODER + " block p-4 border-b-2 border-yellow-600 border-opacity-0 hover:border-opacity-100 hover:text-yellow-600 duration-200 cursor-pointer active"}>
           Encoding
         </a>
-        <a href="/format-validate" class="block p-4 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer active">
+        <a href="/format-validate" class={FORMATTER + " block p-4 border-b-2 border-yellow-600 border-opacity-0 hover:border-opacity-100 hover:text-yellow-600 duration-200 cursor-pointer active"}>
           Formatting
         </a>
-        <a href="/text-diff" class="block p-4 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer active">
+        <a href="/text-diff" class={TEXT_DIFF + " block p-4 border-b-2 border-yellow-600 border-opacity-0 hover:border-opacity-100 hover:text-yellow-600 duration-200 cursor-pointer active"}>
           Diffs
         </a>
         <div class="h-0 mx-4 my-2 border border-solid border-blueGray-100"></div>
-        <a href="./login.html" class="block p-4 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer active">
+        <a href="./login.html" class="block p-4 border-b-2 border-yellow-600 border-opacity-0 hover:border-opacity-100 hover:text-yellow-600 duration-200 cursor-pointer active">
           About
         </a>
-        <a href="https://github.com/cknight/dev-tools" class="block p-4 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer active">
+        <a href="https://github.com/cknight/dev-tools" class="block p-4 border-b-2 border-yellow-600 border-opacity-0 hover:border-opacity-100 hover:text-yellow-600 duration-200 cursor-pointer active">
           Contribute
         </a>
       </div>
@@ -138,37 +152,37 @@ export default function Menu(props:MenuProps) {
         <header class="bg-white shadow-md flex items-center justify-between px-8 py-02 h-[59px]">
             <h1>
                 <a href="" class="flex items-center">
-                  <img src="/CrossedTools_orange.png"/>
+                  <img alt="Crossed tools logo" src="/CrossedTools_orange.png"/>
                   <p class="block ml-2 font-semibold text-lg">Dev&nbsp;Tools</p>
                 </a>
             </h1>
             <nav class="hidden md:block font-semibold text-m">
                 <ul class="flex items-center">
-                    <li class="p-4 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer active">
+                    <li class={PASSWORD_GENERATOR + " p-4 border-b-[3px] border-yellow-600 border-opacity-0 hover:border-opacity-100 hover:text-yellow-600 duration-200 cursor-pointer active"}>
                       <a href="/password-generator">Passwords</a>
                     </li>
-                    <li class="p-4 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer">
+                    <li class={ENCODER_DECODER + " p-4 border-b-[3px] border-yellow-600 border-opacity-0 hover:border-opacity-100 hover:text-yellow-600 duration-200 cursor-pointer"}>
                       <a href="/encoding-decoding">Encoding</a>
                     </li>
-                    <li class="p-4 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer">
+                    <li class={FORMATTER + " p-4 border-b-[3px] border-yellow-600 border-opacity-0 hover:border-opacity-100 hover:text-yellow-600 duration-200 cursor-pointer"}>
                       <a href="/format-validate">Formatting</a>
                     </li>
-                    <li class="p-4 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer">
+                    <li class={TEXT_DIFF + " p-4 border-b-[3px] border-yellow-600 border-opacity-0 hover:border-opacity-100 hover:text-yellow-600 duration-200 cursor-pointer"}>
                       <a href="/text-diff">Diffs</a>
                     </li>
                 </ul>
             </nav>
             <div class="hidden md:flex items-center">
               <div>
-                <a href="">
-                  <svg width="25px" height="25px" viewBox="0 0 330 330" style="enable-background:new 0 0 330 330;">
+                <a href="/about">
+                  <svg width="25px" height="25px" viewBox="0 0 330 330" style="color:red">
                     <g>
-                      <path d="M165,0.008C74.019,0.008,0,74.024,0,164.999c0,90.977,74.019,164.992,165,164.992s165-74.015,165-164.992
+                      <path fill="#555555" d="M165,0.008C74.019,0.008,0,74.024,0,164.999c0,90.977,74.019,164.992,165,164.992s165-74.015,165-164.992
                         C330,74.024,255.981,0.008,165,0.008z M165,299.992c-74.439,0-135-60.557-135-134.992S90.561,30.008,165,30.008
                         s135,60.557,135,134.991C300,239.436,239.439,299.992,165,299.992z"/>
-                      <path d="M165,130.008c-8.284,0-15,6.716-15,15v99.983c0,8.284,6.716,15,15,15s15-6.716,15-15v-99.983
+                      <path fill="#555555" d="M165,130.008c-8.284,0-15,6.716-15,15v99.983c0,8.284,6.716,15,15,15s15-6.716,15-15v-99.983
                         C180,136.725,173.284,130.008,165,130.008z"/>
-                      <path d="M165,70.011c-3.95,0-7.811,1.6-10.61,4.39c-2.79,2.79-4.39,6.66-4.39,10.61s1.6,7.81,4.39,10.61
+                      <path fill="#555555" d="M165,70.011c-3.95,0-7.811,1.6-10.61,4.39c-2.79,2.79-4.39,6.66-4.39,10.61s1.6,7.81,4.39,10.61
                         c2.79,2.79,6.66,4.39,10.61,4.39s7.81-1.6,10.609-4.39c2.79-2.8,4.391-6.66,4.391-10.61s-1.601-7.82-4.391-10.61
                         C172.81,71.61,168.95,70.011,165,70.011z"/>
                     </g>
@@ -177,7 +191,7 @@ export default function Menu(props:MenuProps) {
               </div>
               <div class="ml-3">
                 <a href="https://github.com/cknight/dev-tools" target="_">
-                  <img width="25px" height="25px" src="/GitHub-Mark-32px.png"/>
+                  <img alt="GitHub logo" width="25px" height="25px" src="/GitHub-Mark-32px.png" style="opacity: 0.9"/>
                 </a>
               </div>
             </div>
