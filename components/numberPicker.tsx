@@ -4,6 +4,7 @@ import { Ref, useRef } from "preact/hooks";
 export interface NumberPickerProps {
   name: string;
   start: number;
+  minVal: number;
   incrementAmount: number;
   onUpdate: (newValue: number) => void;
 }
@@ -31,7 +32,7 @@ export function NumberPicker(props: NumberPickerProps) {
                           outline-5`;
 
   function updateValue(newValue: number, el: Ref<HTMLElement>) {
-    if (newValue >= 0) {
+    if (newValue >= props.minVal) {
       value.value = newValue;
       props.onUpdate(newValue);
     }

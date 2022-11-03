@@ -60,8 +60,9 @@ export default function PasswordGenerator() {
     state.value.saveOptions = false;
   }
 
-  function generatePassword() {
+  async function generatePassword() {
     if (wordList.value.length == 0) return;
+    password.value = "";
 
     let words: string[] = [];
     for (let i = 0; notLongEnough(i, words); i++) {
@@ -75,9 +76,41 @@ export default function PasswordGenerator() {
       words.push("" + getSecureRandom(0, 9));
     }
     words = shuffle(words);
-    password.value = words.join(state.value.separators);
+
+    const newPassword = words.join(state.value.separators);
+    if (await isPasswordPawned(newPassword)) {
+      // password is pawned (exists in data breach), try again
+      generatePassword();
+    } else {
+      password.value = newPassword;
+    }
   }
 
+  async function isPasswordPawned(password: string) {
+    const passwordHash = (await sha1(password)).toUpperCase();
+    const [sha1Prefix, sha1Suffix] = [passwordHash.slice(0, 5), passwordHash.slice(5)];
+
+    const response = await fetch(`https://api.pwnedpasswords.com/range/${sha1Prefix}`);
+    const pwnedPasswords = await response.text();
+    const pwnedPasswordsArray = pwnedPasswords.split("\n");
+    const pwnedPassword = pwnedPasswordsArray.find((e) => e.startsWith(sha1Suffix));
+    if (pwnedPassword) {
+      const pwnedCount = pwnedPassword.split(":")[1];
+      console.log(`Password has been pwned ${pwnedCount} times, regenerating`);
+      return true;
+    }  
+    return false;
+  }
+
+
+  async function sha1(input:string) {
+    const buffer = new TextEncoder().encode(input);
+    const digest = await crypto.subtle.digest('SHA-1', buffer);
+    // Convert digest to hex string
+    const result = Array.from(new Uint8Array(digest)).map(x => x.toString(16).padStart(2,'0')).join('');
+    return result;
+  }
+    
   function notLongEnough(i: number, words: string[]): boolean {
     return i < state.value.minWords ||
       words.join(state.value.separators).length < state.value.minLength;
@@ -209,8 +242,8 @@ export default function PasswordGenerator() {
               <hr class="w-full mt-5 border-1"/>
             </div>
             <div class="mt-5 mb-5 flex justify-around flex-wrap">
-              <NumberPicker name="Min Length" start={state.value.minLength} incrementAmount={5} onUpdate={onUpdateMinLength}/>
-              <NumberPicker name="Min Words" start={state.value.minWords} incrementAmount={1} onUpdate={onUpdateMinWords}/>
+              <NumberPicker name="Min Length" start={state.value.minLength} minVal={10} incrementAmount={5} onUpdate={onUpdateMinLength}/>
+              <NumberPicker name="Min Words" start={state.value.minWords} minVal={1} incrementAmount={1} onUpdate={onUpdateMinWords}/>
               <SeparatorInput start={state.value.separators} onUpdate={onUpdateSeparator}/>
             </div>
             <div>
