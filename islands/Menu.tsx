@@ -151,7 +151,7 @@ export default function Menu(props:MenuProps) {
       <div class="flex flex-col">
         <header class="bg-white shadow-md flex items-center justify-between px-8 py-02 h-[59px]">
             <h1>
-                <a href="" class="flex items-center">
+                <a href="/" class="flex items-center">
                   <img alt="Crossed tools logo" src="/CrossedTools_orange.png"/>
                   <p class="block ml-2 font-semibold text-lg">Dev&nbsp;Tools</p>
                 </a>
