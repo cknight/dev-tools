@@ -13,7 +13,7 @@ export default function Home() {
         <p class="mt-10 font-semibold mx-auto text-xl sm:text-3xl md:text-[2.75rem]">Your Developer Toolbox</p>
         <p class="mt-5 mb-5 text-l sm:text-xl mx-auto text-center">No ads, trackers or cookies.  No data submitted.  Total privacy.</p>
 
-        <div id="cards" class="flex justify-center mt-5 flex-wrap gap-5">
+        <div id="cards" class="flex justify-center mt-5 flex-wrap gap-5 pb-8">
 
           <div onKeyPress="window.location.href='/password-generator'" onClick="window.location.href='/password-generator'" tabindex="0" role="button" class="rounded overflow-hidden border-1 shadow-lg pt-5 w-[300px] md:w-[400px] hover:border-yellow-600 hover:border-1 hover:cursor-pointer">
             <div class="w-1/3 m-auto flex justify-center items-center h-[120px]">
