@@ -60,10 +60,10 @@ export function DiffOutput(props: DiffProps) {
     <div id="diffContainer" class={`(${(props.diffContent && props.diffContent.length > 0 && initComplete.value) ? '' : 'hidden'}) flex flex-col`}>
       <div id="diffTypeTabContainer" class="flex justify-end w-full mb-2">
         <div class="flex space-x-1 rounded-lg bg-blue-100 p-0.5" role="tablist" aria-orientation="horizontal">
-          <button onClick={() => {switchTab(); document.getElementById('inlineTab')!.blur();}} id="inlineTab" class="flex items-center px-3 rounded-md font-medium" role="tab" type="button" aria-selected="true" aria-controls="headlessui-tabs-panel-11">
+          <button onClick={() => {switchTab(); document.getElementById('inlineTab')!.blur();}} id="inlineTab" class="flex items-center px-3 rounded-md font-medium" role="tab" type="button">
             <span id="inlineTabSpan" class="text-xs ">Inline</span>
           </button>
-          <button onClick={() => {switchTab(); document.getElementById('sideBySideTab')!.blur();}} id="sideBySideTab" class="flex items-center rounded-md px-3 py-1 bg-white font-semibold shadow" role="tab" type="button" aria-selected="false">
+          <button onClick={() => {switchTab(); document.getElementById('sideBySideTab')!.blur();}} id="sideBySideTab" class="flex items-center rounded-md px-3 py-1 bg-white font-semibold shadow" role="tab" type="button">
             <span id="sideBySideTabSpan" class="text-xs">Side by side</span>
           </button>
         </div>
