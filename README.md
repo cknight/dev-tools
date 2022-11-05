@@ -4,7 +4,7 @@ This is a work in progress and not yet ready for consumption
 
 ### Usage
 
-Start the project:
+Ensure you have the latest version of Deno installed and start the project:
 
 ```
 deno task start
@@ -12,9 +12,13 @@ deno task start
 
 This will watch the project directory and restart as necessary.
 
+The site should now be available at http://localhost:8000/.
+
 ### Build Stack
 
-Built using [Fresh](https://fresh.deno.dev/) and [Deno](https://deno.land/), deployed on [Deploy](https://deno.com/deploy)
+Built using [Fresh](https://fresh.deno.dev/) and [Deno](https://deno.land/), deployed on [Deploy](https://deno.com/deploy).
+
+There is no build step.  Commits to the main branch will automatically deploy to production.
 
 ### Attributions
 * Google's [diff-match-patch](https://github.com/google/diff-match-patch) library for text diff
