@@ -24,6 +24,8 @@ export default function FormatValidate() {
   const validityLangs = ['javascript', 'xml', 'json', 'html', 'css', 'yaml', 'lua']
   const isFullscreen = useSignal<boolean>(false);
   const editor = useSignal<any>(null);
+  const libsLoaded = useSignal<Map<string, boolean>>(new Map());
+
 
   console.log('Initializing FormatValidate island')
   function copyToClipboard() {
@@ -51,7 +53,84 @@ export default function FormatValidate() {
       return;
     }
 
+    if (libsLoaded.value.get("/prettier/standalone.js") == undefined) {
+      dynamicallyLoadJs("/prettier/standalone.js", () => {
+        loadFormatLibrary(processAs);
+      });
+    } else {
+      loadFormatLibrary(processAs);
+    }
+  }
+
+  function loadFormatLibrary(processAs:string) {
     const [prettierParser, aceMode, _] = processAs.split(',');
+
+    switch(prettierParser) {
+      case "json":
+      case "json5":
+      case "babel-ts":
+          if (libsLoaded.value.get("/prettier/parser-babel.js") == undefined) {
+          dynamicallyLoadJs("/prettier/parser-babel.js", () => {
+            format(prettierParser, aceMode);
+          });
+        } else {
+          format(prettierParser, aceMode);
+        }
+        break;
+      case "html":
+        if (libsLoaded.value.get("/prettier/parser-html.js") == undefined) {
+          dynamicallyLoadJs("/prettier/parser-html.js", () => {
+            format(prettierParser, aceMode);
+          });
+        } else {
+          format(prettierParser, aceMode);
+        }
+        break;
+      case "yaml":
+        if (libsLoaded.value.get("/prettier/parser-yaml.js") == undefined) {
+          dynamicallyLoadJs("/prettier/parser-yaml.js", () => {
+            format(prettierParser, aceMode);
+          });
+        } else {
+          format(prettierParser, aceMode);
+        }
+        break;
+      case "graphql":
+        if (libsLoaded.value.get("/prettier/parser-graphql.js") == undefined) {
+          dynamicallyLoadJs("/prettier/parser-graphql.js", () => {
+            format(prettierParser, aceMode);
+          });
+        } else {
+          format(prettierParser, aceMode);
+        }
+        break;
+      case "css":
+      case "less":
+      case "scss":
+        if (libsLoaded.value.get("/prettier/parser-postcss.js") == undefined) {
+          dynamicallyLoadJs("/prettier/parser-postcss.js", () => {
+            format(prettierParser, aceMode);
+          });
+        } else {
+          format(prettierParser, aceMode);
+        }
+        break;
+      case "markdown":
+        if (libsLoaded.value.get("/prettier/parser-markdown.js") == undefined) {
+          dynamicallyLoadJs("/prettier/parser-markdown.js", () => {
+            format(prettierParser, aceMode);
+          });
+        } else {
+          format(prettierParser, aceMode);
+        }
+        break;
+      default:
+        // should never happen
+        format(prettierParser, aceMode);
+      }
+  }
+
+  function format(prettierParser: string, aceMode: string) {
     const start = new Date().getTime();
     formattedCode.value = codeInput.current!.value;
     if (prettierParser != '-') {
@@ -80,6 +159,15 @@ export default function FormatValidate() {
     console.log('processing took', new Date().getTime() - start);
   }
 
+  function dynamicallyLoadJs(url: string, onload: (this: GlobalEventHandlers, ev: Event) => any) {
+    const script = document.createElement("script");
+    script.onload = onload;
+    script.src = url;
+    script.async = true;
+    document.body.appendChild(script);
+    libsLoaded.value.set(url, true);
+  }
+
   if (IS_BROWSER) {
     console.log('hello')
     setTimeout(() => {
@@ -87,6 +175,7 @@ export default function FormatValidate() {
 
       //@ts-ignore - ace is a global export from ace.js
       editor.value = ace.edit("editor");
+      document.querySelector("#editor textarea")!.id = "output";
       console.log('finished creating ace editor');
       editor.value.setOptions({
         printMargin: false,
@@ -172,14 +261,6 @@ export default function FormatValidate() {
     <Fragment>
       <Head>
         <link rel="stylesheet" href="/default.min.css"/>
-        <script defer src="/highlight.min.js"></script>
-        <script defer src="/prettier/standalone.js"></script>
-        <script defer src="/prettier/parser-babel.js"></script>
-        <script defer src="/prettier/parser-html.js"></script>
-        <script defer src="/prettier/parser-markdown.js"></script>
-        <script defer src="/prettier/parser-postcss.js"></script>
-        <script defer src="/prettier/parser-graphql.js"></script>
-        <script defer src="/prettier/parser-yaml.js"></script>
         <script defer src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.11.1/ace.js"></script>
       </Head>
       <div class="flex flex-col h-full max-h-full w-full pb-2 mb-2 mt-3 sm:mt-6 lg:mt-8 mx-auto sm:px-3 px-2 bg-gray-100 shadow-md rounded">
@@ -226,7 +307,7 @@ export default function FormatValidate() {
                 <Fragment>
                   <div id="validity" class="text-sm font-bold">
                     {errors.value > 0 && <span role="button" aria-label="jump to next error" tabIndex={0} onClick={() => jumpToNext('error')} class={annotationStyle + " text-red-600"}>Errors: {errors.value}</span>}
-                    {warnings.value > 0 && <span role="button" aria-label="jump to next warning" tabIndex={0} onClick={() => jumpToNext('warning')} class={annotationStyle + " text-yellow-600"}>Warnings: {warnings.value}</span>}
+                    {warnings.value > 0 && <span role="button" aria-label="jump to next warning" tabIndex={0} onClick={() => jumpToNext('warning')} class={annotationStyle + " text-[#d43900]"}>Warnings: {warnings.value}</span>}
                     {infos.value > 0 && <span role="button" aria-label="jump to next info" tabIndex={0} onClick={() => jumpToNext('info')} class={annotationStyle + " text-blue-600"}>Info: {infos.value}</span>}
                     {errors.value ==0 && warnings.value == 0 && infos.value == 0 && hasOutput.value
                       && <span class="px-2 text-green-500">Valid</span>}
