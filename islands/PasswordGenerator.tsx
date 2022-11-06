@@ -15,6 +15,7 @@ interface State {
   uppercaseFirstLetters: boolean;
   addNumber: boolean;
   saveOptions: boolean;
+  hibp: boolean; // Have I been pwned?
 }
 
 export default function PasswordGenerator() {
@@ -28,6 +29,7 @@ export default function PasswordGenerator() {
     uppercaseFirstLetters: true,
     addNumber: false,
     saveOptions: true,
+    hibp: true,
   };
 
   const state = useSignal<State>(defaultState);
@@ -46,6 +48,7 @@ export default function PasswordGenerator() {
         state.value.minWords = storageState.minWords;
         state.value.separators = storageState.separators;
         state.value.uppercaseFirstLetters = storageState.uppercaseFirstLetters;
+        state.value.hibp = storageState.hibp;
       }
     } else if (isStore && isStore == "false") {
       state.value.saveOptions = false;
@@ -58,6 +61,7 @@ export default function PasswordGenerator() {
     // and causes some of them to be ticked/unticked
     state.value.uppercaseFirstLetters = false;
     state.value.saveOptions = false;
+    state.value.hibp = false;
   }
 
   async function generatePassword() {
@@ -78,7 +82,7 @@ export default function PasswordGenerator() {
     words = shuffle(words);
 
     const newPassword = words.join(state.value.separators);
-    if (await isPasswordPawned(newPassword)) {
+    if (state.value.hibp && await isPasswordPawned(newPassword)) {
       // password is pawned (exists in data breach), try again
       generatePassword();
     } else {
@@ -155,6 +159,12 @@ export default function PasswordGenerator() {
     } else {
       updateStorage();
     }
+  }
+
+  function onHibp(value: boolean) {
+    state.value.hibp = value;
+    generatePassword();
+    updateStorage();
   }
 
   function onAddNumber(value: boolean) {
@@ -239,9 +249,9 @@ export default function PasswordGenerator() {
               <p class="mt-2">Length: {password.value.length}</p>
             </div>
             <div class="flex center">
-              <hr class="w-full mt-5 border-1"/>
+              <hr class="w-full mt-5 border-1 border-gray-300"/>
             </div>
-            <div class="mt-5 mb-5 flex justify-around flex-wrap">
+            <div class="mb-5 flex justify-around flex-wrap">
               <NumberPicker name="Min Length" start={state.value.minLength} minVal={10} incrementAmount={5} onUpdate={onUpdateMinLength}/>
               <NumberPicker name="Min Words" start={state.value.minWords} minVal={1} incrementAmount={1} onUpdate={onUpdateMinWords}/>
               <SeparatorInput start={state.value.separators} onUpdate={onUpdateSeparator}/>
@@ -254,6 +264,9 @@ export default function PasswordGenerator() {
             </div>
             <div class="mt-5">
               <Checkbox label="Save Options" id="saveOptions" defaultState={state.value.saveOptions} onUpdate={onSaveOptions}/>
+            </div>
+            <div class="mt-5">
+              <Checkbox label="Ensure password not found in public data breaches" id="hibp" defaultState={state.value.hibp} onUpdate={onHibp}/>
             </div>
           </div>
         </div>
