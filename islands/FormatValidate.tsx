@@ -23,6 +23,7 @@ export default function FormatValidate() {
   const restoreButton = useRef<HTMLButtonElement>(null);
   const validityLangs = ['javascript', 'xml', 'json', 'html', 'css', 'yaml', 'lua']
   const isFullscreen = useSignal<boolean>(false);
+  // deno-lint-ignore no-explicit-any
   const editor = useSignal<any>(null);
   const libsLoaded = useSignal<Map<string, boolean>>(new Map());
 
@@ -159,6 +160,7 @@ export default function FormatValidate() {
     console.log('processing took', new Date().getTime() - start);
   }
 
+  // deno-lint-ignore no-explicit-any
   function dynamicallyLoadJs(url: string, onload: (this: GlobalEventHandlers, ev: Event) => any) {
     const script = document.createElement("script");
     script.onload = onload;
