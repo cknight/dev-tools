@@ -28,7 +28,6 @@ export default function FormatValidate() {
   const libsLoaded = useSignal<Map<string, boolean>>(new Map());
 
 
-  console.log('Initializing FormatValidate island')
   function copyToClipboard() {
     navigator.clipboard.writeText(formattedCode.value);
     showToast();
@@ -171,14 +170,12 @@ export default function FormatValidate() {
   }
 
   if (IS_BROWSER) {
-    console.log('hello')
     setTimeout(() => {
       restoreButton.current!.classList.add("hidden");
 
       //@ts-ignore - ace is a global export from ace.js
       editor.value = ace.edit("editor");
       document.querySelector("#editor textarea")!.id = "output";
-      console.log('finished creating ace editor');
       editor.value.setOptions({
         printMargin: false,
         readOnly: true
@@ -187,7 +184,6 @@ export default function FormatValidate() {
       editor.value.getSession().setUseWrapMode(true);
       editor.value.getSession().on("changeAnnotation", () => {
         const annotations = editor.value.getSession().getAnnotations();
-        console.log(annotations);
         const counts = new Map();
         annotations.forEach((el: { type: string; }) => {
           counts.set(el.type, (counts.get(el.type) || 0) + 1);
@@ -204,7 +200,6 @@ export default function FormatValidate() {
       globalThis.editor = editor.value;
     },0);
     document.addEventListener('DOMContentLoaded', () => {
-      console.log('dom content loaded');
       languageRef.current!.disabled = false;
     });
   }
@@ -244,7 +239,6 @@ export default function FormatValidate() {
     const currentLine = editor.value.getSession().selection.getCursor().row;
     let firstAnnotation = -1;
     for (const annotation of editor.value.getSession().getAnnotations()) {
-      console.log(type, annotation);
       if (annotation.type == type && annotation.row > currentLine) {
         editor.value.gotoLine(annotation.row + 1);
         return;

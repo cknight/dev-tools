@@ -12,7 +12,6 @@ export default function Menu(props:MenuProps) {
   if (IS_BROWSER) {
     const menuItems: HTMLCollectionOf<Element> = document.getElementsByClassName(props.page);
     for (let i=0; i < menuItems.length; i++) {
-      console.log('updating', menuItems[i].innerHTML)
       setTimeout(() => {
         (menuItems[i] as HTMLElement).style.color = "#d43900";
         menuItems[i].classList.add('border-opacity-100');
