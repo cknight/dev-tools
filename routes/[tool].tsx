@@ -7,7 +7,21 @@ import { Fragment } from "preact/jsx-runtime";
 import { Head } from "$fresh/runtime.ts";
 import FormatValidate2 from "../islands/FormatValidate.tsx";
 import Menu from "../islands/Menu.tsx";
+import { Handlers } from "$fresh/server.ts";
 
+export const handler: Handlers = {
+  async GET(req, ctx) {
+    try {
+      const resp = await ctx.render();
+      return resp;
+    } catch (e) {
+      if (e.code === "404") {
+        return ctx.renderNotFound();
+      }
+      throw e;
+    }
+  },
+};
 
 export default function Tool(props: PageProps) {
   let tool:unknown;
@@ -32,6 +46,10 @@ export default function Tool(props: PageProps) {
     title = "- Encode/Decode"
   } else {
     console.log('No tool selected')
+    const toolNotFound = new Error("Tool not found");
+    //@ts-ignore - this is a custom error code
+    toolNotFound.code = "404";
+    throw toolNotFound;
   }
   
 
