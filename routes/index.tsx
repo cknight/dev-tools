@@ -32,8 +32,8 @@ export default function Home() {
                     <a href="https://haveibeenpwned.com/API/v3#PwnedPasswords" target="_blank"> 
                     <a href="https://xkcd.com/936/" target="_blank">*/}
                   <li>Follow latest NIST password guidelines</li> 
-                  <li>Checked against known data breaches</li>
-                  <li>Are inspired by the iconic XKCD comic</li>
+                  <li>Are checked against known data breaches</li>
+                  <li>Are configurable with a range of options</li>
                 </ul>
               </div>
             </div>
@@ -47,7 +47,7 @@ export default function Home() {
               <div class="px-6 py-4">
                 <div class="font-bold text-2xl mb-2">Encoding/Decoding</div>
                 <p class="text-gray-700 text-base">
-                  Transform text between different formats.  Examples include:
+                  Encode, decode or convert text between different formats.  Examples include:
                 </p>
                 <ul class="list-disc ml-5 mt-2">
                   <li>Base64 encoding</li>
@@ -67,13 +67,13 @@ export default function Home() {
               <div class="px-6 py-4">
                 <div class="font-bold text-2xl mb-2">Formatting</div>
                 <p class="text-gray-700 text-base">
-                  Format your data and code
+                  Format your data and code.  Features include:
                 </p>
                 <ul class="list-disc ml-5 mt-2">
                   <li>Formatting</li>
                   <li>Syntax highlighting</li>
                   <li>Validation</li>
-                  <li>JWT decoding</li>
+                  <li>Code/data folding</li>
                 </ul>
               </div>
             </div>
@@ -88,11 +88,12 @@ export default function Home() {
               <div class="px-6 py-4">
                 <div class="font-bold text-2xl mb-2">Diffs</div>
                 <p class="text-gray-700 text-base">
-                  Produce a visual comparison of the differences between two blocks of text
+                  Produce a visual comparison of the differences between two sets of text. Features include:
                 </p>
                 <ul class="list-disc ml-5 mt-2">
                   <li>Side by side</li>
                   <li>Inline</li>
+                  <li>Line numbers</li>
                 </ul>
               </div>
             </div>
