@@ -156,7 +156,7 @@ export default function FormatValidate() {
     size.value = new Blob([formattedCode.value]).size;
     hasOutput.value = formattedCode.value.length > 0;
     isValidityPossible.value = validityLangs.includes(aceMode);
-    console.log('processing took', new Date().getTime() - start);
+    console.log('processing took', (new Date().getTime() - start) + "ms");
   }
 
   // deno-lint-ignore no-explicit-any
