@@ -25,7 +25,7 @@ Given data (e.g. JSON, XML, YAML) or code (e.g. Javascript, Typescript, GraphQL)
 
 Given two sets of text, produce a visual display of the differences between them.
 
-## Usage
+## Local Development
 
 Ensure you have the latest version of Deno installed and start the project:
 
