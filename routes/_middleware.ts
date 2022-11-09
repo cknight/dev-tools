@@ -12,7 +12,7 @@ export async function handler(
       && !url.includes(".css") 
       && !url.includes("_frsh") 
       && !url.includes(".txt")) {
-    const referrer = req.headers.get("referrer") || 'unknown';
+    const referrer = req.headers.get("referrer") || 'no-referrer';
     console.log(`${req.method} ${url} ${resp.status} ${Date.now() - start}ms ${referrer}`);
   }
 
