@@ -7,13 +7,17 @@ export async function handler(
   const start = Date.now();
   const resp = await ctx.next();
   const url = req.url;
-  if (!url.includes("favicon.ico") 
+  if (
+      //Ignore project specific files
+      !url.includes("favicon.ico") 
       && !url.includes("diff_match_patch") 
-      && !url.includes(".css") 
+      && !url.includes(".css")
+      && !url.includes("_frsh") 
+      && !url.includes(".txt")
+      //Ignore spam 
       && !url.includes(".php") 
       && !url.includes("/wp-includes/")
-      && !url.includes("_frsh") 
-      && !url.includes(".txt")) {
+  ) {
     const referrer = req.headers.get("referer") || 'no-referer';
     const region = Deno.env.get("DENO_REGION") || 'no-region';
     console.log(`${req.method} ${region} ${url} ${resp.status} ${Date.now() - start}ms ${referrer}`);
