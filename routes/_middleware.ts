@@ -16,7 +16,15 @@ export async function handler(
       && !url.includes(".txt")
       //Ignore spam 
       && !url.includes(".php") 
+      && !url.includes("/php") 
+      && !url.includes("/admin") 
+      && !url.includes("/user") 
+      && !url.includes("/wp") 
+      && !url.includes(".ini") 
+      && !url.includes("/.env") 
       && !url.includes("/wp-includes/")
+      && !url.includes(".git/")
+      && !url.includes(".htaccess")
   ) {
     const referrer = req.headers.get("referer") || 'no-referer';
     const region = Deno.env.get("DENO_REGION") || 'no-region';
