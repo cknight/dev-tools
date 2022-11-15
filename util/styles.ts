@@ -8,9 +8,10 @@ export const insertHighlight = `bg-[#acf2bd] pt-0.5`;
 export const deleteColor = `bg-[#fee8e9]`;
 export const deleteHighlight = `bg-[#fdb8c0] pt-0.5`;
 export const emptyRow = `h-6`;
-export const darkMode_background = `bg-[#0f172a]`;
-export const darkMode_primaryText = `text-[#e2e8f0]`;
+export const background = "bg-white dark:bg-[#303030]";
+export const primaryText = "text-gray-900 dark:text-gray-100";
+export const linkStyles = "text([#0000ee] visited:[#551A8B] dark:[#8cb4ff] dark:visited:[#cda9ef])";
 export const baseStyles = `
-  html, body {height: 100%;} 
-  path {fill:#d43900} 
-  body.dark path {fill: #da5d2f;}`;
+  html, body {height: 100%;}
+  path {fill:#d43900}
+  html.dark path {fill: #da5d2f;}`; //#da5d2f;#ff9975

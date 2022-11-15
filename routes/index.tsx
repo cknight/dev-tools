@@ -1,23 +1,36 @@
 import { Fragment } from "preact/jsx-runtime";
-import { Head } from "$fresh/runtime.ts";
+import { Head, IS_BROWSER } from "$fresh/runtime.ts";
 import Menu from "../islands/Menu.tsx";
-import { baseStyles, darkMode_background, darkMode_primaryText } from "../util/styles.ts";
+import { background, baseStyles, primaryText } from "../util/styles.ts";
 
 export default function Home() {
   return (
     <Fragment>
       <Head>
+      <style>
+          {`body {visibility: hidden; opacity: 0; display: none}`}
+        </style>
         <style>{baseStyles}</style>
       </Head>
-      <body class={"dark " + darkMode_background + " " + darkMode_primaryText}>
-
+      <script>
+          {`
+            if (true) {
+              document.getElementsByTagName('html')[0].classList.add('dark');
+            }
+            console.log('hello');
+            document.body.style.visibility = 'visible';
+            document.body.style.opacity = '1';
+            document.body.style.display = 'block';
+          `}
+        </script>
+      <div class={background + " " + primaryText}>
         <div class="p-4 mx-auto flex flex-col h-full">
           <Menu title="" page=""/>
-          <p class="mt-10 font-semibold mx-auto text-xl sm:text-3xl md:text-[2.75rem]">Your Developer Toolbox</p>
-          <p class="mt-5 mb-5 text-l sm:text-xl mx-auto text-center">No ads, trackers or cookies.  No data submitted.  Total privacy.</p>
+          <p class="mt-10 font-semibold mx-auto text(xl sm:3xl md:[2.75rem])">Your Developer Toolbox</p>
+          <p class="mt-5 mb-5 text(l sm:xl center) mx-auto">No ads, trackers or cookies.  No data submitted.  Total privacy.</p>
 
           <div id="cards" class="max-w-4xl mx-auto flex justify-center mt-5 flex-wrap gap-5 pb-8">
-              <div onKeyPress="window.location.href='/password-generator'" onClick="window.location.href='/password-generator'" tabindex="0" role="button" class="rounded overflow-hidden border-1 shadow-lg pt-5 w-[300px] md:w-[400px] hover:border-yellow-600 hover:border-1 hover:cursor-pointer">
+              <div onKeyPress="window.location.href='/password-generator'" onClick="window.location.href='/password-generator'" tabindex="0" role="button" class="rounded overflow-hidden shadow-lg pt-5 w([300px] md:[400px]) hover:cursor-pointer bg([#dddddd] hover:[#eeeeee] dark:[#222222] hover:dark:[#151515])">
                 <div class="w-1/3 m-auto flex justify-center items-center h-[120px]">
                   <svg class="h-[100px]" version="1.1" id="Layer_1" x="0px" y="0px" width="94.38px" height="122.88px" viewBox="0 0 94.38 122.88" enable-background="new 0 0 94.38 122.88" >
                     <g>
@@ -26,7 +39,7 @@ export default function Home() {
                   </svg>
                 </div>
                 <div class="px-6 py-4">
-                  <div class="font-bold text-2xl mb-2">Passwords</div>
+                  <div class="font-bold text(2xl white) mb-2">Passwords</div>
                   <p class="">
                     Securely generate robust, strong and easy to type passwords.  Generated passwords:
                   </p>
@@ -41,14 +54,14 @@ export default function Home() {
                 </div>
               </div>
 
-              <div onKeyPress="window.location.href='/encoding-decoding'" onClick="window.location.href='/encoding-decoding'" tabindex="0" role="button" class="rounded overflow-hidden border-1 shadow-lg pt-5 w-[300px] md:w-[400px] hover:border-yellow-600 hover:border-1 hover:cursor-pointer">
+              <div onKeyPress="window.location.href='/encoding-decoding'" onClick="window.location.href='/encoding-decoding'" tabindex="0" role="button" class="rounded overflow-hidden shadow-lg pt-5 w([300px] md:[400px]) hover:cursor-pointer bg([#dddddd] hover:[#eeeeee] dark:[#222222] hover:dark:[#151515])">
                 <div class="w-1/3 m-auto flex justify-center items-center h-[120px]">
                   <svg class="h-[100px]" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 512 378.01">
                     <path fill-rule="nonzero" d="M287.35 173.92H151.37v59.11c0 4.51-3.66 8.17-8.17 8.17-2.25 0-4.29-.91-5.77-2.39L2.93 126.84c-3.45-2.87-3.92-8.01-1.05-11.46.34-.41.72-.78 1.12-1.11L137.99 1.88c3.46-2.87 8.6-2.4 11.47 1.05a8.144 8.144 0 0 1 1.88 5.21h.03v59.11h135.98c4.51 0 8.17 3.66 8.17 8.17v90.33c0 4.51-3.66 8.17-8.17 8.17zm-62.7 30.17h135.98v-59.11a8.173 8.173 0 0 1 13.94-5.79l134.5 111.97a8.158 8.158 0 0 1-.07 12.58L374.01 376.13a8.15 8.15 0 0 1-11.47-1.06 8.098 8.098 0 0 1-1.88-5.2h-.03v-59.11H224.65c-4.51 0-8.17-3.66-8.17-8.17v-90.33c0-4.51 3.66-8.17 8.17-8.17zm144.15 16.34H232.82v73.98H368.8c4.51 0 8.17 3.66 8.17 8.18v49.88l114.17-95.05-114.17-95.04v49.88c0 4.51-3.66 8.17-8.17 8.17zm-225.6-62.85h135.98V83.6H143.2c-4.51 0-8.17-3.67-8.17-8.18V25.54L20.86 120.59l114.17 95.04v-49.88c0-4.51 3.66-8.17 8.17-8.17z"/>
                   </svg>
                 </div>
                 <div class="px-6 py-4">
-                  <div class="font-bold text-2xl mb-2">Encoding/Decoding</div>
+                  <div class="font-bold text(2xl white) mb-2">Encoding/Decoding</div>
                   <p class="">
                     Encode, decode or convert text between different formats.  Examples include:
                   </p>
@@ -61,14 +74,14 @@ export default function Home() {
                 </div>
               </div>
 
-              <div onKeyPress="window.location.href='/format-validate'" onClick="window.location.href='/format-validate'" tabindex="0" role="button" class="rounded overflow-hidden border-1 shadow-lg pt-5 w-[300px] md:w-[400px] hover:border-yellow-600 hover:border-1 hover:cursor-pointer">
+              <div onKeyPress="window.location.href='/format-validate'" onClick="window.location.href='/format-validate'" tabindex="0" role="button" class="rounded overflow-hidden shadow-lg pt-5 w([300px] md:[400px]) hover:cursor-pointer bg([#dddddd] hover:[#eeeeee] dark:[#222222] hover:dark:[#151515])">
                 <div class="w-1/3 m-auto flex justify-center items-center h-[120px]">
                   <svg class="h-[80px]" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 512 386">
                     <path fill-rule="nonzero" d="M0 362.47h512V386H0v-23.53z M0 0h512v23.54H0V0zm111.22 192.4L3.88 107.07v171.86c33.4-28.62 74.84-57.14 108.17-85.82l-.83-.71zm83.41 49.25H512v23.53H194.63v-23.53zm0-120.82H512v23.53H194.63v-23.53z"/>
                   </svg>            
                 </div>
                 <div class="px-6 py-4">
-                  <div class="font-bold text-2xl mb-2">Formatting</div>
+                  <div class="font-bold text(2xl white) mb-2">Formatting</div>
                   <p class="">
                     Format your data and code.  Features include:
                   </p>
@@ -81,7 +94,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div onKeyPress="window.location.href='/text-diff'" onClick="window.location.href='/text-diff'" tabindex="0" role="button" class="rounded overflow-hidden border-1 shadow-lg pt-5 w-[300px] md:w-[400px] hover:border-yellow-600 hover:border-1 hover:cursor-pointer">
+              <div onKeyPress="window.location.href='/text-diff'" onClick="window.location.href='/text-diff'" tabindex="0" role="button" class="rounded overflow-hidden shadow-lg pt-5 w([300px] md:[400px]) hover:cursor-pointer bg([#dddddd] hover:[#eeeeee] dark:[#222222] hover:dark:[#151515])">
                 <div class="w-1/3 m-auto flex justify-center items-center h-[120px]">
                   <svg class="h-[100px]" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.8 122.88">
                     <title>compare file</title>
@@ -89,7 +102,7 @@ export default function Home() {
                   </svg>
                 </div>
                 <div class="px-6 py-4">
-                  <div class="font-bold text-2xl mb-2">Diffs</div>
+                  <div class="font-bold text(2xl white) mb-2">Diffs</div>
                   <p class="">
                     Produce a visual comparison of the differences between two sets of text. Features include:
                   </p>
@@ -102,7 +115,7 @@ export default function Home() {
               </div>
           </div>
         </div>
-      </body>
+      </div>
     </Fragment>
   );
 }

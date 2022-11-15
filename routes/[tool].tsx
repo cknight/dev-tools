@@ -8,6 +8,7 @@ import { Head } from "$fresh/runtime.ts";
 import FormatValidate2 from "../islands/FormatValidate.tsx";
 import Menu from "../islands/Menu.tsx";
 import { Handlers } from "$fresh/server.ts";
+import { baseStyles,background,primaryText } from "../util/styles.ts";
 
 export const handler: Handlers = {
   async GET(req, ctx) {
@@ -56,12 +57,21 @@ export default function Tool(props: PageProps) {
   return (
     <Fragment>
       <Head>
-        <style>{`html, body {height: 100%}`}</style>
+      {/* <script>
+          {`
+            if (true) {
+              document.getElementsByTagName('html')[0].classList.add('dark');
+            }
+          `}
+        </script> */}
+        <style>{baseStyles}</style>
       </Head>
-      <div class="p-4 mx-auto flex flex-col h-full">
-        <Menu title={title} page={pageName}/>
+      <div class={background + " w-full h-full " + primaryText}>
+        <div class="p-4 mx-auto flex flex-col h-full">
+          <Menu title={title} page={pageName}/>
 
-        {tool}
+          {tool}
+        </div>
       </div>
     </Fragment>
   );

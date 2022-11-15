@@ -1,6 +1,7 @@
 import { Fragment } from "preact/jsx-runtime";
 import { Head, IS_BROWSER } from "$fresh/runtime.ts";
 import { ENCODER_DECODER, FORMATTER, PASSWORD_GENERATOR, TEXT_DIFF } from "../util/menuItems.ts";
+import DarkMode from "./DarkMode.tsx";
 
 interface MenuProps {
   title: string;
@@ -9,17 +10,23 @@ interface MenuProps {
 
 export default function Menu(props:MenuProps) {
 
+  const menuHeaderStyle="p-4 border(b-[3px] [#d43900] dark:[#da5d2f] opacity-0 dark:opacity-0 hover:opacity-100) text(hover:[#d43900] hover:dark:white) duration-200 cursor-pointer active hover:dark:bg-[#525252]";
+
   if (IS_BROWSER) {
     const menuItems: HTMLCollectionOf<Element> = document.getElementsByClassName(props.page);
     for (let i=0; i < menuItems.length; i++) {
       setTimeout(() => {
-        (menuItems[i] as HTMLElement).style.color = "#d43900";
-        menuItems[i].classList.add('border-opacity-100');
-        menuItems[i].classList.remove('border-opacity-0');
+        setActiveMenuItem(menuItems[i]);
       }, 0);
     }
   }
 
+  function setActiveMenuItem(menuItem: Element) {
+    (menuItem as HTMLElement).style.color = "#d43900";
+    menuItem.classList.add('border-opacity-100', 'dark:border-opacity-100');
+    menuItem.classList.remove('border-opacity-0', 'dark:border-opacity-0');
+  }
+  
   function toggleMenu() {
     const menu = document.getElementById('menu');
     const popupMenu = document.getElementById('popupMenu');
@@ -75,7 +82,8 @@ export default function Menu(props:MenuProps) {
           transition: .25s ease-in-out;
         }
 
-        #menu {
+        .dark #menu span{
+          background: #cccccc;
         }
 
         #menu span:nth-child(1) {
@@ -126,8 +134,9 @@ export default function Menu(props:MenuProps) {
         }
         `}</style>
       </Head>
-      <div id="popupMenu" class="hidden w-[180px] bg-white text-base z-50 absolute top-0 right-0 mt-20 list-none text-left rounded shadow-lg min-w-48">
-        <a href="/password-generator" class={PASSWORD_GENERATOR + " flex md:hidden items-end p-4 border-b-2 border-[#d43900] border-opacity-0 hover:border-opacity-100 hover:text-[#d43900] duration-200 cursor-pointer active"}>
+      <div id="popupMenu" class="hidden w-[180px] bg(white dark:[#454545]) text(base left) z-50 absolute top-0 right-0 mt-20 list-none rounded shadow-lg min-w-48 mr-4">
+        <DarkMode />
+        <a href="/password-generator" class={PASSWORD_GENERATOR + " flex md:hidden items-end p-4 border(r-8 [#d43900] opacity-0 hover:opacity-100) text(hover:[#d43900] hover:dark:white) duration-200 cursor-pointer active hover:dark:bg-[#525252]"}>
           <div class="w-[20px] mr-2 flex justify-center items-center">
             <svg class="h-[30px]" version="1.1" id="Layer_1" x="0px" y="0px" width="94.38px" height="122.88px" viewBox="0 0 94.38 122.88" enable-background="new 0 0 94.38 122.88" >
               <g>
@@ -137,7 +146,7 @@ export default function Menu(props:MenuProps) {
           </div>
           <div class="">Passwords</div>
         </a>
-        <a href="/encoding-decoding" class={ENCODER_DECODER + " flex md:hidden items-end p-4 border-b-2 border-[#d43900] border-opacity-0 hover:border-opacity-100 hover:text-[#d43900] duration-200 cursor-pointer active"}>
+        <a href="/encoding-decoding" class={ENCODER_DECODER + " flex md:hidden items-end p-4 border(r-8 [#d43900] opacity-0 hover:opacity-100) text(hover:[#d43900] hover:dark:white) duration-200 cursor-pointer active hover:dark:bg-[#525252]"}>
           <div class="w-[25px] mr-2 ml-[-4px] flex justify-center items-center">
             <svg class="h-[30px]" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 512 378.01">
               <path fill="#d43900" fill-rule="nonzero" d="M287.35 173.92H151.37v59.11c0 4.51-3.66 8.17-8.17 8.17-2.25 0-4.29-.91-5.77-2.39L2.93 126.84c-3.45-2.87-3.92-8.01-1.05-11.46.34-.41.72-.78 1.12-1.11L137.99 1.88c3.46-2.87 8.6-2.4 11.47 1.05a8.144 8.144 0 0 1 1.88 5.21h.03v59.11h135.98c4.51 0 8.17 3.66 8.17 8.17v90.33c0 4.51-3.66 8.17-8.17 8.17zm-62.7 30.17h135.98v-59.11a8.173 8.173 0 0 1 13.94-5.79l134.5 111.97a8.158 8.158 0 0 1-.07 12.58L374.01 376.13a8.15 8.15 0 0 1-11.47-1.06 8.098 8.098 0 0 1-1.88-5.2h-.03v-59.11H224.65c-4.51 0-8.17-3.66-8.17-8.17v-90.33c0-4.51 3.66-8.17 8.17-8.17zm144.15 16.34H232.82v73.98H368.8c4.51 0 8.17 3.66 8.17 8.18v49.88l114.17-95.05-114.17-95.04v49.88c0 4.51-3.66 8.17-8.17 8.17zm-225.6-62.85h135.98V83.6H143.2c-4.51 0-8.17-3.67-8.17-8.18V25.54L20.86 120.59l114.17 95.04v-49.88c0-4.51 3.66-8.17 8.17-8.17z"/>
@@ -147,7 +156,7 @@ export default function Menu(props:MenuProps) {
             Encoding
           </div>
         </a>
-        <a href="/format-validate" class={FORMATTER + " flex md:hidden items-end p-4 border-b-2 border-[#d43900] border-opacity-0 hover:border-opacity-100 hover:text-[#d43900] duration-200 cursor-pointer active"}>
+        <a href="/format-validate" class={FORMATTER + " flex md:hidden items-end p-4 border(r-8 [#d43900] opacity-0 hover:opacity-100) text(hover:[#d43900] hover:dark:white) duration-200 cursor-pointer active hover:dark:bg-[#525252]"}>
           <div class="w-[20px] mr-2 flex justify-center items-center">
             <svg class="h-[30px]" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 512 386">
               <path fill="#d43900" fill-rule="nonzero" d="M0 362.47h512V386H0v-23.53z M0 0h512v23.54H0V0zm111.22 192.4L3.88 107.07v171.86c33.4-28.62 74.84-57.14 108.17-85.82l-.83-.71zm83.41 49.25H512v23.53H194.63v-23.53zm0-120.82H512v23.53H194.63v-23.53z"/>
@@ -157,7 +166,7 @@ export default function Menu(props:MenuProps) {
             Formatting
           </div>
         </a>
-        <a href="/text-diff" class={TEXT_DIFF + " flex md:hidden items-end p-4 border-b-2 border-[#d43900] border-opacity-0 hover:border-opacity-100 hover:text-[#d43900] duration-200 cursor-pointer active"}>
+        <a href="/text-diff" class={TEXT_DIFF + " flex md:hidden items-end p-4 border(r-8 [#d43900] opacity-0 hover:opacity-100) text(hover:[#d43900] hover:dark:white) duration-200 cursor-pointer active hover:dark:bg-[#525252]"}>
           <div class="w-[20px] mr-2 flex justify-center items-center">
             <svg class="h-[30px]" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.8 122.88">
               <title>compare file</title>
@@ -166,8 +175,8 @@ export default function Menu(props:MenuProps) {
           </div>
           Diffs
         </a>
-        <div class="block md:hidden h-0 mx-4 my-2 border border-solid border-blueGray-100"></div>
-        <a href="./about" class="flex items-end p-4 border-b-2 border-[#d43900] border-opacity-0 hover:border-opacity-100 hover:text-[#d43900] duration-200 cursor-pointer active">
+        <div class="block md:hidden h-0 mx-4 my-2 border(b-[1px] solid blueGray-100 dark:black)"></div>
+        <a href="./about" class="flex items-end p-4 border(r-8 [#d43900] opacity-0 hover:opacity-100) text(hover:[#d43900] hover:dark:white) duration-200 cursor-pointer active hover:dark:bg-[#525252]">
           <div class="w-[20px] mr-2 flex justify-center items-center">
             <svg width="25px" height="25px" viewBox="0 0 330 330">
               <g>
@@ -186,7 +195,7 @@ export default function Menu(props:MenuProps) {
             About
           </div>
         </a>
-        <a href="https://github.com/cknight/dev-tools" class="flex p-4 border-b-2 border-[#d43900] border-opacity-0 hover:border-opacity-100 hover:text-[#d43900] duration-200 cursor-pointer active">
+        <a href="https://github.com/cknight/dev-tools" class="flex p-4 border(r-8 [#d43900] opacity-0 hover:opacity-100) text(hover:[#d43900] hover:dark:white) duration-200 cursor-pointer active hover:dark:bg-[#525252]">
           <div class="w-[20px] mr-2 flex justify-center items-center">
             <svg width="20" height="20" viewBox="0 0 24 24">
               <path fill="#d43900" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
@@ -198,7 +207,7 @@ export default function Menu(props:MenuProps) {
         </a>
       </div>
       <div class="flex flex-col">
-        <header style="filkkter: dropkk-shadow(0 4px 3px rgb(255 255 255 / 0.07))" class="bg-white dark:bg-[#1c2b4f] shadow-md shadow-white dark:text-[#ffffff] flex items-center justify-between px-8 py-02 h-[59px]">
+        <header class="bg(white dark:[#454545]) shadow(md) dark:text-[#ffffff] flex items-center justify-between px-8 py-02 h-[59px]">
             <h1>
                 <a href="/" class="flex items-center">
                   <svg class="h-[30px]" viewBox="0 0 998.37738 995.2413">
@@ -211,16 +220,16 @@ export default function Menu(props:MenuProps) {
             </h1>
             <nav class="hidden md:block font-semibold text-m">
                 <ul class="flex items-center">
-                    <li class={PASSWORD_GENERATOR + " p-4 border-b-[3px] border-[#d43900] border-opacity-0 hover:border-opacity-100 hover:text-[#d43900] duration-200 cursor-pointer active"}>
+                    <li class={PASSWORD_GENERATOR + " " + menuHeaderStyle}>
                       <a href="/password-generator">Passwords</a>
                     </li>
-                    <li class={ENCODER_DECODER + " p-4 border-b-[3px] border-[#d43900] border-opacity-0 hover:border-opacity-100 hover:text-[#d43900] duration-200 cursor-pointer"}>
+                    <li class={ENCODER_DECODER + " " + menuHeaderStyle}>
                       <a href="/encoding-decoding">Encoding</a>
                     </li>
-                    <li class={FORMATTER + " p-4 border-b-[3px] border-[#d43900] border-opacity-0 hover:border-opacity-100 hover:text-[#d43900] duration-200 cursor-pointer"}>
+                    <li class={FORMATTER + " " + menuHeaderStyle}>
                       <a href="/format-validate">Formatting</a>
                     </li>
-                    <li class={TEXT_DIFF + " p-4 border-b-[3px] border-[#d43900] border-opacity-0 hover:border-opacity-100 hover:text-[#d43900] duration-200 cursor-pointer"}>
+                    <li class={TEXT_DIFF  + " " + menuHeaderStyle}>
                       <a href="/text-diff">Diffs</a>
                     </li>
                 </ul>
