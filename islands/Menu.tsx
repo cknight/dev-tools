@@ -22,7 +22,6 @@ export default function Menu(props:MenuProps) {
   }
 
   function setActiveMenuItem(menuItem: Element) {
-    (menuItem as HTMLElement).style.color = "#d43900";
     menuItem.classList.add('border-opacity-100', 'dark:border-opacity-100');
     menuItem.classList.remove('border-opacity-0', 'dark:border-opacity-0');
   }
@@ -235,7 +234,7 @@ export default function Menu(props:MenuProps) {
                 </ul>
             </nav>
             <div class="ml-2">
-              <div id="menu" onClick={toggleMenu}>
+              <div id="menu" tabIndex={0} onKeyPress={toggleMenu} onClick={toggleMenu}>
                 <span></span>
                 <span></span>
                 <span></span>

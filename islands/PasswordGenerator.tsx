@@ -64,7 +64,7 @@ export default function PasswordGenerator() {
     state.value.hibp = false;
   }
 
-  async function generatePassword() {
+  async function generatePassword(e?:Event) {
     if (wordList.value.length == 0) return;
     password.value = "";
 
@@ -88,6 +88,12 @@ export default function PasswordGenerator() {
     } else {
       password.value = newPassword;
     }
+
+    if (e) {
+      setTimeout(() => {
+        e.target!.blur();
+      }, 300);
+     }
   }
 
   async function isPasswordPawned(password: string) {
@@ -179,9 +185,12 @@ export default function PasswordGenerator() {
     updateStorage();
   }
 
-  function copyToClipboard() {
+  function copyToClipboard(e:Event) {
     navigator.clipboard.writeText(password.value);
     showToast();
+    setTimeout(() => {
+      e.target!.blur();
+    }, 300);
   }
 
   function showToast() {
@@ -196,17 +205,9 @@ export default function PasswordGenerator() {
       window.localStorage.setItem(LOCAL_STORAGE_STATE_KEY, JSON.stringify(state.value));
     }
   }
-
-  const buttonStyle = `bg-gray-300 
-                            hover:bg-gray-400 
-                            text-gray-800 
-                            bg-gray-300 
-                            text-gray-600 
-                            hover:text-gray-700 
-                            hover:bg-gray-400 
-                            focus:outline-none 
-                            focus:border-yellow-600
-                            focus:border-2
+  
+  const buttonStyle = `bg(gray-300 dark:[#505050] hover:gray-400 dark:hover:[#606060])
+                            focus:(outline-1 outline-pink-500)
                             py-2 
                             px-4 
                             rounded 
@@ -220,20 +221,20 @@ export default function PasswordGenerator() {
       </Head>
       <div class="max-w-5xl w-full mx-auto sm:px-3 lg:px-8">
         <div class="sm:px-4 py-6 px-0">
-          <div class="bg-gray-100 shadow-md rounded px-2 sm:px-4 lg:px-8 pt-6 pb-8 mb-4">
+          <div class="bg(gray-100 dark:[#272727]) shadow-md rounded px-2 sm:px-4 lg:px-8 pt-6 pb-8 mb-4">
             <div class="flex h-18 sm:flex-row flex-col">
-              <div class="w-full relative rounded-md shadow-sm" onClick={() => copyToClipboard()}>
-                <p id="pwd" class="min-h-[58px] cursor-pointer w-full bg-blue-500 border border-transparent rounded-md py-3 px-8 flex items-center justify-center font-medium text-white text-2xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              <div class="w-full relative rounded-md shadow-sm" onClick={(e:Event) => copyToClipboard(e)}>
+                <p id="pwd" class="min-h-[58px] cursor-pointer w-full bg(blue-500) border border-transparent rounded-md py-3 px-8 flex items-center justify-center font-medium text-white text-2xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                   {password.value}
                 </p>
               </div>
               <div class="flex mt-3 sm:mt-0">
-                <button aria-label="Generate another password" title="Generate another password" class={`${buttonStyle} sm:ml-2`} onClick={() => generatePassword()}>
+                <button aria-label="Generate another password" title="Generate another password" class={`${buttonStyle} sm:ml-2`} onClick={(e:Event) => generatePassword(e)}>
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                     <path d="M13.5 2c-5.621 0-10.211 4.443-10.475 10h-3.025l5 6.625 5-6.625h-2.975c.257-3.351 3.06-6 6.475-6 3.584 0 6.5 2.916 6.5 6.5s-2.916 6.5-6.5 6.5c-1.863 0-3.542-.793-4.728-2.053l-2.427 3.216c1.877 1.754 4.389 2.837 7.155 2.837 5.79 0 10.5-4.71 10.5-10.5s-4.71-10.5-10.5-10.5z" />
                   </svg>
                 </button>
-                <button aria-label="Copy password to clipboard" title="Copy password to clipboard" class={`${buttonStyle} ml-2 font-bold`} onClick={() => copyToClipboard()}>
+                <button aria-label="Copy password to clipboard" title="Copy password to clipboard" class={`${buttonStyle} ml-2 font-bold`} onClick={(e:Event) => copyToClipboard(e)}>
                   <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">
                     <g stroke="none" stroke-width="30" fill="none" fill-rule="evenodd">
                       <g fill="#212121" fill-rule="nonzero">
@@ -249,7 +250,7 @@ export default function PasswordGenerator() {
               <p class="mt-2">Length: {password.value.length}</p>
             </div>
             <div class="flex center">
-              <hr class="w-full mt-5 border-1 border-gray-300"/>
+              <hr class="w-full mt-5 h-px border-0 bg-gray-300 dark:bg-[#808080]"/>
             </div>
             <div class="mb-5 flex justify-around flex-wrap">
               <NumberPicker name="Min Length" start={state.value.minLength} minVal={10} incrementAmount={5} onUpdate={onUpdateMinLength}/>

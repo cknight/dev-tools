@@ -1,5 +1,13 @@
-export const labelStyle = `block mb-2 text-sm font-medium`;
-export const buttonStyle = `bg-[#196EF8] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-3 focus:outline-none focus:ring-2 focus:ring-gray-400`;
+export const labelStyle = `text-gray-700 text-sm dark:text-white font-semibold block mb-2`;
+export const buttonStyle = `bg(blue-600 dark:blue-500 hover:blue-700 dark:hover:blue-600)
+ text-white 
+ font-bold 
+ py-2 px-4 
+ rounded 
+ mb-3 
+ focus:outline-none 
+ focus:ring-2 
+ focus:ring-gray-400`;
 export const fitColumn = `w-px whitespace-nowrap`;
 export const lineNumberCol = `align-text-top sticky left-0 bg-white top-auto border-r border-[#ddd] text-slate-400 text-right bg-slate-200 px-1 text-xs`;
 export const lineNumberColLeft = `align-text-top sticky text-slate-400 text-right bg-slate-200 px-1 text-xs`;
@@ -14,4 +22,5 @@ export const linkStyles = "text([#0000ee] visited:[#551A8B] dark:[#8cb4ff] dark:
 export const baseStyles = `
   html, body {height: 100%;}
   path {fill:#d43900}
-  html.dark path {fill: #da5d2f;}`; //#da5d2f;#ff9975
+  html.dark path {fill: #da5d2f;}
+  html.dark button path {fill: #eee;}`; //#da5d2f;#ff9975

@@ -15,21 +15,17 @@ export function NumberPicker(props: NumberPickerProps) {
   const right = useRef<HTMLButtonElement>(null);
 
   const buttonStyle = `flex 
-                          border-1
+                          border-0
                           justify-center 
                           font-semibold 
-                          bg-gray-300 
-                          text-gray-600 
-                          hover:text-gray-700 
-                          hover:bg-gray-400 
-                          focus:outline-none 
-                          focus:border-yellow-600
-                          focus:border-2
+                          bg(gray-300 hover:gray-400 dark:[#505050] dark:hover:[#606060])
+                          text(gray-600 dark:[#eee] hover:gray-700 dark:hover:[#fff])
+                          focus:(outline-1)
                           h-full 
                           w-20 
                           pr-1 
                           cursor-pointer 
-                          outline-5`;
+                          outline-0`;
 
   function updateValue(newValue: number, el: Ref<HTMLElement>) {
     if (newValue >= props.minVal) {
@@ -42,12 +38,12 @@ export function NumberPicker(props: NumberPickerProps) {
   }
 
   return <div class="h-20 w-32 mt-5 mx-1">
-      <label class="w-full text-gray-700 text-sm font-semibold">{props.name}</label>
+      <label class="w-full text(gray-700 sm dark:white) font-semibold">{props.name}</label>
       <div class="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1">
         <button aria-label={`Decrement ${props.name}`} ref={left} onClick={() => updateValue(value.value - props.incrementAmount, left)} class={`${buttonStyle} rounded-l`} tabIndex={0}>
           <span class="m-auto text-2xl font-bold">−</span>
         </button>
-        <span aria-label={`Value of ${props.name}`} class="border-1 flex justify-center items-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black md:text-basecursor-default text-gray-700"> {value}</span>
+        <span aria-label={`Value of ${props.name}`} class="border-0 ml-0.5 mr-0.5 flex justify-center items-center w-full bg(gray-300 dark:[#505050]) text(gray-700 dark:[#eee] hover:black focus:black md md:basecursor-default) font-semibold"> {value}</span>
         <button aria-label={`Increment ${props.name}`} ref={right} onClick={() => updateValue(value.value + props.incrementAmount, right)} class={`${buttonStyle} rounded-r`} tabIndex={0}>
           <span class="m-auto text-2xl font-bold">+</span>
         </button>

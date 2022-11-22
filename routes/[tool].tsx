@@ -57,13 +57,6 @@ export default function Tool(props: PageProps) {
   return (
     <Fragment>
       <Head>
-      {/* <script>
-          {`
-            if (true) {
-              document.getElementsByTagName('html')[0].classList.add('dark');
-            }
-          `}
-        </script> */}
         <style>{baseStyles}</style>
       </Head>
       <div class={background + " w-full h-full " + primaryText}>
