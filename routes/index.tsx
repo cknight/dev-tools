@@ -28,7 +28,7 @@ export default function Home() {
                   </svg>
                 </div>
                 <div class="px-6 py-4">
-                  <div class="font-bold text(2xl white) mb-2">Passwords</div>
+                  <div class="font-bold text(2xl dark:white) mb-2">Passwords</div>
                   <p class="">
                     Securely generate robust, strong and easy to type passwords.  Generated passwords:
                   </p>
@@ -50,7 +50,7 @@ export default function Home() {
                   </svg>
                 </div>
                 <div class="px-6 py-4">
-                  <div class="font-bold text(2xl white) mb-2">Encoding/Decoding</div>
+                  <div class="font-bold text(2xl dark:white) mb-2">Encoding/Decoding</div>
                   <p class="">
                     Encode, decode or convert text between different formats.  Examples include:
                   </p>
@@ -70,7 +70,7 @@ export default function Home() {
                   </svg>            
                 </div>
                 <div class="px-6 py-4">
-                  <div class="font-bold text(2xl white) mb-2">Formatting</div>
+                  <div class="font-bold text(2xl dark:white) mb-2">Formatting</div>
                   <p class="">
                     Format your data and code.  Features include:
                   </p>
@@ -91,7 +91,7 @@ export default function Home() {
                   </svg>
                 </div>
                 <div class="px-6 py-4">
-                  <div class="font-bold text(2xl white) mb-2">Diffs</div>
+                  <div class="font-bold text(2xl dark:white) mb-2">Diffs</div>
                   <p class="">
                     Produce a visual comparison of the differences between two sets of text. Features include:
                   </p>
