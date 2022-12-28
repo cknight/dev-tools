@@ -46,15 +46,15 @@ export default function TextDiff() {
     <Head>
         <title>Text-diff</title>
     </Head>
-    <div class="w-full mt-12 mb-4 py-6 px-2 mx-auto sm:px-4 bg-gray-100 shadow-md rounded">
+    <div class="w-full mt-12 mb-4 py-6 px-2 mx-auto sm:px-4 bg(gray-100 dark:[#272727]) shadow-md rounded">
       <div class="flex mb-3">
         <div class="w-1/2 mr-2">
           <label for="left" class={`${labelStyle}`}>Left:</label>
-          <textarea id="left" ref={leftRef} class="shadow-md font-mono text-xs w-full h-40 p-3"/>
+          <textarea id="left" ref={leftRef} class="border(& gray-300 dark:gray-600) shadow-md font-mono text-xs w-full h-40 p-3 dark:bg-[#353535] focus:outline-none focus:ring-1 focus:ring-blue-400"/>
         </div>
         <div class="w-1/2 ml-2">
           <label for="right" class={`${labelStyle}`}>Right:</label>
-          <textarea id="right" ref={rightRef} class="shadow-md font-mono text-xs w-full h-40 p-3"/>
+          <textarea id="right" ref={rightRef} class="border(& gray-300 dark:gray-600) shadow-md font-mono text-xs w-full h-40 p-3 dark:bg-[#353535] focus:outline-none focus:ring-1 focus:ring-blue-400"/>
         </div>
       </div>
 

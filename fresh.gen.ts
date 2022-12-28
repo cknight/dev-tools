@@ -8,11 +8,12 @@ import * as $1 from "./routes/_404.tsx";
 import * as $2 from "./routes/_middleware.ts";
 import * as $3 from "./routes/about.tsx";
 import * as $4 from "./routes/index.tsx";
-import * as $$0 from "./islands/EncoderDecoder.tsx";
-import * as $$1 from "./islands/FormatValidate.tsx";
-import * as $$2 from "./islands/Menu.tsx";
-import * as $$3 from "./islands/PasswordGenerator.tsx";
-import * as $$4 from "./islands/TextDiff.tsx";
+import * as $$0 from "./islands/DarkMode.tsx";
+import * as $$1 from "./islands/EncoderDecoder.tsx";
+import * as $$2 from "./islands/FormatValidate.tsx";
+import * as $$3 from "./islands/Menu.tsx";
+import * as $$4 from "./islands/PasswordGenerator.tsx";
+import * as $$5 from "./islands/TextDiff.tsx";
 
 const manifest = {
   routes: {
@@ -23,11 +24,12 @@ const manifest = {
     "./routes/index.tsx": $4,
   },
   islands: {
-    "./islands/EncoderDecoder.tsx": $$0,
-    "./islands/FormatValidate.tsx": $$1,
-    "./islands/Menu.tsx": $$2,
-    "./islands/PasswordGenerator.tsx": $$3,
-    "./islands/TextDiff.tsx": $$4,
+    "./islands/DarkMode.tsx": $$0,
+    "./islands/EncoderDecoder.tsx": $$1,
+    "./islands/FormatValidate.tsx": $$2,
+    "./islands/Menu.tsx": $$3,
+    "./islands/PasswordGenerator.tsx": $$4,
+    "./islands/TextDiff.tsx": $$5,
   },
   baseUrl: import.meta.url,
   config,

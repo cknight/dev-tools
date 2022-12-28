@@ -180,7 +180,9 @@ export default function FormatValidate() {
         printMargin: false,
         readOnly: true
       });
-      //editor.value.setTheme("ace/theme/monokai")
+      if (document.querySelector('html.dark')) {
+        editor.value.setTheme("ace/theme/idle_fingers")
+      }
       editor.value.getSession().setUseWrapMode(true);
       editor.value.getSession().on("changeAnnotation", () => {
         const annotations = editor.value.getSession().getAnnotations();
@@ -210,7 +212,11 @@ export default function FormatValidate() {
   }
 
   function fullscreen() {
-    output.current!.setAttribute("style", "position: absolute; inset: 0px; width: 100%; height: 100%; background: white; margin: auto; padding: 10px");
+    if (document.querySelector('html.dark')) {
+      output.current!.setAttribute("style", "position: absolute; inset: 0px; width: 100%; height: 100%; background: #303030; margin: auto; padding: 10px");
+    } else {
+      output.current!.setAttribute("style", "position: absolute; inset: 0px; width: 100%; height: 100%; background: white; margin: auto; padding: 10px");
+    }
     restoreButton.current!.classList.remove("hidden");
     fullscreenButton.current!.classList.add("hidden");
     editor.value.resize();
@@ -259,14 +265,14 @@ export default function FormatValidate() {
         <link rel="stylesheet" href="/default.min.css"/>
         <script defer src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.11.1/ace.js"></script>
       </Head>
-      <div class="flex flex-col h-full max-h-full w-full pb-2 mb-2 mt-3 sm:mt-6 lg:mt-8 mx-auto sm:px-3 px-2 bg-gray-100 shadow-md rounded">
+      <div class="flex flex-col h-full max-h-full w-full pb-2 mb-2 mt-3 sm:mt-6 lg:mt-8 mx-auto sm:px-3 px-2 bg(gray-100 dark:[#272727]) shadow-md rounded">
           <div class="flex mt-3">
             <div class="flex items-baseline gap-5">
               <label for="language" class={`${labelStyle}`}>Language</label>
               <select id="language" disabled
                   ref={languageRef} 
                   onChange={() => processInput()} 
-                  class="block p-2 mb-6 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-blue-400 focus:ring-1">
+                  class="block p-2 mb-6 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-blue-400 focus:ring-1 dark:bg-[#353535]">
                     <option value="">Please select</option>
                     <optgroup label="Data">
                       {/*value format is [prettier parser, ace mode, download extension, mime type]*/}
@@ -293,7 +299,7 @@ export default function FormatValidate() {
           <div class={`h-full max-h-full mb-3 flex flex-col sm:flex-row`}>
             <div class="flex flex-col mx-px h-1/2 sm:h-full sm:w-1/2">
               <label for="input" class={`${labelStyle}`}>Input</label>
-              <textarea id="input" ref={codeInput} style="resize:none;" class="resize-x h-full border-1 focus:outline-none focus:ring-1 focus:ring-blue-400 font-mono text-sm w-full p-3" onInput={() => processInput()}/>
+              <textarea id="input" ref={codeInput} style="resize:none;" class="border(& gray-300 dark:gray-600) mt-1 resize-x h-full focus:outline-none focus:ring-1 focus:ring-blue-400 font-mono text-sm w-full p-3 dark:bg-[#353535]" onInput={() => processInput()}/>
             </div>
             <div ref={output} class="flex flex-col mx-px h-1/2 sm:h-full sm:w-1/2 overflow-auto">
               <div class="flex justify-between mr-1 mb-1">
@@ -302,37 +308,37 @@ export default function FormatValidate() {
                 (errors.value > 0 || warnings.value > 0 || infos.value > 0) && 
                 <Fragment>
                   <div id="validity" class="text-sm font-bold">
-                    {errors.value > 0 && <span role="button" aria-label="jump to next error" tabIndex={0} onClick={() => jumpToNext('error')} class={annotationStyle + " text-red-600"}>Errors: {errors.value}</span>}
-                    {warnings.value > 0 && <span role="button" aria-label="jump to next warning" tabIndex={0} onClick={() => jumpToNext('warning')} class={annotationStyle + " text-[#d43900]"}>Warnings: {warnings.value}</span>}
-                    {infos.value > 0 && <span role="button" aria-label="jump to next info" tabIndex={0} onClick={() => jumpToNext('info')} class={annotationStyle + " text-blue-600"}>Info: {infos.value}</span>}
+                    {errors.value > 0 && <span role="button" aria-label="jump to next error" tabIndex={0} onClick={() => jumpToNext('error')} class={annotationStyle + " text-red-600 dark:text-[#E76A6A]"}>Errors: {errors.value}</span>}
+                    {warnings.value > 0 && <span role="button" aria-label="jump to next warning" tabIndex={0} onClick={() => jumpToNext('warning')} class={annotationStyle + " text-[#d43900] dark:text-[#D6B300]"}>Warnings: {warnings.value}</span>}
+                    {infos.value > 0 && <span role="button" aria-label="jump to next info" tabIndex={0} onClick={() => jumpToNext('info')} class={annotationStyle + " text-blue-600 dark:text-[#6B94F5]"}>Info: {infos.value}</span>}
                     {errors.value ==0 && warnings.value == 0 && infos.value == 0 && hasOutput.value
                       && <span class="px-2 text-green-500">Valid</span>}
                   </div>
                 </Fragment>
                 }
                 <div id="buttons" class="h-full flex gap-1">
-                  <button onClick={clear} aria-label="Clear all" title="Clear all" class="h-full bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold px-2 my-px rounded inline-flex items-center focus:outline-none focus:ring-1 focus:ring-blue-400">
+                  <button onClick={clear} aria-label="Clear all" title="Clear all" class="h-full bg(gray-300 hover:gray-400 dark:[#505050] dark:hover:[#606060]) text-gray-800 font-bold px-2 my-px rounded inline-flex items-center focus:outline-none focus:ring-1 focus:ring-blue-400">
                     <svg class="fill-current w-3 h-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill-rule="evenodd" clip-rule="evenodd">
                       <path d="M5.662 23l-5.369-5.365c-.195-.195-.293-.45-.293-.707 0-.256.098-.512.293-.707l14.929-14.928c.195-.194.451-.293.707-.293.255 0 .512.099.707.293l7.071 7.073c.196.195.293.451.293.708 0 .256-.097.511-.293.707l-11.216 11.219h5.514v2h-12.343zm3.657-2l-5.486-5.486-1.419 1.414 4.076 4.072h2.829zm6.605-17.581l-10.677 10.68 5.658 5.659 10.676-10.682-5.657-5.657z"/>
                     </svg>
                   </button>
-                  <button onClick={copyToClipboard} aria-label="Copy output" title="Copy output" class="h-full bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold px-2 my-px rounded inline-flex items-center focus:outline-none focus:ring-1 focus:ring-blue-400">
+                  <button onClick={copyToClipboard} aria-label="Copy output" title="Copy output" class="h-full bg(gray-300 hover:gray-400 dark:[#505050] dark:hover:[#606060]) text-gray-800 font-bold px-2 my-px rounded inline-flex items-center focus:outline-none focus:ring-1 focus:ring-blue-400">
                     <svg class="fill-current w-3 h-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M18 6v-6h-18v18h6v6h18v-18h-6zm-12 10h-4v-14h14v4h-10v10zm16 6h-14v-14h14v14z"/></svg>                    
                   </button>
-                  <button onClick={download} aria-label="Download output" title="Download output" class="h-full bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold px-2 my-px rounded inline-flex items-center focus:outline-none focus:ring-1 focus:ring-blue-400">
+                  <button onClick={download} aria-label="Download output" title="Download output" class="h-full bg(gray-300 hover:gray-400 dark:[#505050] dark:hover:[#606060]) text-gray-800 font-bold px-2 my-px rounded inline-flex items-center focus:outline-none focus:ring-1 focus:ring-blue-400">
                     <svg class="fill-current w-3 h-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
                   </button>
-                  <button ref={fullscreenButton} onClick={fullscreen} aria-label="Fullscreen" title="Fullscreen" class="h-full bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold px-2 my-px rounded items-center focus:outline-none focus:ring-1 focus:ring-blue-400">
+                  <button ref={fullscreenButton} onClick={fullscreen} aria-label="Fullscreen" title="Fullscreen" class="h-full bg(gray-300 hover:gray-400 dark:[#505050] dark:hover:[#606060]) text-gray-800 font-bold px-2 my-px rounded items-center focus:outline-none focus:ring-1 focus:ring-blue-400">
                     <svg class="fill-current w-3 h-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M24 9h-2v-5h-7v-2h9v7zm-9 13v-2h7v-5h2v7h-9zm-15-7h2v5h7v2h-9v-7zm9-13v2h-7v5h-2v-7h9z"/></svg>
                   </button>
-                  <button ref={restoreButton} onClick={restore} aria-label="Restore" title="Restore" class="hidden h-full bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold px-2 my-px rounded items-center focus:outline-none focus:ring-1 focus:ring-blue-400">
+                  <button ref={restoreButton} onClick={restore} aria-label="Restore" title="Restore" class="hidden h-full bg(gray-300 hover:gray-400 dark:[#505050] dark:hover:[#606060]) text-gray-800 font-bold px-2 my-px rounded items-center focus:outline-none focus:ring-1 focus:ring-blue-400">
                     <svg class="fill-current w-3 h-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M15 2h2v5h7v2h-9v-7zm9 13v2h-7v5h-2v-7h9zm-15 7h-2v-5h-7v-2h9v7zm-9-13v-2h7v-5h2v7h-9z"/></svg>
                   </button>
                 </div>
               </div>
-              <div id="editor" class="text-sm font-mono h-full max-h-full border-1 focus:outline-none focus:ring-1 focus:ring-blue-400 font-mono w-full p-3"></div>
+              <div id="editor" class="text-sm font-mono h-full max-h-full border(& gray-300 dark:gray-600) focus:outline-none focus:ring-1 focus:ring-blue-400 font-mono w-full p-3"></div>
               {formattedCode.value.length > 0 &&
-                <div id="footerbar" class="bg-gray-100 h-6 w-full bg-slate-300 text-xs text-gray-700 flex justify-between pt-2">
+                <div id="footerbar" class="bg(gray-100 dark:[#404040]) h-6 w-full text(xs gray-700 dark:[#eee]) flex justify-between pt-2">
                   <span class="pl-2">Size: <span>{size.value.toLocaleString()}</span> bytes</span>
                   <span class="pr-2">Ln: <span>{line}</span>, Col: <span>{col}</span></span>
                 </div>

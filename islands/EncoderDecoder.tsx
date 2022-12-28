@@ -75,25 +75,25 @@ export default function EncoderDecoder() {
   }
 
   return (
-    <div class="mt-4 sm:mt-6 lg:mt-8 max-w-7xl w-full mx-auto py-6 sm:px-3 px-2 bg-gray-100 shadow-md rounded pt-6">
+    <div class="mt-4 sm:mt-6 lg:mt-8 max-w-7xl w-full mx-auto py-6 sm:px-3 px-2 bg(gray-100 dark:[#272727]) shadow-md rounded pt-6">
       <label for="encodingType" class={`${labelStyle}`}>Encoding type</label>
       <select id="encodingType" 
           ref={encodingTypeRef} 
           onChange={() => encodingTypeChange()} 
-          class="block p-2 mb-6 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-blue-400 focus:ring-1">
+          class="block p-2 mb-6 text-sm rounded-lg dark:bg-[#353535] border(& gray-300 dark:gray-600) focus:outline-none focus:ring-blue-400 focus:ring-1">
         {registry.map(entry => 
           <option value={entry.selectValue}>{entry.displayName}</option>
         )}
       </select>
-      <p class={`text-red-600 text-sm ${selectedValue == 'JWT-decode' ? '' : 'hidden'}`}>WARNING: Decoded JWT content should not be trusted as no signature verification is undertaken.</p>
+      <p class={`text(red-600 dark:[#E76A6A] sm) ${selectedValue == 'JWT-decode' ? '' : 'hidden'}`}>WARNING: Decoded JWT content should not be trusted as no signature verification is undertaken.</p>
       <div class={`flex mt-4 flex-col sm:flex-row`}>
         <div style="flex-grow: 1" class="mx-px">
           <label for="input" class={`${labelStyle}`}>Input ({typeConfig.value.inputLabel}):</label>
-          <textarea id="input" ref={inputRef} class="border-1 focus:outline-none focus:ring-1 focus:ring-blue-400 font-mono text-sm w-full h-40 p-3" onInput={() => processInput()}/>
+          <textarea id="input" ref={inputRef} class="dark:bg-[#353535] border(& gray-300 dark:gray-600) focus:outline-none focus:ring-1 focus:ring-blue-400 font-mono text-sm w-full h-40 p-3" onInput={() => processInput()}/>
         </div>
         <div style="flex-grow: 1" class="mx-px">
           <label for="output" class={`${labelStyle}`}>Output ({typeConfig.value.outputLabel}):</label>
-          <textarea id="output" readonly class={`border-1 focus:outline-none focus:ring-1 focus:ring-blue-400 font-mono w-full h-40 p-3 text-sm ${outputError.value ? 'text-red-600': ''}`} value={output.value}/>
+          <textarea id="output" readonly class={`dark:bg-[#353535] border(& gray-300 dark:gray-600) focus:outline-none focus:ring-1 focus:ring-blue-400 font-mono w-full h-40 p-3 text-sm ${outputError.value ? 'text-red-600 dark:text-[#E76A6A]': ''}`} value={output.value}/>
         </div>
       </div>
       <div class="flex justify-center flex-wrap">
