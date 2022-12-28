@@ -40,6 +40,10 @@ export default function Menu(props:MenuProps) {
     }
   }
 
+  function goTo(location:string) {
+    window.location.href=location; 
+  }
+
   return (
     <Fragment>
       <Head>
@@ -220,16 +224,16 @@ export default function Menu(props:MenuProps) {
             </h1>
             <nav class="hidden md:block">
                 <ul class="flex items-center">
-                    <li class={PASSWORD_GENERATOR + " " + menuHeaderStyle}>
+                    <li onKeyPress={() => goTo('/password-generator')} onClick={() => goTo('/password-generator')} class={PASSWORD_GENERATOR + " " + menuHeaderStyle}>
                       <a href="/password-generator">Passwords</a>
                     </li>
-                    <li class={ENCODER_DECODER + " " + menuHeaderStyle}>
+                    <li onKeyPress={() => goTo('/encoding-decoding')} onClick={() => goTo('/encoding-decoding')} class={ENCODER_DECODER + " " + menuHeaderStyle}>
                       <a href="/encoding-decoding">Encoding</a>
                     </li>
-                    <li class={FORMATTER + " " + menuHeaderStyle}>
+                    <li onKeyPress={() => goTo('/format-validate')} onClick={() => goTo('/format-validate')} class={FORMATTER + " " + menuHeaderStyle}>
                       <a href="/format-validate">Formatting</a>
                     </li>
-                    <li class={TEXT_DIFF  + " " + menuHeaderStyle}>
+                    <li onKeyPress={() => goTo('/text-diff')} onClick={() => goTo('/text-diff')} class={TEXT_DIFF  + " " + menuHeaderStyle}>
                       <a href="/text-diff">Diffs</a>
                     </li>
                 </ul>
