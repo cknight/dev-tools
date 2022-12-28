@@ -308,9 +308,9 @@ export default function FormatValidate() {
                 (errors.value > 0 || warnings.value > 0 || infos.value > 0) && 
                 <Fragment>
                   <div id="validity" class="text-sm font-bold">
-                    {errors.value > 0 && <span role="button" aria-label="jump to next error" tabIndex={0} onClick={() => jumpToNext('error')} class={annotationStyle + " text-red-600"}>Errors: {errors.value}</span>}
-                    {warnings.value > 0 && <span role="button" aria-label="jump to next warning" tabIndex={0} onClick={() => jumpToNext('warning')} class={annotationStyle + " text-[#d43900]"}>Warnings: {warnings.value}</span>}
-                    {infos.value > 0 && <span role="button" aria-label="jump to next info" tabIndex={0} onClick={() => jumpToNext('info')} class={annotationStyle + " text-blue-600"}>Info: {infos.value}</span>}
+                    {errors.value > 0 && <span role="button" aria-label="jump to next error" tabIndex={0} onClick={() => jumpToNext('error')} class={annotationStyle + " text-red-600 dark:text-[#E76A6A]"}>Errors: {errors.value}</span>}
+                    {warnings.value > 0 && <span role="button" aria-label="jump to next warning" tabIndex={0} onClick={() => jumpToNext('warning')} class={annotationStyle + " text-[#d43900] dark:text-[#D6B300]"}>Warnings: {warnings.value}</span>}
+                    {infos.value > 0 && <span role="button" aria-label="jump to next info" tabIndex={0} onClick={() => jumpToNext('info')} class={annotationStyle + " text-blue-600 dark:text-[#6B94F5]"}>Info: {infos.value}</span>}
                     {errors.value ==0 && warnings.value == 0 && infos.value == 0 && hasOutput.value
                       && <span class="px-2 text-green-500">Valid</span>}
                   </div>

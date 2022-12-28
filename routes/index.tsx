@@ -12,7 +12,7 @@ export default function Home() {
         </style>
         <style>{baseStyles}</style>
       </Head>
-      <div class={background + " " + primaryText}>
+      <div class={background + " h-full " + primaryText}>
         <div class="p-4 mx-auto flex flex-col h-full">
           <Menu title="" page=""/>
           <p class="mt-10 font-semibold mx-auto text(xl sm:3xl md:[2.75rem])">Your Developer Toolbox</p>

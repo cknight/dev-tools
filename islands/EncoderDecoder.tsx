@@ -85,7 +85,7 @@ export default function EncoderDecoder() {
           <option value={entry.selectValue}>{entry.displayName}</option>
         )}
       </select>
-      <p class={`text-red-600 text-sm ${selectedValue == 'JWT-decode' ? '' : 'hidden'}`}>WARNING: Decoded JWT content should not be trusted as no signature verification is undertaken.</p>
+      <p class={`text(red-600 dark:[#E76A6A] sm) ${selectedValue == 'JWT-decode' ? '' : 'hidden'}`}>WARNING: Decoded JWT content should not be trusted as no signature verification is undertaken.</p>
       <div class={`flex mt-4 flex-col sm:flex-row`}>
         <div style="flex-grow: 1" class="mx-px">
           <label for="input" class={`${labelStyle}`}>Input ({typeConfig.value.inputLabel}):</label>
@@ -93,7 +93,7 @@ export default function EncoderDecoder() {
         </div>
         <div style="flex-grow: 1" class="mx-px">
           <label for="output" class={`${labelStyle}`}>Output ({typeConfig.value.outputLabel}):</label>
-          <textarea id="output" readonly class={`dark:bg-[#353535] border(& gray-300 dark:gray-600) focus:outline-none focus:ring-1 focus:ring-blue-400 font-mono w-full h-40 p-3 text-sm ${outputError.value ? 'text-red-600 dark:text-red-400': ''}`} value={output.value}/>
+          <textarea id="output" readonly class={`dark:bg-[#353535] border(& gray-300 dark:gray-600) focus:outline-none focus:ring-1 focus:ring-blue-400 font-mono w-full h-40 p-3 text-sm ${outputError.value ? 'text-red-600 dark:text-[#E76A6A]': ''}`} value={output.value}/>
         </div>
       </div>
       <div class="flex justify-center flex-wrap">

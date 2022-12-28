@@ -10,7 +10,7 @@ interface MenuProps {
 
 export default function Menu(props:MenuProps) {
 
-  const menuHeaderStyle="p-4 border(b-[3px] [#d43900] dark:[#da5d2f] opacity-0 dark:opacity-0 hover:opacity-100) text(hover:[#d43900] hover:dark:white) duration-200 cursor-pointer active hover:dark:bg-[#525252]";
+  const menuHeaderStyle="p-4 border(b-[3px] [#d43900] dark:[#FE9F2A] opacity-0 dark:opacity-0 hover:opacity-100) duration-200 cursor-pointer active hover:dark:bg-[#525252]";
 
   if (IS_BROWSER) {
     const menuItems: HTMLCollectionOf<Element> = document.getElementsByClassName(props.page);
@@ -22,7 +22,7 @@ export default function Menu(props:MenuProps) {
   }
 
   function setActiveMenuItem(menuItem: Element) {
-    menuItem.classList.add('border-opacity-100', 'dark:border-opacity-100');
+    menuItem.classList.add('dark:text-[#FE9F2A]', 'border-opacity-100', 'dark:border-opacity-100');
     menuItem.classList.remove('border-opacity-0', 'dark:border-opacity-0');
   }
   
@@ -133,8 +133,9 @@ export default function Menu(props:MenuProps) {
         }
         `}</style>
       </Head>
+      {/* Add this hidden div to allow css classes to be included */}
+      <div class="hidden dark:text-[#FE9F2A]"></div>
       <div id="popupMenu" class="hidden w-[180px] bg(white dark:[#454545]) text(base left) z-50 absolute top-0 right-0 mt-20 list-none rounded shadow-lg min-w-48 mr-4">
-        <DarkMode />
         <a href="/password-generator" class={PASSWORD_GENERATOR + " flex md:hidden items-end p-4 border(r-8 [#d43900] opacity-0 hover:opacity-100) text(hover:[#d43900] hover:dark:white) duration-200 cursor-pointer active hover:dark:bg-[#525252]"}>
           <div class="w-[20px] mr-2 flex justify-center items-center">
             <svg class="h-[30px]" version="1.1" id="Layer_1" x="0px" y="0px" width="94.38px" height="122.88px" viewBox="0 0 94.38 122.88" enable-background="new 0 0 94.38 122.88" >
@@ -217,7 +218,7 @@ export default function Menu(props:MenuProps) {
                   <p class="block ml-2 font-semibold text-lg">Dev&nbsp;Tools</p>
                 </a>
             </h1>
-            <nav class="hidden md:block font-semibold text-m">
+            <nav class="hidden md:block">
                 <ul class="flex items-center">
                     <li class={PASSWORD_GENERATOR + " " + menuHeaderStyle}>
                       <a href="/password-generator">Passwords</a>
@@ -233,7 +234,9 @@ export default function Menu(props:MenuProps) {
                     </li>
                 </ul>
             </nav>
-            <div class="ml-2">
+            <div class="ml-2 flex items-center">
+            <DarkMode />
+
               <div id="menu" tabIndex={0} onKeyPress={toggleMenu} onClick={toggleMenu}>
                 <span></span>
                 <span></span>
