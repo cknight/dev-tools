@@ -20,6 +20,7 @@ export const background = "bg-white dark:bg-[#303030]";
 export const primaryText = "text-gray-900 dark:text-gray-100";
 export const linkStyles = "text([#0000ee] visited:[#551A8B] dark:[#8cb4ff] dark:visited:[#cda9ef])";
 export const baseStyles = `
+  html, body {height: 100%;}
   path {fill:#d43900}
   button path {fill: #333}
   html.dark path {fill: #FE9F2A;}
