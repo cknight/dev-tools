@@ -23,7 +23,5 @@ export const baseStyles = `
   path {fill:#d43900}
   button path {fill: #333}
   html.dark path {fill: #FE9F2A;}
-  html.dark {
-    background-color:#303030;
-  }
+  html.dark {background-color:#303030;}
   html.dark button path {fill: #eee;}`; //#FE9F2A;#ff9975
