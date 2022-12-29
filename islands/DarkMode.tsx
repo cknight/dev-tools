@@ -18,7 +18,7 @@ export default function DarkMode() {
     <Fragment>
       <Head>
         <style>
-          {`html {background-color: black} body {visibility: hidden; opacity: 0;}`}
+          {`html body {visibility: hidden; opacity: 0;}`}
         </style>
         <noscript>
           <style>
