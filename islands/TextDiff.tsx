@@ -1,4 +1,4 @@
-import { Head } from "$fresh/runtime.ts";
+import { Head, IS_BROWSER } from "$fresh/runtime.ts";
 import { useRef, useState } from "preact/hooks";
 import { buttonStyle, labelStyle } from "../util/styles.ts";
 import { textDiff } from "../util/textDiff.ts";
@@ -37,6 +37,17 @@ export default function TextDiff() {
     if (diff) {
       processDiff();
     }
+  }
+
+  if (IS_BROWSER) {
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        document.getElementById('left')!.style.height = "" + entry.borderBoxSize[0].blockSize + "px";
+        document.getElementById('right')!.style.height = "" + entry.borderBoxSize[0].blockSize + "px";
+      }
+    });
+    resizeObserver.observe(document.getElementById('left')!);
+    resizeObserver.observe(document.getElementById('right')!);
   }
 
   const textAreaStyle = "";
