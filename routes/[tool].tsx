@@ -46,7 +46,6 @@ export default function Tool(props: PageProps) {
     pageName = ENCODER_DECODER;
     title = "- Encode/Decode"
   } else {
-    console.log('No tool selected')
     const toolNotFound = new Error("Tool not found");
     //@ts-ignore - this is a custom error code
     toolNotFound.code = "404";
