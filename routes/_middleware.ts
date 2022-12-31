@@ -25,6 +25,7 @@ export async function handler(
       && !url.includes("/wp-includes/")
       && !url.includes(".git/")
       && !url.includes(".htaccess")
+      && !url.includes("sitemap")
   ) {
     const referrer = req.headers.get("referer") || 'no-referer';
     const region = Deno.env.get("DENO_REGION") || 'no-region';

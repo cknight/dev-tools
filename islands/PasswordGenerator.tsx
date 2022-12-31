@@ -217,7 +217,7 @@ export default function PasswordGenerator() {
   return (
     <Fragment>
       <Head>
-        <title>Generate easy to remember secure passwords</title>
+        <meta name="description" content="Easily generate usable and secure passwords" />
       </Head>
       <div class="max-w-5xl w-full mx-auto sm:px-3 lg:px-8">
         <div class="sm:px-4 py-6 px-0">
