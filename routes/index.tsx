@@ -7,7 +7,9 @@ export default function Home() {
   return (
     <Fragment>
       <Head>
-      <style>
+        <title>Dev Tools</title>
+        <meta name="description" content="Easy and powerful developer tools.  No ads, trackers or cookies.  No data submitted.  Total privacy." />
+        <style>
           {`body {visibility: hidden; opacity: 0;}`}
         </style>
         <style>{baseStyles}</style>

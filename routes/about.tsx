@@ -10,6 +10,8 @@ export default function About() {
   return (
     <Fragment>
       <Head>
+        <title>About</title>
+        <meta name="description" content="About Dev-Tools" />
         <style>{baseStyles}</style>
       </Head>
       <body class={background + " " + primaryText}>

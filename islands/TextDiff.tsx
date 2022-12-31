@@ -55,7 +55,7 @@ export default function TextDiff() {
   return (
     <Fragment>
     <Head>
-        <title>Text-diff</title>
+      <meta name="description" content="Compare two blocks of text and highlight differences (diff)"/>
     </Head>
     <div class="w-full mt-12 mb-4 py-6 px-2 mx-auto sm:px-4 bg(gray-100 dark:[#272727]) shadow-md rounded">
       <div class="flex mb-3">
