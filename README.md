@@ -2,12 +2,12 @@
 
 https://dev-tools.deno.dev/
 
-Dev-tools is an open source web based collection of online tools for use in software development.  The goals of these tools are:
+Dev-tools is an open source web-based collection of online tools for use in software development.  The goals of these tools are:
 
 * Provide a simple, easy to use interface
-* Be lightning fast (score 100% in Lighthouse performance)
+* Be lightning fast
 * Have a strong privacy and security focus
-* Be accessible and responsive
+* Be accessible for humans and mobile devices
 * Be useful
 
 ## Tools
