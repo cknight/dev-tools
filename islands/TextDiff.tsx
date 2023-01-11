@@ -1,10 +1,9 @@
-import { Head, IS_BROWSER } from "$fresh/runtime.ts";
+import { IS_BROWSER } from "$fresh/runtime.ts";
 import { useRef, useState } from "preact/hooks";
 import { buttonStyle, labelStyle } from "../util/styles.ts";
 import { textDiff } from "../util/textDiff.ts";
 import { DiffTableRowResult } from "../util/diffModel.ts";
 import { DiffOutput } from "../components/diffOutput.tsx";
-import { Fragment } from "preact/jsx-runtime";
 
 export default function TextDiff() {
   const leftRef = useRef(null);
@@ -53,10 +52,6 @@ export default function TextDiff() {
   const textAreaStyle = "";
 
   return (
-    <Fragment>
-    <Head>
-      <meta name="description" content="Compare two blocks of text and highlight differences (diff)"/>
-    </Head>
     <div class="w-full mt-12 mb-4 py-6 px-2 mx-auto sm:px-4 bg(gray-100 dark:[#272727]) shadow-md rounded">
       <div class="flex mb-3">
         <div class="w-1/2 mr-2">
@@ -83,6 +78,5 @@ export default function TextDiff() {
       <DiffOutput diffContent={diff}/>
       <script type="text/javascript" src="./diff_match_patch.js"></script>
     </div>
-    </Fragment>
   );
 }

@@ -4,8 +4,7 @@ import { registry } from "../util/encoderRegistry.ts";
 import { EncoderRegistryEntry } from "../types.ts";
 import { Toast } from "../components/toast.tsx";
 import { buttonStyle, labelStyle } from "../util/styles.ts";
-import { Head, IS_BROWSER } from "$fresh/runtime.ts";
-import { Fragment } from "preact/jsx-runtime";
+import { IS_BROWSER } from "$fresh/runtime.ts";
 
 export default function EncoderDecoder() {
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -76,10 +75,6 @@ export default function EncoderDecoder() {
   }
 
   return (
-    <Fragment>
-      <Head>
-        <meta name="description" content="Transform, encode and decode data in various formats, including Base64, HTML entity, URI and numerical conversions."/>
-      </Head>
       <div class="mt-4 sm:mt-6 lg:mt-8 max-w-7xl w-full mx-auto py-6 sm:px-3 px-2 bg(gray-100 dark:[#272727]) shadow-md rounded pt-6">
         <label for="encodingType" class={`${labelStyle}`}>Encoding type</label>
         <select id="encodingType" 
@@ -111,6 +106,5 @@ export default function EncoderDecoder() {
         </div>
         <Toast id="outputCopiedToast" message="Output copied to clipboard" fade={fade.value} type="info"/>
     </div>
-    </Fragment>
     );
 }

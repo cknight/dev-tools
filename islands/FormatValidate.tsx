@@ -262,7 +262,6 @@ export default function FormatValidate() {
   return (
     <Fragment>
       <Head>
-        <meta name="description" content="Format code online including JSON, XML, YAML, Graphql, Javascript, Typescript, HTML, CSS, Less, Markdown and SCSS."/>
         <link rel="stylesheet" href="/default.min.css"/>
         <script defer src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.11.1/ace.js"></script>
       </Head>

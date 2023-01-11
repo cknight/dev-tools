@@ -1,3 +1,5 @@
+import { ComponentType, VNode } from "https://esm.sh/v95/preact@10.11.0/src/index";
+
 export interface EncodeDecodeError {
   msg: string,
   err: Error
@@ -20,3 +22,9 @@ export interface EncoderRegistryEntry {
   outputLabel: string,
 }
 
+export interface Tool {
+  displayName: string,
+  metaDescription: string,
+  pageTitle: string,
+  island: ComponentType,
+}
