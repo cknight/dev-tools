@@ -67,6 +67,8 @@ export default function FormatValidate() {
 
     switch(prettierParser) {
       case "json":
+        format(prettierParser, aceMode);
+        break;
       case "json5":
       case "babel-ts":
           if (libsLoaded.value.get("/prettier/parser-babel.js") == undefined) {
@@ -135,22 +137,12 @@ export default function FormatValidate() {
     formattedCode.value = codeInput.current!.value;
     if (prettierParser != '-') {
       //Format the input data
-      try {
-        //@ts-ignore - prettier is a global export from standalone.js 
-        formattedCode.value = prettier.format(codeInput.current!.value, 
-          {
-            parser: prettierParser, 
-            //@ts-ignore - prettierPlugins is a global export from standalone.js 
-            plugins: prettierPlugins, 
-            htmlWhitespaceSensitivity: "ignore", 
-            printWidth: 120
-          });
-      } catch(e) {
-        // Stick with original formatting in the event of an error
-        console.log(e);
-      }
+      if ("json" === prettierParser) {
+        formatJson();
+      } else {
+        formatTypeWithPrettier(prettierParser);
     }
-
+      
     editor.value.session.setMode("ace/mode/" + aceMode);
     editor.value.session.setValue(formattedCode.value);
     size.value = new Blob([formattedCode.value]).size;
@@ -158,6 +150,33 @@ export default function FormatValidate() {
     isValidityPossible.value = validityLangs.includes(aceMode);
     console.log('processing took', (new Date().getTime() - start) + "ms");
   }
+
+  function formatJson() {
+      try {
+        formattedCode.value = JSON.stringify(JSON.parse(codeInput.current!.value), null, 4);
+      } catch (e) {
+        console.log(e);
+      }
+  }
+
+  function formatTypeWithPrettier(prettierParser: string) {
+    try {
+      //@ts-ignore - prettier is a global export from standalone.js 
+      formattedCode.value = prettier.format(codeInput.current!.value, 
+        {
+          parser: prettierParser, 
+          //@ts-ignore - prettierPlugins is a global export from standalone.js 
+          plugins: prettierPlugins, 
+          htmlWhitespaceSensitivity: "ignore", 
+          printWidth: 120
+        });
+    } catch(e) {
+      // Stick with original formatting in the event of an error
+      console.log(e);
+    }
+  }
+  }
+
 
   // deno-lint-ignore no-explicit-any
   function dynamicallyLoadJs(url: string, onload: (this: GlobalEventHandlers, ev: Event) => any) {
