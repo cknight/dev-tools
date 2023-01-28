@@ -18,11 +18,8 @@ export default function Menu(props:MenuProps) {
     for (let i=0; i < menuItems.length; i++) {
       setTimeout(() => {
         setActiveMenuItem(menuItems[i]);
-      }, 0);
+      }, 0); 
     }
-
-    setTimeout(() => {toggleMenu()}, 0);
-
   }
 
   function setActiveMenuItem(menuItem: Element) {
@@ -52,7 +49,11 @@ export default function Menu(props:MenuProps) {
     <Fragment>
       <Head>
         <style>{`
-
+        .dark {
+          /* allows for dark scheme scroll bars */
+          color-scheme: dark;
+        }
+        
         #menu {
           width: 30px;
           height: 15px;
@@ -147,11 +148,11 @@ export default function Menu(props:MenuProps) {
         <header id="logoAndName" class="bg(white dark:[#454545]) shadow(md) dark:text-[#ffffff] flex items-center px-2 py-02 h-[59px]">
           <div id="hamburger_menu">
             <div id="menu" class="mb-4" tabIndex={0} onKeyPress={toggleMenu} onClick={toggleMenu}>
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
-            <nav id="popupMenu" class="hidden w-[250px] bg(white dark:[#454545]) text(base left) z-50 absolute top-0 left-0 mt-20 list-none rounded shadow-lg min-w-48 ml-4">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <nav id="popupMenu" class="hidden overflow-y-auto h-[calc(100%-100px)] w-[275px] bg(white dark:[#454545]) text(base left) z-50 absolute top-0 left-0 mt-20 list-none rounded shadow-lg min-w-48 ml-4">
                   <MenuHeader text="Text Utils" icon={
                     <svg width="25px" height="25px" viewBox="0 0 512 512">
                       <g>
@@ -161,7 +162,7 @@ export default function Menu(props:MenuProps) {
                     </svg>
                   }/>
                   <MenuItem href="/text-diff" text="Text Diff" />
-                  <div class="block md:hidden h-0 mx-4 my-2 border(b-[1px] solid blueGray-100 dark:black)"></div>
+                  <div class="block h-0 mx-4 my-2 border(b-[1px] solid blueGray-100 dark:black)"></div>
 
                   <MenuHeader text="Cryptography/Security" icon={
                     <svg  width="25px" height="25px" viewBox="0 0 125 125">
@@ -171,18 +172,28 @@ export default function Menu(props:MenuProps) {
                     </svg>
                   }/>
                   <MenuItem href="/password-generator" text="Password Generator" />
-                  <div class="block md:hidden h-0 mx-4 my-2 border(b-[1px] solid blueGray-100 dark:black)"></div>
+                  <div class="block h-0 mx-4 my-2 border(b-[1px] solid blueGray-100 dark:black)"></div>
 
-                  <MenuHeader text="Encode/Decode" icon={
+                  <MenuHeader text="Encode" icon={
                     <svg width="25px" height="25px" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 512 378.01">
                       <path fill-rule="nonzero" d="M287.35 173.92H151.37v59.11c0 4.51-3.66 8.17-8.17 8.17-2.25 0-4.29-.91-5.77-2.39L2.93 126.84c-3.45-2.87-3.92-8.01-1.05-11.46.34-.41.72-.78 1.12-1.11L137.99 1.88c3.46-2.87 8.6-2.4 11.47 1.05a8.144 8.144 0 0 1 1.88 5.21h.03v59.11h135.98c4.51 0 8.17 3.66 8.17 8.17v90.33c0 4.51-3.66 8.17-8.17 8.17zm-62.7 30.17h135.98v-59.11a8.173 8.173 0 0 1 13.94-5.79l134.5 111.97a8.158 8.158 0 0 1-.07 12.58L374.01 376.13a8.15 8.15 0 0 1-11.47-1.06 8.098 8.098 0 0 1-1.88-5.2h-.03v-59.11H224.65c-4.51 0-8.17-3.66-8.17-8.17v-90.33c0-4.51 3.66-8.17 8.17-8.17zm144.15 16.34H232.82v73.98H368.8c4.51 0 8.17 3.66 8.17 8.18v49.88l114.17-95.05-114.17-95.04v49.88c0 4.51-3.66 8.17-8.17 8.17zm-225.6-62.85h135.98V83.6H143.2c-4.51 0-8.17-3.67-8.17-8.18V25.54L20.86 120.59l114.17 95.04v-49.88c0-4.51 3.66-8.17 8.17-8.17z"/>
                     </svg>
                   }/>
-                  <MenuItem href="/base64-encode-decdode" text="Base64" />
-                  <MenuItem href="/html-entity-encode-decdode" text="HTML entity" />
+                  <MenuItem href="/base64-encode" text="Base64" />
+                  <MenuItem href="/html-entity-encode" text="HTML entity" />
+                  <MenuItem href="/uri-encode" text="URI" />
+                  <div class="block h-0 mx-4 my-2 border(b-[1px] solid blueGray-100 dark:black)"></div>
+
+                  <MenuHeader text="Decode" icon={
+                    <svg width="25px" height="25px" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 512 378.01">
+                      <path fill-rule="nonzero" d="M287.35 173.92H151.37v59.11c0 4.51-3.66 8.17-8.17 8.17-2.25 0-4.29-.91-5.77-2.39L2.93 126.84c-3.45-2.87-3.92-8.01-1.05-11.46.34-.41.72-.78 1.12-1.11L137.99 1.88c3.46-2.87 8.6-2.4 11.47 1.05a8.144 8.144 0 0 1 1.88 5.21h.03v59.11h135.98c4.51 0 8.17 3.66 8.17 8.17v90.33c0 4.51-3.66 8.17-8.17 8.17zm-62.7 30.17h135.98v-59.11a8.173 8.173 0 0 1 13.94-5.79l134.5 111.97a8.158 8.158 0 0 1-.07 12.58L374.01 376.13a8.15 8.15 0 0 1-11.47-1.06 8.098 8.098 0 0 1-1.88-5.2h-.03v-59.11H224.65c-4.51 0-8.17-3.66-8.17-8.17v-90.33c0-4.51 3.66-8.17 8.17-8.17zm144.15 16.34H232.82v73.98H368.8c4.51 0 8.17 3.66 8.17 8.18v49.88l114.17-95.05-114.17-95.04v49.88c0 4.51-3.66 8.17-8.17 8.17zm-225.6-62.85h135.98V83.6H143.2c-4.51 0-8.17-3.67-8.17-8.18V25.54L20.86 120.59l114.17 95.04v-49.88c0-4.51 3.66-8.17 8.17-8.17z"/>
+                    </svg>
+                  }/>
+                  <MenuItem href="/base64-decdode" text="Base64" />
+                  <MenuItem href="/html-entity-decdode" text="HTML entity" />
                   <MenuItem href="/jwt-decdode" text="JWT" />
-                  <MenuItem href="/uri-encode-decdode" text="URI" />
-                  <div class="block md:hidden h-0 mx-4 my-2 border(b-[1px] solid blueGray-100 dark:black)"></div>
+                  <MenuItem href="/uri-decdode" text="URI" />
+                  <div class="block h-0 mx-4 my-2 border(b-[1px] solid blueGray-100 dark:black)"></div>
 
                   <MenuHeader text="Format/Validate" icon={
                     <svg width="25px" height="25px" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 512 386">
@@ -200,7 +211,7 @@ export default function Menu(props:MenuProps) {
                   <MenuItem href="/typescript-format-validate" text="Typescript/TSX" />
                   <MenuItem href="/xml-format-validate" text="XML" />
                   <MenuItem href="/yaml-format-validate" text="YAML" />
-                  <div class="block md:hidden h-0 mx-4 my-2 border(b-[1px] solid blueGray-100 dark:black)"></div>
+                  <div class="block h-0 mx-4 my-2 border(b-[1px] solid blueGray-100 dark:black)"></div>
 
                   <a href="./about" onKeyPress={() => goTo('/about')} class="flex items-end p-4 border(r-8 [#d43900] opacity-0 hover:opacity-100) text(hover:[#d43900] hover:dark:white) duration-200 cursor-pointer active hover:dark:bg-[#525252]">
                     <div class="w-[20px] mr-2 flex justify-center items-center">
@@ -234,7 +245,7 @@ export default function Menu(props:MenuProps) {
               </nav>
           </div>
           <div class="flex justify-between items-center w-full ml-5">
-            <h1>
+            <h1 class="hidden sm:block">
                 <a href="/" class="flex items-center">
                   <svg class="h-[30px]" viewBox="0 0 998.37738 995.2413">
                     <g id="layer1" transform="translate(679.96 312.86)">
@@ -244,7 +255,7 @@ export default function Menu(props:MenuProps) {
                   <p class="block ml-2 font-semibold text-lg">Dev&nbsp;Tools</p>
                 </a>
             </h1>
-            <div id="pageTitle" class="font-semibold text-lg">{props.title}</div>
+            <div id="pageTitle" class="font-semibold text-base sm:text-lg w-full text-center">{props.title}</div>
             <div class="ml-2 flex items-center">
               <DarkMode />
             </div>
