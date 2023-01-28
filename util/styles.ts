@@ -1,4 +1,4 @@
-export const labelStyle = `text-gray-700 text-sm dark:text-white font-semibold block mb-2`;
+export const labelStyle = `text-gray-700 text-m dark:text-white font-semibold block mb-2`;
 export const buttonStyle = `bg(blue-600 dark:blue-500 hover:blue-700 dark:hover:blue-600)
  text-white 
  font-bold 
