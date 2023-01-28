@@ -1,4 +1,4 @@
-import { ComponentType, VNode } from "https://esm.sh/v95/preact@10.11.0/src/index";
+import { ComponentType } from "https://esm.sh/v95/preact@10.11.0/src/index";
 
 export interface EncodeDecodeError {
   msg: string,
