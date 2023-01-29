@@ -144,8 +144,8 @@ export default function Menu(props:MenuProps) {
       </Head>
       {/* Add this hidden div to allow css classes to be included */}
       <div class="hidden dark:text-[#FE9F2A]"></div>
-      <div class="flex flex-col">
-        <header id="logoAndName" class="bg(white dark:[#454545]) shadow(md) dark:text-[#ffffff] flex items-center px-2 py-02 h-[59px]">
+      <div class="">
+        <header id="headerAndNavBar" class="relative bg(white dark:[#454545]) shadow(md) dark:text-[#ffffff] flex items-center px-2 py-02 h-[59px]">
           <div id="hamburger_menu">
             <div id="menu" class="mb-4" tabIndex={0} onKeyPress={toggleMenu} onClick={toggleMenu}>
               <span></span>
@@ -181,7 +181,7 @@ export default function Menu(props:MenuProps) {
                   }/>
                   <MenuItem href="/base64-encode" text="Base64" />
                   <MenuItem href="/html-entity-encode" text="HTML entity" />
-                  <MenuItem href="/uri-encode" text="URI" />
+                  <MenuItem href="/url-encode" text="URL" />
                   <div class="block h-0 mx-4 my-2 border(b-[1px] solid blueGray-100 dark:black)"></div>
 
                   <MenuHeader text="Decode" icon={
@@ -192,7 +192,7 @@ export default function Menu(props:MenuProps) {
                   <MenuItem href="/base64-decdode" text="Base64" />
                   <MenuItem href="/html-entity-decdode" text="HTML entity" />
                   <MenuItem href="/jwt-decdode" text="JWT" />
-                  <MenuItem href="/uri-decdode" text="URI" />
+                  <MenuItem href="/url-decdode" text="URL" />
                   <div class="block h-0 mx-4 my-2 border(b-[1px] solid blueGray-100 dark:black)"></div>
 
                   <MenuHeader text="Format/Validate" icon={
@@ -244,7 +244,7 @@ export default function Menu(props:MenuProps) {
                   </a>
               </nav>
           </div>
-          <div class="flex justify-between items-center w-full ml-5">
+          <div id="logo" class="flex ml-5">
             <h1 class="hidden sm:block">
                 <a href="/" class="flex items-center">
                   <svg class="h-[30px]" viewBox="0 0 998.37738 995.2413">
@@ -255,10 +255,10 @@ export default function Menu(props:MenuProps) {
                   <p class="block ml-2 font-semibold text-lg">Dev&nbsp;Tools</p>
                 </a>
             </h1>
-            <div id="pageTitle" class="font-semibold text-base sm:text-lg w-full text-center">{props.title}</div>
-            <div class="ml-2 flex items-center">
-              <DarkMode />
-            </div>
+          </div>
+          <div id="pageTitle" class="absolute left-0 right-0 mx-auto font-semibold text-base sm:text-lg text-center">{props.title}</div>
+          <div id="darkModeToggle" class="absolute right-2">
+            <DarkMode />
           </div>
         </header>
       </div>
