@@ -199,6 +199,7 @@ export default function Menu(props:MenuProps) {
           <MenuItem href="/html-format-validate" text="HTML" />
           <MenuItem href="/javascript-format-validate" text="Javascript/JSX" />
           <MenuItem href="/json-format-validate" text="JSON" />
+          <MenuItem href="/json5-format-validate" text="JSON5" />
           <MenuItem href="/less-format-validate" text="Less" />
           <MenuItem href="/markdown-format-validate" text="Markdown" />
           <MenuItem href="/scss-format-validate" text="SCSS" />
