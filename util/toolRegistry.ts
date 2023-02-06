@@ -2,7 +2,23 @@ import TextDiff from "../islands/TextDiff.tsx";
 import { Tool } from "../types.ts";
 import PasswordGenerator from "../islands/PasswordGenerator.tsx";
 import FormatValidate from "../islands/FormatValidate.tsx";
-import EncoderDecoder from "../islands/EncoderDecoder.tsx";
+import FormatValidate_Less from "../islands/FormatValidate_Less.tsx";
+import Base64Decode from "../islands/Decode_Base64.tsx";
+import HtmlEntityDecode from "../islands/Decode_HtmlEntity.tsx";
+import JwtDecode from "../islands/Decode_Jwt.tsx";
+import UrlDecode from "../islands/Decode_Url.tsx";
+import Base64Encode from "../islands/Encode_Base64.tsx";
+import HtmlEntityEncode from "../islands/Encode_HtmlEntity.tsx";
+import UrlEncode from "../islands/Encode_Url.tsx";
+import CssFormatValidate from "../islands/FormatValidate_Css.tsx";
+import GraphQLFormatValidate from "../islands/FormatValidate_GraphQL.tsx";
+import HtmlFormatValidate from "../islands/FormatValidate_Html.tsx";
+import JsonFormatValidate from "../islands/FormatValidate_Json.tsx";
+import Json5FormatValidate from "../islands/FormatValidate_Json5.tsx";
+import TypescriptFormatValidate from "../islands/FormatValidate_Typescript.tsx";
+import YamlFormatValidate from "../islands/FormatValidate_Yaml.tsx";
+import FormatValidate_Scss from "../islands/FormatValidate_Scss.tsx";
+import MarkdownFormatValidate from "../islands/FormatValidate_Markdown.tsx";
 
 export const toolRegistry:Map<string, Tool> = new Map([
   ["text-diff", {
@@ -17,46 +33,64 @@ export const toolRegistry:Map<string, Tool> = new Map([
     island: PasswordGenerator,
     pageTitle: "Password Generator - Dev Tools",
   }],
-  ["base64-encode-decdode", {
-    displayName: "Base64 Encode/Decode",
-    metaDescription: "Encode or decode a string to or from Base64.",
-    island: EncoderDecoder,
-    pageTitle: "Base64 Encode/Decode - Dev Tools",
+  ["base64-encode", {
+    displayName: "Base64 Encode",
+    metaDescription: "Encode a string to Base64.",
+    island: Base64Encode,
+    pageTitle: "Base64 Encode - Dev Tools",
   }],
-  ["html-entity-encode-decdode", {
-    displayName: "HTML Entity Encode/Decode",
-    metaDescription: "Encode or decode a string to or from HTML entities.",
-    island: EncoderDecoder,
-    pageTitle: "HTML Entity Encode/Decode - Dev Tools",
+  ["html-entity-encode", {
+    displayName: "HTML Entity Encode",
+    metaDescription: "Convert text within a string to entities for safe use within HTML or XML by encoding special characters",
+    island: HtmlEntityEncode,
+    pageTitle: "HTML Entity Encode - Dev Tools",
+  }],
+  ["url-encode", {
+    displayName: "URL Encode",
+    metaDescription: "Encode a string for safe use in a URL using URL encoding (also known as percent-encoding).",
+    island: UrlEncode,
+    pageTitle: "URL Encode - Dev Tools",
+  }],
+  ["base64-decode", {
+    displayName: "Base64 Decode",
+    metaDescription: "Decode a string from Base64.",
+    island: Base64Decode,
+    pageTitle: "Base64 Decode - Dev Tools",
+  }],
+  ["html-entity-decode", {
+    displayName: "HTML Entity Decode",
+    metaDescription: "Decode a string from HTML entities.",
+    island: HtmlEntityDecode,
+    pageTitle: "HTML Entity Decode - Dev Tools",
   }],
   ["jwt-decdode", {
     displayName: "JWT Decode",
-    metaDescription: "Decode a JWT token to see the contents.",
-    island: EncoderDecoder,
+    metaDescription: "Decode a JWT token to see the header, payload and signature parts.",
+    island: JwtDecode,
     pageTitle: "JWT Decode - Dev Tools",
   }],
-  ["uri-encode-decdode", {
-    displayName: "URI Encode/Decode",
-    metaDescription: "Encode a string for use in a URI or decode a URI to a string.",
-    island: EncoderDecoder,
-    pageTitle: "URI Encode/Decode - Dev Tools",
+  ["url-decode", {
+    displayName: "URL Decode",
+    metaDescription: "Decode an encoded URL (also known as percent encoded string) to a string.",
+    island: UrlDecode,
+    pageTitle: "URL Decode - Dev Tools",
   }],
   ["css-format-validate", {
     displayName: "CSS Format/Validate",
     metaDescription: "Format and validate CSS",
-    island: FormatValidate,
+    island: CssFormatValidate,
     pageTitle: "CSS Format/Validate - Dev Tools",
   }],
   ["graphql-format-validate", {
     displayName: "GraphQL Format/Validate",
     metaDescription: "Format and validate GraphQL",
-    island: FormatValidate,
+    island: GraphQLFormatValidate,
     pageTitle: "GraphQL Format/Validate - Dev Tools",
   }],
   ["html-format-validate", {
     displayName: "HTML Format/Validate",
     metaDescription: "Format and validate HTML",
-    island: FormatValidate,
+    island: HtmlFormatValidate,
     pageTitle: "HTML Format/Validate - Dev Tools",
   }],
   ["javascript-format-validate", {
@@ -67,32 +101,38 @@ export const toolRegistry:Map<string, Tool> = new Map([
   }],
   ["json-format-validate", {
     displayName: "JSON Format/Validate",
-    metaDescription: "Format and validate JSON, JSONC and JSON5",
-    island: FormatValidate,
+    metaDescription: "Format and validate JSON",
+    island: JsonFormatValidate,
     pageTitle: "JSON Format/Validate - Dev Tools",
+  }],
+  ["json5-format-validate", {
+    displayName: "JSON5 Format/Validate",
+    metaDescription: "Format and validate JSON5",
+    island: Json5FormatValidate,
+    pageTitle: "JSON5 Format/Validate - Dev Tools",
   }],
   ["less-format-validate", {
     displayName: "Less Format/Validate",
-    metaDescription: "Format and validate Less",
-    island: FormatValidate,
+    metaDescription: "Format and validate Less css",
+    island: FormatValidate_Less,
     pageTitle: "Less Format/Validate - Dev Tools",
   }],
   ["markdown-format-validate", {
     displayName: "Markdown Format/Validate",
     metaDescription: "Format and validate Markdown",
-    island: FormatValidate,
+    island: MarkdownFormatValidate,
     pageTitle: "Markdown Format/Validate - Dev Tools",
   }],
   ["scss-format-validate", {
     displayName: "SCSS Format/Validate",
     metaDescription: "Format and validate SCSS",
-    island: FormatValidate,
+    island: FormatValidate_Scss,
     pageTitle: "SCSS Format/Validate - Dev Tools",
   }],
   ["typescript-format-validate", {
     displayName: "Typescript/TSX Format/Validate",
     metaDescription: "Format and validate Typescript and TSX",
-    island: FormatValidate,
+    island: TypescriptFormatValidate,
     pageTitle: "Typescript/TSX Format/Validate - Dev Tools",
   }],
   ["xml-format-validate", {
@@ -104,7 +144,7 @@ export const toolRegistry:Map<string, Tool> = new Map([
   ["yaml-format-validate", {
     displayName: "YAML Format/Validate",
     metaDescription: "Format and validate YAML",
-    island: FormatValidate,
+    island: YamlFormatValidate,
     pageTitle: "YAML Format/Validate - Dev Tools",
   }],
 ]);
