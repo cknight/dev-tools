@@ -28,7 +28,7 @@ export default function Tool(props: PageProps) {
       <div class={background + " w-full h-full " + primaryText}>
         <div class="p-4 mx-auto flex flex-col h-full">
           <Menu title={toolEntry.displayName} page={props.params.tool}/>
-          <div class="mt-8">
+          <div class="mt-8 h-full">
             {jsx(toolEntry.island, {})}
           </div>
         </div>
