@@ -1,7 +1,6 @@
 import TextDiff from "../islands/TextDiff.tsx";
 import { Tool } from "../types.ts";
 import PasswordGenerator from "../islands/PasswordGenerator.tsx";
-import FormatValidate from "../islands/FormatValidate.tsx";
 import FormatValidate_Less from "../islands/FormatValidate_Less.tsx";
 import Base64Decode from "../islands/Decode_Base64.tsx";
 import HtmlEntityDecode from "../islands/Decode_HtmlEntity.tsx";
@@ -19,6 +18,8 @@ import TypescriptFormatValidate from "../islands/FormatValidate_Typescript.tsx";
 import YamlFormatValidate from "../islands/FormatValidate_Yaml.tsx";
 import FormatValidate_Scss from "../islands/FormatValidate_Scss.tsx";
 import MarkdownFormatValidate from "../islands/FormatValidate_Markdown.tsx";
+import JavascriptFormatValidate from "../islands/FormatValidate_Javascript.tsx";
+import XmlFormatValidate from "../islands/FormatValidate_Xml.tsx";
 
 export const toolRegistry:Map<string, Tool> = new Map([
   ["text-diff", {
@@ -96,7 +97,7 @@ export const toolRegistry:Map<string, Tool> = new Map([
   ["javascript-format-validate", {
     displayName: "Javascript/JSX Format/Validate",
     metaDescription: "Format and validate Javascript and JSX",
-    island: FormatValidate,
+    island: JavascriptFormatValidate,
     pageTitle: "Javascript/JSX Format/Validate - Dev Tools",
   }],
   ["json-format-validate", {
@@ -138,7 +139,7 @@ export const toolRegistry:Map<string, Tool> = new Map([
   ["xml-format-validate", {
     displayName: "XML Format/Validate",
     metaDescription: "Format and validate XML",
-    island: FormatValidate,
+    island: XmlFormatValidate,
     pageTitle: "XML Format/Validate - Dev Tools",
   }],
   ["yaml-format-validate", {
