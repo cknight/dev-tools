@@ -64,7 +64,7 @@ export const toolRegistry:Map<string, Tool> = new Map([
     island: HtmlEntityDecode,
     pageTitle: "HTML Entity Decode - Dev Tools",
   }],
-  ["jwt-decdode", {
+  ["jwt-decode", {
     displayName: "JWT Decode",
     metaDescription: "Decode a JWT token to see the header, payload and signature parts.",
     island: JwtDecode,

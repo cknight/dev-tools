@@ -183,10 +183,10 @@ export default function Menu(props:MenuProps) {
               <path fill-rule="nonzero" d="M287.35 173.92H151.37v59.11c0 4.51-3.66 8.17-8.17 8.17-2.25 0-4.29-.91-5.77-2.39L2.93 126.84c-3.45-2.87-3.92-8.01-1.05-11.46.34-.41.72-.78 1.12-1.11L137.99 1.88c3.46-2.87 8.6-2.4 11.47 1.05a8.144 8.144 0 0 1 1.88 5.21h.03v59.11h135.98c4.51 0 8.17 3.66 8.17 8.17v90.33c0 4.51-3.66 8.17-8.17 8.17zm-62.7 30.17h135.98v-59.11a8.173 8.173 0 0 1 13.94-5.79l134.5 111.97a8.158 8.158 0 0 1-.07 12.58L374.01 376.13a8.15 8.15 0 0 1-11.47-1.06 8.098 8.098 0 0 1-1.88-5.2h-.03v-59.11H224.65c-4.51 0-8.17-3.66-8.17-8.17v-90.33c0-4.51 3.66-8.17 8.17-8.17zm144.15 16.34H232.82v73.98H368.8c4.51 0 8.17 3.66 8.17 8.18v49.88l114.17-95.05-114.17-95.04v49.88c0 4.51-3.66 8.17-8.17 8.17zm-225.6-62.85h135.98V83.6H143.2c-4.51 0-8.17-3.67-8.17-8.18V25.54L20.86 120.59l114.17 95.04v-49.88c0-4.51 3.66-8.17 8.17-8.17z"/>
             </svg>
           }/>
-          <MenuItem href="/base64-decdode" text="Base64 decode" />
-          <MenuItem href="/html-entity-decdode" text="HTML entity decode" />
-          <MenuItem href="/jwt-decdode" text="JWT decode" />
-          <MenuItem href="/url-decdode" text="URL decode" />
+          <MenuItem href="/base64-decode" text="Base64 decode" />
+          <MenuItem href="/html-entity-decode" text="HTML entity decode" />
+          <MenuItem href="/jwt-decode" text="JWT decode" />
+          <MenuItem href="/url-decode" text="URL decode" />
           <div class="block h-0 mx-4 my-2 border(b-[1px] solid blueGray-100 dark:black)"></div>
 
           <MenuHeader text="Format/Validate" icon={
