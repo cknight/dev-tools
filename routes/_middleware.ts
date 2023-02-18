@@ -12,7 +12,7 @@ export async function handler(
       !url.includes("favicon.ico") 
       && !url.includes("diff_match_patch") 
       && !url.includes(".css")
-      && !url.includes("_frsh") 
+      //&& !url.includes("_frsh") 
       && !url.includes(".txt")
       //Ignore spam 
       && !url.includes(".php") 
