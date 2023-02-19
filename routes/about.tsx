@@ -20,10 +20,10 @@ export default function About() {
           <div id="contentContainer" class="max-w-4xl mx-auto">
             <div class="m-5">
               <h1 class="text-4xl font-bold mb-4">About</h1>
-              Dev-tools is an open source collection of online tools for use in software development.  The goals of these tools are:
+              Dev-tools is an open source collection of browser based tools for use in software development.  The goals of these tools are:
               <ul class="list-disc ml-7 mt-4">
                 <li>Provide a simple, easy to use interface</li>
-                <li>Be lightning fast (score 100% in Lighthouse performance)</li>
+                <li>Be lightning fast</li>
                 <li>Have a strong privacy and security focus</li>
                 <li>Be accessible and responsive</li>
                 <li>Be useful</li>
@@ -42,10 +42,10 @@ export default function About() {
                 <li>Does not use trackers, such as pixel trackers</li>
                 <li>Does not use ads</li>
               </ul>
-              <p class="text-xs mt-4 pl-2"><sup>*</sup> Generating new passwords will send the first 5 characters of the SHA1 hash 
-              of the password to the <i>Have I Been Pwned API</i> to allow the generator to assist the process of determining if the new password has been published 
+              <p class="text-xs mt-4 pl-2"><sup>*</sup> When using the password generator, generating new passwords will send the first 5 characters of the SHA1 hash 
+              of the password to the <i>Have I Been Pwned API</i> to determine if the generated password has been published 
               in a previous data breach. For more details on the security and privacy behind this, 
-              see the <a class={linkStyles} href="https://haveibeenpwned.com/API/v3#PwnedPasswords" target="_blank">API docs</a>.</p>
+              see the <a class={linkStyles} href="https://haveibeenpwned.com/API/v3#PwnedPasswords" target="_blank">API docs</a>.  For greater privacy, this option may be disabled.</p>
             </div>
             <div class="m-5">
               <h1 class="text-4xl font-bold mb-4">Contribute</h1>
@@ -57,9 +57,10 @@ export default function About() {
               <ul class="list-disc ml-7 mt-4">
                 <li>Google's <a class={linkStyles} href="https://github.com/google/diff-match-patch" target="_blank">diff-match-patch</a> library for text diff</li>
                 <li><a class={linkStyles} href="https://github.com/ABenassi87/ngx-text-diff">ngx-text-diff</a> for diff rendering</li>
-                <li>xkcd's iconic <a class={linkStyles} href="https://xkcd.com/936/">correcthorsebatterystaple comic</a> comic for password generation inspiration</li>
+                <li>xkcd's iconic <a class={linkStyles} href="https://xkcd.com/936/">correcthorsebatterystaple comic</a> for password generation inspiration</li>
                 <li>The excellent <a class={linkStyles} href="https://github.com/ajaxorg/ace">Ace javasript editor</a></li>
                 <li><a class={linkStyles} href="https://github.com/prettier/prettier">Prettier</a>  code formatting</li>
+                <li><a class={linkStyles} href="https://github.com/mathiasbynens/he">He</a> for HTML entity encoding/decoding</li>
               </ul>
             </div>
           </div>

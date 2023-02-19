@@ -5,7 +5,13 @@ export function isJWT(input:string): boolean {
   return jwtRegex.test(input.trim());
 }
 
-export function jwtToString(input:string): string | EncodeDecodeError {
+export interface JWTParts {
+  header: string,
+  payload: string,
+  signature: string
+}
+
+export function jwtToParts(input:string): JWTParts | EncodeDecodeError {
   try {
     const base64UrlHeader = input.split('.')[0];
     const base64Header = base64UrlHeader.replace(/-/g, '+').replace(/_/g, '/');
@@ -22,7 +28,7 @@ export function jwtToString(input:string): string | EncodeDecodeError {
     const jsonHeaderFormatted = JSON.stringify(JSON.parse(jsonHeader), null, 2);
     const jsonPayloadFormatted = JSON.stringify(JSON.parse(jsonPayload), null, 2);
     const unverifiedSignature = input.split('.')[2];
-    return `Header:\n${jsonHeaderFormatted}\n\nPayload:\n${jsonPayloadFormatted}\n\nUnverified signature:\n\n${unverifiedSignature}`;
+    return {header: jsonHeaderFormatted, payload: jsonPayloadFormatted, signature: unverifiedSignature};
    } catch (e) {
     return { msg: "Unable to decode JWT", err: e};
   }

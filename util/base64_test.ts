@@ -19,8 +19,7 @@ test({
   fn() {
     assertEquals(stringToBase64(""), "");
     assertEquals(stringToBase64("hello"), "aGVsbG8=");
-    assertEquals((stringToBase64("✓") as EncodeDecodeError).msg, "Unable to encode to Base64");
-    assert((stringToBase64("✓") as EncodeDecodeError).err);
+    assertEquals(stringToBase64("✓"), "4pyT");
   }
 });
 
@@ -29,6 +28,7 @@ test({
   fn() {
     assertEquals(base64ToString(""), "");
     assertEquals(base64ToString("aGVsbG8="), "hello");
-    assertEquals((base64ToString("✓") as EncodeDecodeError).msg, "Unable to decode from Base64");
+    assertEquals(base64ToString("4pyT"), "✓");
+    assertEquals((base64ToString("abc") as EncodeDecodeError).msg, "Unable to decode from Base64");
   }
 })

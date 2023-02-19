@@ -50,4 +50,5 @@ There is no build step.  Commits to the main branch pushed to GitHub will automa
 * [ngx-text-diff](https://github.com/ABenassi87/ngx-text-diff) for diff rendering
 * [xkcd](https://xkcd.com/936/) for password generation inspiration
 * [Ace](https://github.com/ajaxorg/ace) javascript editor
-* [Prettier](https://github.com/prettier/prettier) - code formatting 
+* [Prettier](https://github.com/prettier/prettier) for code formatting 
+* [He](https://github.com/mathiasbynens/he) for HTML entity encoding/decoding

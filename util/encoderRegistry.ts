@@ -2,7 +2,6 @@ import { EncoderRegistryEntry } from "../types.ts";
 import { base64ToString, isBase64, stringToBase64 } from "./base64.ts";
 import { binaryToDecimal, binaryToHex, decimalToBinary, decimalToHex, hexToBinary, hexToDecimal, isBinary, isDecimal, isHex } from "./binaryDecimalHex.ts";
 import { decodeHtmlEntities, encodeHtmlEntities } from "./htmlEntities.ts";
-import { isJWT, jwtToString } from "./jwt.ts";
 import { decodeUriInput, encodeUriInput } from "./uriEncoding.ts";
 
 function stringValidator(): boolean {
@@ -99,39 +98,19 @@ export const registry:EncoderRegistryEntry[] = [
       outputLabel: "HTML - raw",
   },
   {
-      selectValue: "JWT-decode",
-      displayName: "JWT - decode",
-      encoder: jwtToString,
-      isValidInput: isJWT,
-      inputLabel: "JWT - encoded",
-      outputLabel: "JSON",
-  },
-  {
-    selectValue: "uri-encode",
-    displayName: "URI - encode",
+    selectValue: "url-encode",
+    displayName: "URL - encode",
     encoder: encodeUriInput,
     isValidInput: stringValidator,
-    inputLabel: "URI component",
-    outputLabel: "Encoded URI component",
+    inputLabel: "URL component",
+    outputLabel: "Encoded URL component",
   },
   {
-    selectValue: "uri-decode",
-    displayName: "URI - decode",
+    selectValue: "url-decode",
+    displayName: "URL - decode",
     encoder: decodeUriInput,
     isValidInput: stringValidator,
-    inputLabel: "Encoded URI component",
-    outputLabel: "Decoded URI component",
+    inputLabel: "Encoded URL component",
+    outputLabel: "Decoded URL component",
   },
-        /*
-        <option value="binary-to-hex">Binary to Hex</option>
-        <option value="binary-to-decimal">Binary - Decimal</option>
-        <option value="decimal-to-hex">Decimal to Hex</option>
-        <option value="decimal-to-binary">Decimal to Binary</option>
-        <option value="hex-to-binary">Hex to Binary</option>
-        <option value="hex-to-decimal">Hex to Decimal</option>
-        <option value="html-entities-to-string">HTML Entities to String</option>
-        <option value="string-to-html-entities">String to HTML Entities</option>
-        <option value="string-to-url">String to URL</option>
-        <option value="url-to-string">URL to String</option> */
-
 ];

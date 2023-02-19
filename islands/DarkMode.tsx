@@ -59,7 +59,7 @@ export default function DarkMode() {
         id="theme-toggle"
         type="button"
         onClick={changeTheme}
-        class="mr-5 border(2 dark:[#909090] [#a0a0a0]) focus:(outline-1) rounded-lg text-sm p-2">
+        class="border(2 dark:[#909090] [#b0b0b0]) focus:(outline-1) rounded-lg text-sm p-2">
         <svg
           id="theme-dark-icon"
           class="w-5 h-5 hidden dark:block"

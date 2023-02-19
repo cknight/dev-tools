@@ -1,5 +1,7 @@
 import { MiddlewareHandlerContext } from "$fresh/server.ts";
 
+const hitCount = new Map<string, number>();
+
 export async function handler(
   req: Request,
   ctx: MiddlewareHandlerContext<unknown>,
@@ -7,6 +9,8 @@ export async function handler(
   const start = Date.now();
   const resp = await ctx.next();
   const url = req.url;
+  hitCount.set(url, (hitCount.get(url) || 0) + 1);
+
   if (
       //Ignore project specific files
       !url.includes("favicon.ico") 
@@ -29,7 +33,7 @@ export async function handler(
   ) {
     const referrer = req.headers.get("referer") || 'no-referer';
     const region = Deno.env.get("DENO_REGION") || 'no-region';
-    console.log(`${req.method} ${region} ${url} ${resp.status} ${Date.now() - start}ms ${referrer}`);
+    console.log(`${req.method} ${region} ${url} ${resp.status} ${Date.now() - start}ms ${referrer} count: ${hitCount.get(url)}`);
   }
 
   return resp;

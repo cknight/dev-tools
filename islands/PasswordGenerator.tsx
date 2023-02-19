@@ -1,12 +1,11 @@
 import { NumberPicker } from "../components/numberPicker.tsx";
 import { Checkbox } from "../components/checkbox.tsx";
 import { SeparatorInput } from "../components/separatorInput.tsx";
-import { Head, IS_BROWSER } from "$fresh/runtime.ts";
+import { IS_BROWSER } from "$fresh/runtime.ts";
 import { useSignal } from "@preact/signals";
 import { getSecureRandom } from "../util/secureRandom.ts";
 import shuffle from "https://deno.land/x/shuffle@v1.0.1/mod.ts";
 import { Toast } from "../components/toast.tsx";
-import { Fragment } from "preact/jsx-runtime";
 
 interface State {
   minLength: number;
@@ -215,10 +214,6 @@ export default function PasswordGenerator() {
                             items-center`;
 
   return (
-    <Fragment>
-      <Head>
-        <meta name="description" content="Easily generate usable and secure passwords" />
-      </Head>
       <div class="max-w-5xl w-full mx-auto sm:px-3 lg:px-8">
         <div class="sm:px-4 py-6 px-0">
           <div class="bg(gray-100 dark:[#272727]) shadow-md rounded px-2 sm:px-4 lg:px-8 pt-6 pb-8 mb-4">
@@ -273,6 +268,5 @@ export default function PasswordGenerator() {
         </div>
         <Toast id="passwordCopiedToast" message="Password copied to clipboard" fade={fade.value} type="info"/>
       </div>
-    </Fragment>
   );
 }

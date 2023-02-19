@@ -24,8 +24,8 @@ export function Checkbox(props: CheckboxProps) {
   const checkboxImg = `background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e");`;
   return <div class="flex align-center">
             <input class="appearance-none 
-                            h-7 
-                            w-7 
+                            h-5 
+                            w-5 
                             border(gray-300 dark:[#aaa])
                             rounded-sm 
                             bg(white no-repeat center contain)
