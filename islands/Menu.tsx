@@ -3,7 +3,6 @@ import { Head, IS_BROWSER } from "$fresh/runtime.ts";
 import DarkMode from "./DarkMode.tsx";
 import { MenuItem } from "../components/menuItem.tsx";
 import { MenuHeader } from "../components/menuHeader.tsx";
-import { linkStyles } from "../util/styles.ts";
 
 interface MenuProps {
   title: string;
@@ -21,6 +20,15 @@ export default function Menu(props:MenuProps) {
         setActiveMenuItem(menuItems[i]);
       }, 0); 
     }
+    const popupMenu = document.getElementById("popupMenu");
+    const menu = document.getElementById('menu');
+    setTimeout(() => {
+      document.addEventListener("click", (e) => {
+        if (popupMenu && menu && !menu.contains(e.target as Node) && !popupMenu.contains(e.target as Node) && menu.classList.contains('open')) {
+          toggleMenu();
+        }
+      });
+    }, 0);
   }
 
   function setActiveMenuItem(menuItem: Element) {
@@ -146,7 +154,7 @@ export default function Menu(props:MenuProps) {
       {/* Add this hidden div to allow css classes to be included */}
       <div class="hidden dark:text-[#FE9F2A]"></div>
       <div class="">
-        <nav id="popupMenu" class="hidden overflow-y-auto h-[calc(100%-120px)] w-[275px] bg(white dark:[#454545]) text(base left) z-50 absolute top-0 left-0 mt-20 list-none rounded shadow-lg min-w-48 ml-4">
+        <nav id="popupMenu" class="hidden overflow-y-auto h-[calc(100%-120px)] w-[275px] border(1 dark:0 gray-200) bg(gray-100 dark:[#454545]) text(base left) z-50 absolute top-0 left-0 mt-20 list-none rounded shadow-lg min-w-48 ml-4">
           <MenuHeader text="Text Utils" icon={
             <svg width="25px" height="25px" viewBox="0 0 512 512">
               <g>
@@ -238,7 +246,7 @@ export default function Menu(props:MenuProps) {
             </div>
           </a>
         </nav>
-        <header id="headerAndNavBar" class="relative bg(white dark:[#454545]) shadow(md) dark:text-[#ffffff] flex items-center px-2 py-02 h-[59px]">
+        <header id="headerAndNavBar" class="relative bg(gray-100 dark:[#454545]) border(1 dark:0 gray-200) shadow(md) dark:text-[#ffffff] flex items-center px-2 py-02 h-[59px]">
           <div id="hamburger_menu" class="z-10">
             <div id="menu" class="mb-4" tabIndex={0} onKeyPress={toggleMenu} onClick={toggleMenu}>
               <span></span>
