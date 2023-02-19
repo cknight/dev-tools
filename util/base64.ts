@@ -7,7 +7,7 @@ export function isBase64(input:string): boolean {
 
 export function stringToBase64(input:string): string | EncodeDecodeError {
  try {
-  return btoa(encodeURIComponent(input.trim()).replace(/%([0-9A-F]{2})/g, function(match, p1) {
+  return btoa(encodeURIComponent(input.trim()).replace(/%([0-9A-F]{2})/g, function(_, p1) {
     return String.fromCharCode(parseInt(p1, 16))
 })) 
  } catch (err) {
