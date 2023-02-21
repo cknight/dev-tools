@@ -57,6 +57,7 @@ export default function DarkMode() {
           </script>
       <button
         id="theme-toggle"
+        aria-label="Toggle between dark and light mode"
         type="button"
         onClick={changeTheme}
         class="border(2 dark:[#909090] [#b0b0b0]) focus:(outline-1) rounded-lg text-sm p-2">
