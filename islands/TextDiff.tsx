@@ -76,7 +76,7 @@ export default function TextDiff() {
         </button>
       </div>
       <DiffOutput diffContent={diff}/>
-      <script type="text/javascript" src="./diff_match_patch.js"></script>
+      <script type="text/javascript" src="./diff_match_patch.js" defer></script>
     </div>
   );
 }
