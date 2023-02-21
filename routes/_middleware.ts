@@ -36,7 +36,10 @@ export async function handler(
     console.log(`${req.method} ${region} ${url} ${resp.status} ${Date.now() - start}ms ${referrer} count: ${hitCount.get(url)}`);
   }
 
-  if (resp.status === 200 && (req.url.includes("word-list.txt") || req.url.includes("favicon.ico"))) {
+  if (resp.status === 200 && 
+      (req.url.includes("word-list.txt") 
+       || req.url.includes("favicon.ico")
+       || req.url.includes("diff_match_patch.js"))) {
     resp.headers.set("Cache-Control", "max-age=31536000");
   }
 
