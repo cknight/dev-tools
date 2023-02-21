@@ -127,16 +127,14 @@ export default function PasswordGenerator() {
 
   if (IS_BROWSER) {
     if (wordList.value.length == 0) {
-      fetch("/word-list.txt")
-        .then((result) => result.text())
-        .then((text) => {
+      fetch("/word-list.txt").then(resp => resp.text()).then(text => {
           const words: string[] = text.split("\n");
           wordList.value.push(...words);
           generatePassword();
-        });
+      });
     }
   }
-
+  
   function onUpdateMinLength(value: number) {
     state.value.minLength = value;
     generatePassword();
