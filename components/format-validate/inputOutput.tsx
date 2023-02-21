@@ -170,7 +170,6 @@ export default function formatInputOutput(props: FormatInputOutputProps) {
   return (
     <Fragment>
       <Head>
-        <link rel="stylesheet" href="/default.min.css"/>
         <script defer src="/prettier/standalone.js"></script>
         <script defer src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.11.1/ace.js"></script>
       </Head>
