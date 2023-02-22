@@ -39,7 +39,7 @@ export async function handler(
   if (resp.status === 200 && 
       (req.url.includes("word-list.txt") 
        || req.url.includes("favicon.ico")
-       || req.url.includes("diff_match_patch.js"))) {
+       || req.url.endsWith(".js"))) {
     resp.headers.set("Cache-Control", "max-age=31536000");
   }
 
