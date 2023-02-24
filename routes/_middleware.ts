@@ -15,8 +15,9 @@ export async function handler(
       //Ignore project specific files
       !url.includes("favicon.ico") 
       && !url.includes("diff_match_patch") 
-      && !url.includes(".css")
+      && !url.endsWith(".css")
       && !url.includes("_frsh") 
+      && !url.endsWith(".js")
       && !url.includes(".txt")
       //Ignore spam 
       && !url.includes(".php") 
@@ -36,6 +37,7 @@ export async function handler(
     console.log(`${req.method} ${region} ${url} ${resp.status} ${Date.now() - start}ms ${referrer} count: ${hitCount.get(url)}`);
   }
 
+  // Cache /static files for a year (need to rename file to bust cache)
   if (resp.status === 200 && 
       (req.url.includes("word-list.txt") 
        || req.url.includes("favicon.ico")
