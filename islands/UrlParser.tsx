@@ -77,8 +77,8 @@ export default function UrlParser() {
   return (
     <div class="mb-10">
       <a class={linkStyles} href="https://developer.mozilla.org/en-US/docs/Web/API/URL">Parse a URL</a> into its components.
-      <label for="inputUrl" class="block mt-2">URL</label>
-      <input id="inputUrl" type="text" class="w-full p-2 border border-gray-300 rounded mt-2" placeholder="https://example.com:8080/pathname/?search=test#hash" />
+      <label for="inputUrl" class="block mt-4">Input URL</label>
+      <input id="inputUrl" type="text" class="w-full p-2 border border-gray-300 rounded mt-2" placeholder="https://example.com:8080/pathname/?search=test#hash"/>
       <div class="mt-5 flex justify-center flex-wrap">
         <button onClick={() => processUrl()} class={`sm:mx-10 mx-2 ` + buttonStyle}>
           Parse
@@ -96,48 +96,58 @@ export default function UrlParser() {
         <Fragment>
           <div class="mt-5">
             <label for="baseUrlTable" class={labelStyle}>Base URL</label>
-            <table id="baseUrlTable" class="table-auto">
-              <tr>
-                <td class="">href</td>
-                <td class="" id="href">{href.value}</td>
-              </tr>
-              <tr>
-                <td class="">origin</td>
-                <td class="" id="origin">{origin.value}</td>
-              </tr>
-              <tr>
-                <td class="">protocol</td>
-                <td class="" id="protocol">{protocol.value}</td>
-              </tr>
-              <tr>
-                <td class="">host</td>
-                <td class="" id="host">{host.value}</td>
-              </tr>
-              <tr>
-                <td class="">hostname</td>
-                <td class="" id="hostname">{hostname.value}</td>
-              </tr>
-              <tr>
-                <td class="">port</td>
-                <td class="" id="port">{port.value}</td>
-              </tr>
-              <tr>
-                <td class="">username</td>
-                <td class="" id="username">{username.value}</td>
-              </tr>
-              <tr>
-                <td class="">password</td>
-                <td class="" id="password">{password.value}</td>
-              </tr>
-              <tr>
-                <td class="">pathname</td>
-                <td class="" id="pathname">{pathname.value}</td>
-              </tr>
-              <tr>
-                <td class="">hash</td>
-                <td class="" id="hash">{hash.value}</td>
-              </tr>
-            </table>
+            <div class="inline-block shadow rounded-lg overflow-hidden">
+              <table id="baseUrlTable" class="table-auto">
+                <thead class="bg-gray-200">
+                    <tr>
+                      <th class="px-5 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">URL component</th>
+                      <th class="px-5 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">Value</th>
+                    </tr>
+                </thead>
+                <tbody class="mt-3 bg-[#f5f5f5] dark:bg-[#454545] divide-y divide-slate-800 dark:divide-[#656565]">
+                  <tr>
+                    <td class="px-5 py-4 text-sm font-medium whitespace-nowrap text-gray-800 dark:text-white">href</td>
+                    <td class="px-5 py-4 text-sm font-medium whitespace-nowrap text-gray-800 dark:text-white" id="href">{href.value}</td>
+                  </tr>
+                  <tr>
+                    <td class="px-5 py-4 text-sm font-medium whitespace-nowrap text-gray-800 dark:text-white">origin</td>
+                    <td class="px-5 py-4 text-sm font-medium whitespace-nowrap text-gray-800 dark:text-white" id="origin">{origin.value}</td>
+                  </tr>
+                  <tr>
+                    <td class="px-5 py-4 text-sm font-medium whitespace-nowrap text-gray-800 dark:text-white">protocol</td>
+                    <td class="px-5 py-4 text-sm font-medium whitespace-nowrap text-gray-800 dark:text-white" id="protocol">{protocol.value}</td>
+                  </tr>
+                  <tr>
+                    <td class="px-5 py-4 text-sm font-medium whitespace-nowrap text-gray-800 dark:text-white">host</td>
+                    <td class="px-5 py-4 text-sm font-medium whitespace-nowrap text-gray-800 dark:text-white" id="host">{host.value}</td>
+                  </tr>
+                  <tr>
+                    <td class="px-5 py-4 text-sm font-medium whitespace-nowrap text-gray-800 dark:text-white">hostname</td>
+                    <td class="px-5 py-4 text-sm font-medium whitespace-nowrap text-gray-800 dark:text-white" id="hostname">{hostname.value}</td>
+                  </tr>
+                  <tr>
+                    <td class="px-5 py-4 text-sm font-medium whitespace-nowrap text-gray-800 dark:text-white">port</td>
+                    <td class="px-5 py-4 text-sm font-medium whitespace-nowrap text-gray-800 dark:text-white" id="port">{port.value}</td>
+                  </tr>
+                  <tr>
+                    <td class="px-5 py-4 text-sm font-medium whitespace-nowrap text-gray-800 dark:text-white">username</td>
+                    <td class="px-5 py-4 text-sm font-medium whitespace-nowrap text-gray-800 dark:text-white" id="username">{username.value}</td>
+                  </tr>
+                  <tr>
+                    <td class="px-5 py-4 text-sm font-medium whitespace-nowrap text-gray-800 dark:text-white">password</td>
+                    <td class="px-5 py-4 text-sm font-medium whitespace-nowrap text-gray-800 dark:text-white" id="password">{password.value}</td>
+                  </tr>
+                  <tr>
+                    <td class="px-5 py-4 text-sm font-medium whitespace-nowrap text-gray-800 dark:text-white">pathname</td>
+                    <td class="px-5 py-4 text-sm font-medium whitespace-nowrap text-gray-800 dark:text-white" id="pathname">{pathname.value}</td>
+                  </tr>
+                  <tr>
+                    <td class="px-5 py-4 text-sm font-medium whitespace-nowrap text-gray-800 dark:text-white">hash</td>
+                    <td class="px-5 py-4 text-sm font-medium whitespace-nowrap text-gray-800 dark:text-white" id="hash">{hash.value}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
           <div class="mt-5">
             <label for="queryParamTable" class={labelStyle}>Query Parameters</label>
@@ -145,18 +155,24 @@ export default function UrlParser() {
               <p class="dark:text-gray-400 text-gray-500 text-sm font-bold">URL did not contain query parameters</p>
             }
             { hasQueryParams.value &&
-              <table id="queryParamTable" class="table-auto">
-                <tr>
-                  <th class="px-4 py-2">Key</th>
-                  <th class="px-4 py-2">Value</th>
-                </tr>
-                {Array.from(queryParams.value.entries()).map(([key, value]) => (
-                  <tr>
-                    <td>{key}</td>
-                    <td>{value}</td>
-                  </tr>
-                ))}
-              </table>
+              <div class="inline-block shadow rounded-lg overflow-hidden">
+                <table id="queryParamTable" class="">
+                  <thead class="bg-gray-200">
+                    <tr>
+                      <th class="px-5 py-3 border-b-2 border-gray-200 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">Key</th>
+                      <th class="px-5 py-3 border-b-2 border-gray-200 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">Value</th>
+                    </tr>
+                  </thead>
+                  <tbody class="mt-3 bg-[#f5f5f5] dark:bg-[#454545] divide-y divide-gray-200 dark:divide-gray-700">
+                    {Array.from(queryParams.value.entries()).map(([key, value]) => (
+                      <tr class="">
+                        <td class="px-5 py-4 text-sm font-medium whitespace-nowrap text-gray-800 dark:text-white">{key}</td>
+                        <td class="px-5 py-4 text-sm font-medium whitespace-nowrap text-gray-800 dark:text-white">{value}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             }
           </div>      
         </Fragment>
