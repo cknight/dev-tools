@@ -31,6 +31,7 @@ import * as $$19 from "./islands/FormatValidate_Yaml.tsx";
 import * as $$20 from "./islands/Menu.tsx";
 import * as $$21 from "./islands/PasswordGenerator.tsx";
 import * as $$22 from "./islands/TextDiff.tsx";
+import * as $$23 from "./islands/UrlParser.tsx";
 
 const manifest = {
   routes: {
@@ -64,6 +65,7 @@ const manifest = {
     "./islands/Menu.tsx": $$20,
     "./islands/PasswordGenerator.tsx": $$21,
     "./islands/TextDiff.tsx": $$22,
+    "./islands/UrlParser.tsx": $$23,
   },
   baseUrl: import.meta.url,
   config,
