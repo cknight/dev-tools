@@ -75,7 +75,7 @@ export default function UrlParser() {
   }
 
   return (
-    <div class="mb-10">
+    <div class="">
       <a class={linkStyles} href="https://developer.mozilla.org/en-US/docs/Web/API/URL">Parse a URL</a> into its components.
       <label for="inputUrl" class="block mt-4">Input URL</label>
       <input id="inputUrl" type="text" class="w-full p-2 border border-gray-300 rounded mt-2" placeholder="https://example.com:8080/pathname/?search=test#hash"/>
@@ -94,7 +94,7 @@ export default function UrlParser() {
       }
       { hasOutput.value && 
         <Fragment>
-          <div class="mt-5">
+          <div class="mt-5 mb-5">
             <label for="baseUrlTable" class={labelStyle}>Base URL</label>
             <div class="inline-block shadow rounded-lg overflow-hidden">
               <table id="baseUrlTable" class="table-auto">
@@ -149,13 +149,13 @@ export default function UrlParser() {
               </table>
             </div>
           </div>
-          <div class="mt-5">
+          <div class="mt-5 mb-5">
             <label for="queryParamTable" class={labelStyle}>Query Parameters</label>
             { !hasQueryParams.value &&
               <p class="dark:text-gray-400 text-gray-500 text-sm font-bold">URL did not contain query parameters</p>
             }
             { hasQueryParams.value &&
-              <div class="inline-block shadow rounded-lg overflow-hidden">
+              <div class="inline-block shadow rounded-lg overflow-hidden mb-10">
                 <table id="queryParamTable" class="">
                   <thead class="bg-gray-200">
                     <tr>
