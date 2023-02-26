@@ -65,8 +65,8 @@ export default function Home() {
           <div class="mt-10">
             <p class="mt-2 mb-2 text(xl sm:2xl)">✅ No ads, trackers or cookies</p>
             <p class="mt-2 mb-2 text(xl sm:2xl)">✅ No data submitted</p>
-            <p class="mt-2 mb-2 text(xl sm:2xl)">✅ Total privacy</p>
-            <p class="mt-2 mb-2 text(xl sm:2xl)">✅ Fast and simple</p>
+            <p class="mt-2 mb-2 text(xl sm:2xl)">✅ Minimalist UI gets out of your way</p>
+            <p class="mt-2 mb-2 text(xl sm:2xl)">✅ Fast, responsive, accessible</p>
           </div>
         </div>
         <div class="mt-8 p-4 flex justify-center">
