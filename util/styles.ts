@@ -1,6 +1,15 @@
 export const labelStyle = `text-gray-700 text-m dark:text-white font-semibold block mb-2`;
-export const buttonStyle = `bg(blue-600 dark:blue-600 hover:blue-700 dark:hover:blue-600)
+export const buttonStyle = `bg(blue-600 dark:blue-600 hover:blue-700 dark:hover:blue-700)
  text-white 
+ font-bold 
+ py-2 px-4 
+ rounded 
+ mb-3 
+ focus:outline-none 
+ focus:ring-2 
+ focus:ring-gray-400`;
+export const secondaryButtonStyle = `bg([#707070] dark:[#707070] hover:[#606060] dark:hover:[#606060])
+ text-white
  font-bold 
  py-2 px-4 
  rounded 

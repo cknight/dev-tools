@@ -74,6 +74,9 @@ export default function UrlParser() {
     (document.getElementById("inputUrl") as HTMLInputElement).value = "";
   }
 
+  // TEST URL:
+  // https://jschauma:hunter2@www.netmeister.org:443/blog/urls.html?q=s&q2=a+b;q3=sp%0Ace#top
+
   return (
     <div class="">
       <a class={linkStyles} href="https://developer.mozilla.org/en-US/docs/Web/API/URL">Parse a URL</a> into its components.
