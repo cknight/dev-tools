@@ -21,6 +21,7 @@ import MarkdownFormatValidate from "../islands/FormatValidate_Markdown.tsx";
 import JavascriptFormatValidate from "../islands/FormatValidate_Javascript.tsx";
 import XmlFormatValidate from "../islands/FormatValidate_Xml.tsx";
 import UrlParser from "../islands/UrlParser.tsx";
+import TimestampConverter from "../islands/Converter_UnixTimestamp.tsx";
 
 export const toolRegistry:Map<string, Tool> = new Map([
   ["text-diff", {
@@ -154,5 +155,11 @@ export const toolRegistry:Map<string, Tool> = new Map([
     metaDescription: "Parse a URL into its component parts",
     island: UrlParser,
     pageTitle: "URL Parser - Dev Tools",
+  }],
+  ["timestamp-converter", {
+    displayName: "Timestamp Converter",
+    metaDescription: "Convert a Unix timestamp to a human readable date and time, or vice versa.",
+    island: TimestampConverter,
+    pageTitle: "Timestamp Converter - Dev Tools",
   }],
 ]);

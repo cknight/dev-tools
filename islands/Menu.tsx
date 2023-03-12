@@ -164,6 +164,7 @@ export default function Menu(props:MenuProps) {
             </svg>
           }/>
           <MenuItem href="/text-diff" text="Text Diff" />
+          <MenuItem href="/timestamp-converter" text="Timestamp Converter" />
           <MenuItem href="/url-parser" text="URL Parser" />
           <div class="block h-0 mx-4 my-2 border(b-[1px] solid blueGray-100 dark:black)"></div>
 
