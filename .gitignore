@@ -1,1 +1,4 @@
 .vscode/
+
+# Ignore fresh build directory
+_fresh/
