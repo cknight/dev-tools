@@ -17,22 +17,23 @@ import * as $$5 from "./islands/Decode_Url.tsx";
 import * as $$6 from "./islands/Encode_Base64.tsx";
 import * as $$7 from "./islands/Encode_HtmlEntity.tsx";
 import * as $$8 from "./islands/Encode_Url.tsx";
-import * as $$9 from "./islands/FormatValidate_Css.tsx";
-import * as $$10 from "./islands/FormatValidate_GraphQL.tsx";
-import * as $$11 from "./islands/FormatValidate_Html.tsx";
-import * as $$12 from "./islands/FormatValidate_Javascript.tsx";
-import * as $$13 from "./islands/FormatValidate_Json.tsx";
-import * as $$14 from "./islands/FormatValidate_Json5.tsx";
-import * as $$15 from "./islands/FormatValidate_Less.tsx";
-import * as $$16 from "./islands/FormatValidate_Markdown.tsx";
-import * as $$17 from "./islands/FormatValidate_Scss.tsx";
-import * as $$18 from "./islands/FormatValidate_Typescript.tsx";
-import * as $$19 from "./islands/FormatValidate_Xml.tsx";
-import * as $$20 from "./islands/FormatValidate_Yaml.tsx";
-import * as $$21 from "./islands/Menu.tsx";
-import * as $$22 from "./islands/PasswordGenerator.tsx";
-import * as $$23 from "./islands/TextDiff.tsx";
-import * as $$24 from "./islands/UrlParser.tsx";
+import * as $$9 from "./islands/Encrypt.tsx";
+import * as $$10 from "./islands/FormatValidate_Css.tsx";
+import * as $$11 from "./islands/FormatValidate_GraphQL.tsx";
+import * as $$12 from "./islands/FormatValidate_Html.tsx";
+import * as $$13 from "./islands/FormatValidate_Javascript.tsx";
+import * as $$14 from "./islands/FormatValidate_Json.tsx";
+import * as $$15 from "./islands/FormatValidate_Json5.tsx";
+import * as $$16 from "./islands/FormatValidate_Less.tsx";
+import * as $$17 from "./islands/FormatValidate_Markdown.tsx";
+import * as $$18 from "./islands/FormatValidate_Scss.tsx";
+import * as $$19 from "./islands/FormatValidate_Typescript.tsx";
+import * as $$20 from "./islands/FormatValidate_Xml.tsx";
+import * as $$21 from "./islands/FormatValidate_Yaml.tsx";
+import * as $$22 from "./islands/Menu.tsx";
+import * as $$23 from "./islands/PasswordGenerator.tsx";
+import * as $$24 from "./islands/TextDiff.tsx";
+import * as $$25 from "./islands/UrlParser.tsx";
 
 const manifest = {
   routes: {
@@ -53,22 +54,23 @@ const manifest = {
     "./islands/Encode_Base64.tsx": $$6,
     "./islands/Encode_HtmlEntity.tsx": $$7,
     "./islands/Encode_Url.tsx": $$8,
-    "./islands/FormatValidate_Css.tsx": $$9,
-    "./islands/FormatValidate_GraphQL.tsx": $$10,
-    "./islands/FormatValidate_Html.tsx": $$11,
-    "./islands/FormatValidate_Javascript.tsx": $$12,
-    "./islands/FormatValidate_Json.tsx": $$13,
-    "./islands/FormatValidate_Json5.tsx": $$14,
-    "./islands/FormatValidate_Less.tsx": $$15,
-    "./islands/FormatValidate_Markdown.tsx": $$16,
-    "./islands/FormatValidate_Scss.tsx": $$17,
-    "./islands/FormatValidate_Typescript.tsx": $$18,
-    "./islands/FormatValidate_Xml.tsx": $$19,
-    "./islands/FormatValidate_Yaml.tsx": $$20,
-    "./islands/Menu.tsx": $$21,
-    "./islands/PasswordGenerator.tsx": $$22,
-    "./islands/TextDiff.tsx": $$23,
-    "./islands/UrlParser.tsx": $$24,
+    "./islands/Encrypt.tsx": $$9,
+    "./islands/FormatValidate_Css.tsx": $$10,
+    "./islands/FormatValidate_GraphQL.tsx": $$11,
+    "./islands/FormatValidate_Html.tsx": $$12,
+    "./islands/FormatValidate_Javascript.tsx": $$13,
+    "./islands/FormatValidate_Json.tsx": $$14,
+    "./islands/FormatValidate_Json5.tsx": $$15,
+    "./islands/FormatValidate_Less.tsx": $$16,
+    "./islands/FormatValidate_Markdown.tsx": $$17,
+    "./islands/FormatValidate_Scss.tsx": $$18,
+    "./islands/FormatValidate_Typescript.tsx": $$19,
+    "./islands/FormatValidate_Xml.tsx": $$20,
+    "./islands/FormatValidate_Yaml.tsx": $$21,
+    "./islands/Menu.tsx": $$22,
+    "./islands/PasswordGenerator.tsx": $$23,
+    "./islands/TextDiff.tsx": $$24,
+    "./islands/UrlParser.tsx": $$25,
   },
   baseUrl: import.meta.url,
 };

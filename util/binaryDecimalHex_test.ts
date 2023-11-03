@@ -1,5 +1,4 @@
-import { assert, assertEquals } from "https://deno.land/std@0.132.0/testing/asserts.ts";
-import { test } from "../test_deps.ts";
+import { assert, assertEquals, test } from "../test_deps.ts";
 import { EncodeDecodeError } from "../types.ts";
 import { binaryToDecimal, binaryToHex, decimalToBinary, decimalToHex, hexToBinary, hexToDecimal, isBinary, isDecimal, isHex } from "./binaryDecimalHex.ts";
 

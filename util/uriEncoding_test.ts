@@ -1,5 +1,4 @@
-import { assertEquals } from "https://deno.land/std@0.132.0/testing/asserts.ts";
-import { test } from "../test_deps.ts";
+import { assertEquals, test } from "../test_deps.ts";
 import { EncodeDecodeError } from "../types.ts";
 import { decodeUriInput, encodeUriInput } from "./uriEncoding.ts";
 
